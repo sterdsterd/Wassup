@@ -3,6 +3,7 @@ package net.sterdsterd.wassup.Adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
 
 

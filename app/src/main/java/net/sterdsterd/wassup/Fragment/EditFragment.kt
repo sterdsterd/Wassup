@@ -8,6 +8,7 @@ import android.widget.GridLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_edit.*
+import net.sterdsterd.wassup.Activity.MainActivity
 import net.sterdsterd.wassup.Adapter.EditAdapter
 import net.sterdsterd.wassup.R
 
@@ -26,7 +27,7 @@ class EditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         editList?.layoutManager = GridLayoutManager(activity, 1)
-        editList?.adapter = EditAdapter(MutableList(9) { 1 })
+        editList?.adapter = EditAdapter((activity as MainActivity).s)
 
 
     }

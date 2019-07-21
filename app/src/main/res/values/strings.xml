@@ -27,4 +27,9 @@
     <string name="description_out">아이들이 야외에서 일정 거리 이상 벗어나면 푸시로 알려드려요</string>
     <string name="title_activity_edit">EditActivity</string>
     <string name="edit_photo">사진 수정</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="id">아이디</string>
+    <string name="pwd">비밀번호</string>
+    <string name="signin">로그인</string>
+    <string name="signup">회원가입</string>
 </resources>
