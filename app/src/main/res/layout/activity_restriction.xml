@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".Activity.RestrictionActivity">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="116dp"
+                  android:background="@drawable/gradient_header">
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/restriction"
+                    android:textStyle="bold"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginTop="22dp"
+                    android:textSize="32sp"
+                    android:textColor="#fff"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description_restriction"
+                    android:layout_marginStart="27dp"
+                    android:textSize="14sp"
+                    android:textColor="#fff"/>
+        </LinearLayout>
+
+        <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="저장"
+                android:id="@+id/save"
+                android:padding="8dp"
+                android:textColor="@color/colorAccent"
+                android:layout_marginEnd="18dp"
+                android:textSize="14sp"
+                android:layout_marginTop="24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_contents"
+            android:orientation="vertical">
+
+        <RadioGroup android:layout_width="match_parent" android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="27dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="27dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#323445"
+                    app:cardElevation="10dp">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                    <FrameLayout
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:background="@drawable/shape_circle"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_gravity="center_vertical">
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_school"
+                                android:layout_gravity="center"/>
+                    </FrameLayout>
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_gravity="center_vertical">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/in_class"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:textColor="#fff"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="4dp"/>
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/description_class"
+                                android:textSize="12sp"
+                                android:textColor="#fff"
+                                android:layout_marginBottom="20dp"/>
+
+                    </LinearLayout>
+
+                    <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:layout_gravity="center_vertical|end"
+                            android:layout_margin="16dp"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="27dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="27dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#323445"
+                    app:cardElevation="10dp">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                        <FrameLayout
+                                android:layout_width="44dp"
+                                android:layout_height="44dp"
+                                android:background="@drawable/shape_circle"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="12dp"
+                                android:layout_gravity="center_vertical">
+                            <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_outside"
+                                    android:layout_gravity="center"/>
+                        </FrameLayout>
+                        <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:layout_gravity="center_vertical">
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/out_class"
+                                    android:textStyle="bold"
+                                    android:textSize="16sp"
+                                    android:textColor="#fff"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginBottom="4dp"/>
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/description_out"
+                                    android:textSize="12sp"
+                                    android:layout_marginBottom="20dp"
+                                    android:textColor="#fff"/>
+
+                        </LinearLayout>
+
+                        <RadioButton
+                                android:layout_weight="0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical|end"
+                                android:layout_margin="16dp"/>
+                    </LinearLayout>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#3FFFFFFF"
+                            android:layout_marginBottom="16dp"
+                    android:layout_marginStart="76dp"
+                    android:layout_marginEnd="16dp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="제한 범위"
+                    android:layout_marginStart="76dp"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="12sp"/>
+
+                    <SeekBar android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp" android:layout_marginBottom="20dp"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+</LinearLayout>

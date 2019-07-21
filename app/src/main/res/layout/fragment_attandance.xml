@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="116dp"
+        android:background="@drawable/gradient_header"
+        android:orientation="horizontal">
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="햇반"
+                    android:textStyle="bold"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginTop="22dp"
+                    android:textSize="32sp"
+                    android:textColor="#fff"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/attandance"
+                    android:layout_marginStart="27dp"
+                    android:textSize="14sp"
+                    android:textColor="#fff"/>
+        </LinearLayout>
+
+        <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:textColor="@color/colorAccent"
+            android:layout_marginEnd="26dp"
+            android:textSize="14sp"
+            android:layout_marginTop="32dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_contents"
+            android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="27dp"
+            android:text="@string/stat_bus"/>
+        
+
+        <include layout="@layout/item_attandance" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Wassup</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="stat_bus">셔틀 버스 탑승 중</string>
+    <string name="settings">설정</string>
+    <string name="attandance">출석부</string>
+    <string name="edit">수정</string>
+    <string name="description_edit">아이들의 정보를 수정할 수 있어요</string>
+    <string name="add">추가</string>
+    <string name="find">아이 찾기</string>
+    <string name="description_find_no">현재 범위를 벗어난 학생이 없어요</string>
+    <string name="edit_range">제한 범위 수정</string>
+    <string name="title_activity_info">InfoActivity</string>
+    <string name="description_edit_info">정보 수정</string>
+    <string name="info">정보</string>
+    <string name="student_num">학생 휴대전화</string>
+    <string name="parent_num">부모님 휴대전화</string>
+    <string name="name">이름</string>
+    <string name="title_activity_restriction">RestrictionActivity</string>
+    <string name="restriction">제한 범위 수정</string>
+    <string name="description_restriction">아이들의 활동 범위를 제한할 수 있어요</string>
+    <string name="in_class">교실 안</string>
+    <string name="description_class">아이들이 교실을 벗어나면 푸시로 알려드려요</string>
+    <string name="out_class">교실 밖</string>
+    <string name="description_out">아이들이 야외에서 일정 거리 이상 벗어나면 푸시로 알려드려요</string>
+    <string name="title_activity_edit">EditActivity</string>
+    <string name="edit_photo">사진 수정</string>
+</resources>

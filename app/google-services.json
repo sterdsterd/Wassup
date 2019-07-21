@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "833490405891",
+    "firebase_url": "https://wassup-fdadd.firebaseio.com",
+    "project_id": "wassup-fdadd",
+    "storage_bucket": "wassup-fdadd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833490405891:android:24e35a3601acc49f",
+        "android_client_info": {
+          "package_name": "net.sterdsterd.wassup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833490405891-rjqcp81u9makqrp6iekge8mvph445b13.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.sterdsterd.wassup",
+            "certificate_hash": "a53922d0895aee8237a10256e2a7c3d712a4054f"
+          }
+        },
+        {
+          "client_id": "833490405891-52g8bkhcu8lhae0kvlhnerfkciv4uhds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi7gXb8LoUomK2DXUAj8Qu6TzdQ7-A7lQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833490405891-52g8bkhcu8lhae0kvlhnerfkciv4uhds.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
