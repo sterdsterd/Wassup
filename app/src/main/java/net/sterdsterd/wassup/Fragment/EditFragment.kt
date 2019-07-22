@@ -9,6 +9,7 @@ import android.widget.GridLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_edit.*
@@ -18,6 +19,8 @@ import net.sterdsterd.wassup.Activity.EditActivity
 import net.sterdsterd.wassup.Activity.MainActivity
 import net.sterdsterd.wassup.Adapter.EditAdapter
 import net.sterdsterd.wassup.R
+
+
 
 class EditFragment : Fragment() {
 
@@ -34,8 +37,10 @@ class EditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val classStr = "하늘반"
+        description_edit.text = getString(R.string.description_edit, (activity as MainActivity).s.size)
         editList?.layoutManager = LinearLayoutManager(activity)
-        editList?.adapter = EditAdapter((activity as MainActivity).s)
+        editList?.adapter = EditAdapter(activity as MainActivity, (activity as MainActivity).s)
+        editList?.adapter?.notifyDataSetChanged()
         add.setOnClickListener { v ->
             val firestore = FirebaseFirestore.getInstance()
             val user = mapOf(
@@ -47,7 +52,8 @@ class EditFragment : Fragment() {
                 if(t.isComplete) {
                     val intent = Intent(v.context, EditActivity::class.java)
                     intent.putExtra("id", t.result?.id)
-                    v.context.startActivity(intent)
+                    (activity as MainActivity).startActivityForResult(intent, 1)
+                    //v.context.startActivity(intent)
                 }
             }
 

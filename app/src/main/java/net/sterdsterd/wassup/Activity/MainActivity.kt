@@ -23,6 +23,7 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
+import kotlinx.android.synthetic.main.fragment_edit.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -54,6 +55,11 @@ class MainActivity : AppCompatActivity() {
 
     val s = mutableListOf<MemberData>()
 
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        update(true)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -71,11 +77,11 @@ class MainActivity : AppCompatActivity() {
 
         //startActivity(Intent(this, LoginActivity::class.java))
 
-        update()
+        update(false)
 
     }
 
-    fun update() {
+    fun update(con: Boolean) {
         s.clear()
         val firestore = FirebaseFirestore.getInstance()
         val settings = FirebaseFirestoreSettings.Builder()
@@ -90,6 +96,7 @@ class MainActivity : AppCompatActivity() {
                 for (i in 0..(v - 1))
                     s.add(MemberData(t.result?.documents?.get(i)?.id!!, t.result?.documents?.get(i)?.getString("name")!!))
                 dialog.dismiss()
+                if(con) supportFragmentManager.beginTransaction().replace(R.id.fragment, EditFragment()).commit()
             }
         }
     }

@@ -1,16 +1,18 @@
 package net.sterdsterd.wassup.Adapter
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_edit.view.*
 import net.sterdsterd.wassup.Activity.EditActivity
+import net.sterdsterd.wassup.Activity.MainActivity
 import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
 
 
-class EditAdapter(val items : MutableList<MemberData>) : RecyclerView.Adapter<EditAdapter.MainViewHolder>() {
+class EditAdapter(val activity: MainActivity, val items : MutableList<MemberData>) : RecyclerView.Adapter<EditAdapter.MainViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int) = MainViewHolder(parent)
 
@@ -26,7 +28,8 @@ class EditAdapter(val items : MutableList<MemberData>) : RecyclerView.Adapter<Ed
         holder.item.setOnClickListener { v ->
             val intent = Intent(v.context, EditActivity::class.java)
             intent.putExtra("id", items[position].id)
-            v.context.startActivity(intent)
+            activity.startActivityForResult(intent, 1)
+            //v.context.startActivity(intent)
         }
 
     }

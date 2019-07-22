@@ -29,6 +29,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/description_edit"
                     android:layout_marginStart="27dp"
+                    android:id="@+id/description_edit"
                     android:textSize="14sp"
                     android:textColor="#fff"/>
         </LinearLayout>

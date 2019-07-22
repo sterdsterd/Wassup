@@ -7,7 +7,7 @@
     <string name="settings">설정</string>
     <string name="attandance">출석부</string>
     <string name="edit">수정</string>
-    <string name="description_edit">아이들의 정보를 수정할 수 있어요</string>
+    <string name="description_edit">현재 %1$d명의 아이들이 있어요</string>
     <string name="add">추가</string>
     <string name="find">아이 찾기</string>
     <string name="description_find_no">현재 범위를 벗어난 학생이 없어요</string>
