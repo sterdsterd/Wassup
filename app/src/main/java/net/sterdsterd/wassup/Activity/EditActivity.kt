@@ -39,6 +39,12 @@ class EditActivity : AppCompatActivity() {
             firestore.collection("class").document(classStr).collection("memberList").document(id).set(info)
             finish()
         }
+
+        deleteInfo.setOnClickListener { v ->
+            firestore.collection("class").document(classStr).collection("memberList").document(id).delete().addOnSuccessListener { t ->
+                finish()
+            }
+        }
     }
 
 }

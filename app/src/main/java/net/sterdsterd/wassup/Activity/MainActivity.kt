@@ -16,6 +16,13 @@ import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.Query
+import android.widget.LinearLayout
+import android.view.WindowManager
+import android.graphics.Color.parseColor
+import android.view.Gravity
+import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.appcompat.app.AlertDialog
 
 
 class MainActivity : AppCompatActivity() {
@@ -64,20 +71,76 @@ class MainActivity : AppCompatActivity() {
 
         //startActivity(Intent(this, LoginActivity::class.java))
 
+        update()
+
+    }
+
+    fun update() {
+        s.clear()
         val firestore = FirebaseFirestore.getInstance()
         val settings = FirebaseFirestoreSettings.Builder()
             .setTimestampsInSnapshotsEnabled(true)
             .build()
         firestore.firestoreSettings = settings
         val classStr = "하늘반"
-
+        setProgressDialog()
         firestore.collection("class").document(classStr).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
             if(t.isComplete) {
                 var v = t.result?.documents?.size as Int
                 for (i in 0..(v - 1))
                     s.add(MemberData(t.result?.documents?.get(i)?.id!!, t.result?.documents?.get(i)?.getString("name")!!))
+                dialog.dismiss()
             }
         }
+    }
 
+    lateinit var dialog: AlertDialog
+
+    fun setProgressDialog() {
+
+        val llPadding = 48
+        val ll = LinearLayout(this)
+        ll.orientation = LinearLayout.HORIZONTAL
+        ll.setPadding(llPadding, llPadding, llPadding, llPadding)
+        ll.gravity = Gravity.CENTER_VERTICAL
+        var llParam = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        llParam.gravity = Gravity.CENTER_VERTICAL
+        ll.layoutParams = llParam
+
+        val progressBar = ProgressBar(this)
+        progressBar.isIndeterminate = true
+        progressBar.setPadding(0, 0, llPadding, 0)
+        progressBar.layoutParams = llParam
+
+        llParam = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        llParam.gravity = Gravity.CENTER_VERTICAL
+        val tvText = TextView(this)
+        tvText.text = "Loading"
+        tvText.textSize = 16f
+        tvText.layoutParams = llParam
+
+        ll.addView(progressBar)
+        ll.addView(tvText)
+
+        val builder = AlertDialog.Builder(this)
+        builder.setCancelable(true)
+        builder.setView(ll)
+
+        dialog = builder.create()
+        dialog.show()
+        val window = dialog.getWindow()
+        if (window != null) {
+            val layoutParams = WindowManager.LayoutParams()
+            layoutParams.copyFrom(dialog.getWindow().getAttributes())
+            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT
+            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+            dialog.getWindow().setAttributes(layoutParams)
+        }
     }
 }
