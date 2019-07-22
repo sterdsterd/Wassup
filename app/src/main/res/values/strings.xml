@@ -30,7 +30,11 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="id">아이디</string>
     <string name="pwd">비밀번호</string>
-    <string name="signin">로그인</string>
-    <string name="signup">회원가입</string>
     <string name="assign_beacon">비콘 재등록</string>
+    <string name="signup">회원가입</string>
+    <string name="no_account">아직 계정이 없으신가요?</string>
+    <string name="signin">로그인</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="phone">전화번호</string>
+    <string name="verificationNo">인증번호</string>
 </resources>

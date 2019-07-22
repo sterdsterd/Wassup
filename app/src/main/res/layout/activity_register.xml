@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".Activity.RegisterActivity">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="116dp"
+                  android:background="@drawable/gradient_header"
+                  android:orientation="vertical">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/signup"
+                android:textStyle="bold"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="22dp"
+                android:textSize="32sp"
+                android:textColor="#fff"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info"
+                android:layout_marginStart="27dp"
+                android:textSize="14sp"
+                android:textColor="#fff"/>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+                                           android:layout_height="match_parent"
+                                           android:background="@drawable/gradient_contents">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="27dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="27dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#323445"
+                    app:cardElevation="10dp">
+
+                <LinearLayout
+                        android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:layout_margin="18dp" android:orientation="vertical">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/id"
+                            android:textSize="12sp"/>
+                    <EditText
+                            android:id="@+id/etId"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:singleLine="true"
+                            android:layout_marginBottom="16dp"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pwd"
+                            android:textSize="12sp"/>
+                    <EditText
+                            android:id="@+id/etPwd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:inputType="textPassword"
+                            android:singleLine="true"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="27dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="27dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#323445"
+                    app:cardElevation="10dp">
+
+                <LinearLayout
+                        android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:layout_margin="18dp" android:orientation="vertical">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/phone"
+                            android:textSize="12sp"/>
+                    <EditText
+                            android:id="@+id/etNum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:inputType="phone"
+                            android:singleLine="true"
+                            android:layout_marginBottom="16dp"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/verificationNo"
+                            android:textSize="12sp"/>
+                    <EditText
+                            android:id="@+id/etCode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:inputType="numberDecimal"
+                            android:singleLine="true"/>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <androidx.cardview.widget.CardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="16dp"
+                                app:cardCornerRadius="12dp"
+                                app:cardBackgroundColor="@color/colorAccent"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:id="@+id/send"
+                                android:layout_marginEnd="8dp">
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="전송"
+                                    android:textColor="#fff"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    android:layout_margin="16dp"
+                                    android:layout_gravity="center"/>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="16dp"
+                                app:cardCornerRadius="12dp"
+                                app:cardBackgroundColor="@color/colorAccent"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:id="@+id/check"
+                                android:layout_marginStart="8dp">
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="린증"
+                                    android:textColor="#fff"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    android:layout_margin="16dp"
+                                    android:layout_gravity="center"/>
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="27dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="27dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="@color/colorAccent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:id="@+id/signup">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/signup"
+                        android:textColor="#fff"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_margin="16dp"
+                        android:layout_gravity="center"/>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

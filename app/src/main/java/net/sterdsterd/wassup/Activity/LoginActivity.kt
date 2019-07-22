@@ -1,5 +1,6 @@
 package net.sterdsterd.wassup.Activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
@@ -21,31 +22,18 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         val firestore = FirebaseFirestore.getInstance()
-
-        signup.setOnClickListener { v ->
-            firestore.collection("member").document(etId.text.toString()).get().addOnCompleteListener { t ->
-                if (t.isSuccessful()) {
-                    if(t.getResult()?.exists() == false) {
-                        val user = mapOf(
-                            "name" to "test",
-                            "id" to etId.text.toString(),
-                            "pwd" to BCrypt.withDefaults().hashToString(12, etPwd.text.toString().toCharArray())
-                        )
-                        firestore.collection("member").document(etId.text.toString()).set(user)
-                        Toast.makeText(this, "가입 완료", Toast.LENGTH_SHORT).show()
-                    } else Toast.makeText(this, "이미 사용 중인 ID입니다.", Toast.LENGTH_SHORT).show()
-                }
-            }
+        registerBtn.setOnClickListener { v ->
+            startActivity(Intent(this, RegisterActivity::class.java))
+            finish()
         }
 
         signin.setOnClickListener { v ->
             firestore.collection("member").document(etId.text.toString()).get().addOnCompleteListener { t ->
                 if (t.isSuccessful()) {
                     if (BCrypt.verifyer().verify(etPwd.text.toString().toCharArray(), t.getResult()?.data?.get("pwd").toString()).verified) {
-                        Toast.makeText(this, "Signed In", Toast.LENGTH_SHORT)
-                    } else Toast.makeText(this, "Sign In Failed", Toast.LENGTH_SHORT)
-                    }
-
+                        Toast.makeText(this, "Signed In", Toast.LENGTH_SHORT).show()
+                    } else Toast.makeText(this, "Sign In Failed", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
