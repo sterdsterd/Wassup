@@ -14,6 +14,9 @@ import net.sterdsterd.wassup.Fragment.EditFragment
 import net.sterdsterd.wassup.Fragment.FindFragment
 import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
+import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.firestore.Query
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -62,13 +65,17 @@ class MainActivity : AppCompatActivity() {
         //startActivity(Intent(this, LoginActivity::class.java))
 
         val firestore = FirebaseFirestore.getInstance()
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setTimestampsInSnapshotsEnabled(true)
+            .build()
+        firestore.firestoreSettings = settings
         val classStr = "하늘반"
 
-        firestore.collection("class").document(classStr).collection("memberList").get().addOnCompleteListener { t ->
+        firestore.collection("class").document(classStr).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
             if(t.isComplete) {
-                var v = t.getResult()?.documents?.size as Int
+                var v = t.result?.documents?.size as Int
                 for (i in 0..(v - 1))
-                    s.add(MemberData(t.getResult()?.documents?.get(i)?.id!!))
+                    s.add(MemberData(t.result?.documents?.get(i)?.id!!, t.result?.documents?.get(i)?.getString("name")!!))
             }
         }
 

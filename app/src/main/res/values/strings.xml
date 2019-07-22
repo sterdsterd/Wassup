@@ -32,4 +32,5 @@
     <string name="pwd">비밀번호</string>
     <string name="signin">로그인</string>
     <string name="signup">회원가입</string>
+    <string name="assign_beacon">비콘 재등록</string>
 </resources>

@@ -41,8 +41,10 @@ class LoginActivity : AppCompatActivity() {
         signin.setOnClickListener { v ->
             firestore.collection("member").document(etId.text.toString()).get().addOnCompleteListener { t ->
                 if (t.isSuccessful()) {
-                    Toast.makeText(this, BCrypt.verifyer().verify(etPwd.text.toString().toCharArray(), t.getResult()?.data?.get("pwd").toString()).verified.toString(), Toast.LENGTH_LONG).show()
-                }
+                    if (BCrypt.verifyer().verify(etPwd.text.toString().toCharArray(), t.getResult()?.data?.get("pwd").toString()).verified) {
+                        Toast.makeText(this, "Signed In", Toast.LENGTH_SHORT)
+                    } else Toast.makeText(this, "Sign In Failed", Toast.LENGTH_SHORT)
+                    }
 
             }
         }
