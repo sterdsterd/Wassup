@@ -49,32 +49,64 @@
                 <LinearLayout
                         android:layout_width="match_parent" android:layout_height="match_parent"
                         android:layout_margin="18dp" android:orientation="vertical">
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/id"
-                            android:textSize="12sp"/>
-                    <EditText
-                            android:id="@+id/etId"
+                    <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:singleLine="true"
-                            android:layout_marginBottom="16dp"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/pwd"
-                            android:textSize="12sp"/>
-                    <EditText
-                            android:id="@+id/etPwd"
+                            app:hintTextAppearance="@style/TextInputLayoutHintText"
+                            android:layout_marginBottom="12dp"
+                            android:id="@+id/textInputId">
+                        <EditText
+                                android:id="@+id/etId"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:singleLine="true"
+                                android:hint="@string/id"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:inputType="textPassword"
-                            android:singleLine="true"/>
+                            app:hintTextAppearance="@style/TextInputLayoutHintText"
+                            android:layout_marginBottom="12dp">
+                        <EditText
+                                android:id="@+id/etPwd"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:inputType="textPassword"
+                                android:singleLine="true"
+                                android:hint="@string/pwd"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:hintTextAppearance="@style/TextInputLayoutHintText"
+                            android:layout_marginBottom="12dp">
+                        <EditText
+                                android:id="@+id/etPwdChk"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:singleLine="true"
+                                android:inputType="textPassword"
+                                android:hint="@string/pwdCheck"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:hintTextAppearance="@style/TextInputLayoutHintText">
+                        <EditText
+                                android:id="@+id/etName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:singleLine="true"
+                                android:hint="@string/name"/>
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -92,33 +124,36 @@
                 <LinearLayout
                         android:layout_width="match_parent" android:layout_height="match_parent"
                         android:layout_margin="18dp" android:orientation="vertical">
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/phone"
-                            android:textSize="12sp"/>
-                    <EditText
-                            android:id="@+id/etNum"
+                    <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:inputType="phone"
-                            android:singleLine="true"
-                            android:layout_marginBottom="16dp"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/verificationNo"
-                            android:textSize="12sp"/>
-                    <EditText
-                            android:id="@+id/etCode"
+                            app:hintTextAppearance="@style/TextInputLayoutHintText"
+                            android:layout_marginBottom="12dp">
+                        <EditText
+                                android:id="@+id/etNum"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:singleLine="true"
+                                android:hint="@string/phone"
+                                android:inputType="phone"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:inputType="numberDecimal"
-                            android:singleLine="true"/>
+                            app:hintTextAppearance="@style/TextInputLayoutHintText"
+                            android:id="@+id/textInputCode">
+                        <EditText
+                                android:id="@+id/etCode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:singleLine="true"
+                                android:inputType="numberDecimal"
+                                android:hint="@string/verificationNo"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                         <androidx.cardview.widget.CardView
@@ -176,6 +211,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="27dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="27dp"
                     app:cardCornerRadius="12dp"
                     app:cardBackgroundColor="@color/colorAccent"

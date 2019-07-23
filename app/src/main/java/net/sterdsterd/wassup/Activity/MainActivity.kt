@@ -141,13 +141,13 @@ class MainActivity : AppCompatActivity() {
 
         dialog = builder.create()
         dialog.show()
-        val window = dialog.getWindow()
+        val window = dialog.window
         if (window != null) {
             val layoutParams = WindowManager.LayoutParams()
-            layoutParams.copyFrom(dialog.getWindow().getAttributes())
+            layoutParams.copyFrom(dialog.window.attributes)
             layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT
             layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
-            dialog.getWindow().setAttributes(layoutParams)
+            dialog.window.attributes = layoutParams
         }
     }
 }

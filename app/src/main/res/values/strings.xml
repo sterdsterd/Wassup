@@ -37,4 +37,8 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="phone">전화번호</string>
     <string name="verificationNo">인증번호</string>
+    <string name="title_activity_forgot">ForgotActivity</string>
+    <string name="findPassword">비밀번호 찾기</string>
+    <string name="descriptionFind">비밀번호를 바꿀 수 있어요</string>
+    <string name="pwdCheck">비밀번호 확인</string>
 </resources>
