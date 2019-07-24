@@ -37,6 +37,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.firebase:firebase-core:17.0.1'
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
+    implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
     implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.8.0'
 }
 
