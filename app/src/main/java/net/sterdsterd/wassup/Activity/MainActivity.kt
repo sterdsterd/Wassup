@@ -56,7 +56,10 @@ class MainActivity : AppCompatActivity() {
     val s = mutableListOf<MemberData>()
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        update(true)
+        when (requestCode){
+            1 -> update(true)
+            2 -> update(false)
+        }
         super.onActivityResult(requestCode, resultCode, data)
     }
 

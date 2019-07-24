@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_find.*
 import androidx.recyclerview.widget.GridLayoutManager
+import net.sterdsterd.wassup.Activity.MainActivity
 import net.sterdsterd.wassup.Adapter.FindAdapter
 import net.sterdsterd.wassup.R
 import net.sterdsterd.wassup.Activity.RestrictionActivity
@@ -28,9 +29,10 @@ class FindFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         findList?.layoutManager = GridLayoutManager(activity, 3)
-        findList?.adapter = FindAdapter(MutableList(9) { 1 })
+        findList?.adapter = FindAdapter(activity as MainActivity, (activity as MainActivity).s)
+        findList?.adapter?.notifyDataSetChanged()
 
-        restriction.setOnClickListener { v ->
+        restriction.setOnClickListener {
             startActivity(Intent(activity, RestrictionActivity::class.java))
         }
     }
