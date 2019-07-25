@@ -16,6 +16,7 @@
 
     <style name="TextInputLayoutHintText">
         <item name="android:textColor">#fff</item>
-        <item name="android:textSize">12sp</item></style>
+        <item name="android:textSize">12sp</item>
+    </style>
 
 </resources>

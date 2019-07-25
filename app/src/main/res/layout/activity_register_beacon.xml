@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".Activity.RegisterBeaconActivity">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="116dp"
+                  android:background="@drawable/gradient_header"
+                  android:orientation="vertical">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_beacon"
+                android:textStyle="bold"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="22dp"
+                android:textSize="32sp"
+                android:textColor="#fff"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="새 Beacon을 다시 등록할 수 있어요"
+                android:layout_marginStart="27dp"
+                android:textSize="14sp"
+                android:textColor="#fff"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_contents"
+            android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="#323445"
+            android:layout_marginEnd="27dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="27dp"
+            app:cardElevation="10dp">
+            <com.skyfishjy.library.RippleBackground
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/ripple"
+                    app:rb_color="@color/colorAccentTransparent"
+                    app:rb_radius="36dp"
+                    app:rb_rippleAmount="3"
+                    app:rb_duration="2500"
+                    app:rb_scale="6">
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                    <FrameLayout
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:background="@drawable/shape_circle"
+                            android:layout_margin="16dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:elevation="8dp"
+                            android:id="@+id/btIcon">
+                        <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_bluetooth"
+                                android:layout_gravity="center"/>
+                    </FrameLayout>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Beacon을 아이콘 위로 올려주세요"
+                            android:layout_margin="16dp"
+                            android:textColor="#fff"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/btIcon"/>
+                </RelativeLayout>
+            </com.skyfishjy.library.RippleBackground>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="27dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="27dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/colorAccent"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:id="@+id/register"
+                android:visibility="gone">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register"
+                    android:textColor="#fff"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_margin="16dp"
+                    android:layout_gravity="center"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="27dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#11ffffff"
+                android:id="@+id/registerDisabled">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#55ffffff"
+                    android:layout_margin="16dp"
+                    android:layout_gravity="center"/>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</LinearLayout>

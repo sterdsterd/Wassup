@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.core:core-ktx:1.0.2'
@@ -38,7 +38,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.0.1'
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
-    implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.8.0'
+    implementation 'at.favre.lib:bcrypt:0.8.0'
+    implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
+    implementation files('libs/minewBeaconScan.jar')
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -1,5 +1,6 @@
 package net.sterdsterd.wassup.Activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.FirebaseFirestore
@@ -30,7 +31,7 @@ class EditActivity : AppCompatActivity() {
             }
         }
 
-        save.setOnClickListener { v ->
+        save.setOnClickListener {
             val info = mapOf(
                 "name" to etName.text.toString(),
                 "studentPhone" to etNumSt.text.toString(),
@@ -40,10 +41,16 @@ class EditActivity : AppCompatActivity() {
             finish()
         }
 
-        deleteInfo.setOnClickListener { v ->
-            firestore.collection("class").document(classStr).collection("memberList").document(id).delete().addOnSuccessListener { t ->
+        deleteInfo.setOnClickListener {
+            firestore.collection("class").document(classStr).collection("memberList").document(id).delete().addOnSuccessListener {
                 finish()
             }
+        }
+
+        registerBeacon.setOnClickListener {
+            val intent = Intent(this, RegisterBeaconActivity::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent)
         }
     }
 
