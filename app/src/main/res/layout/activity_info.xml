@@ -70,6 +70,7 @@
                 <ImageView
                         android:layout_width="88dp"
                         android:layout_height="88dp"
+                        android:id="@+id/profile"
                         android:src="@drawable/ic_profile"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="32dp"

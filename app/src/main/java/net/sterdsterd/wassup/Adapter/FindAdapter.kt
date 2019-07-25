@@ -4,6 +4,10 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.item_find.view.*
 import net.sterdsterd.wassup.Activity.InfoActivity
 import net.sterdsterd.wassup.Activity.MainActivity
@@ -30,6 +34,11 @@ class FindAdapter(val activity: MainActivity, val items : MutableList<MemberData
             activity.startActivityForResult(intent, 2)
         }
 
+        val storage = FirebaseStorage.getInstance().reference
+        storage.child("profile/${items[position].id}.png").downloadUrl.addOnSuccessListener {
+            Glide.with(activity).load(it).apply(RequestOptions.circleCropTransform().override(300)).into(holder.profile)
+        }
+
     }
 
 
@@ -38,5 +47,6 @@ class FindAdapter(val activity: MainActivity, val items : MutableList<MemberData
         val name = itemView.tvName
         val stat = itemView.tvStat
         val card = itemView.card
+        val profile = itemView.profile
     }
 }

@@ -11,6 +11,9 @@ import net.sterdsterd.wassup.R
 import java.util.*
 import android.content.Intent
 import android.net.Uri
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.storage.FirebaseStorage
 
 
 class InfoActivity : AppCompatActivity() {
@@ -20,6 +23,11 @@ class InfoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_info)
 
         val id = intent.extras.getString("id")
+
+        val storage = FirebaseStorage.getInstance().reference
+        storage.child("profile/$id.png").downloadUrl.addOnSuccessListener {
+            Glide.with(this).load(it).apply(RequestOptions.circleCropTransform()).into(profile)
+        }
 
         val firestore = FirebaseFirestore.getInstance()
 

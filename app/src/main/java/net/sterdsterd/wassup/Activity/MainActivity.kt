@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode){
             1 -> update(true)
-            2 -> update(false)
+            //2 -> update(false)
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
