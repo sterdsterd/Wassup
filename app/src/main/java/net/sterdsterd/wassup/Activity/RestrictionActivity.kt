@@ -12,8 +12,16 @@ class RestrictionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restriction)
 
-        save.setOnClickListener { v ->
+        save.setOnClickListener {
             super.finish()
+        }
+
+        radioIn.setOnClickListener {
+            radioOut.isChecked = false
+        }
+
+        radioOut.setOnClickListener {
+            radioIn.isChecked = false
         }
 
     }

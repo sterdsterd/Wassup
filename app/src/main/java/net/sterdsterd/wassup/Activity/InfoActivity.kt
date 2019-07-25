@@ -1,5 +1,6 @@
 package net.sterdsterd.wassup.Activity
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -10,10 +11,12 @@ import kotlinx.android.synthetic.main.activity_info.*
 import net.sterdsterd.wassup.R
 import java.util.*
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
+import io.github.pierry.progress.Progress
 
 
 class InfoActivity : AppCompatActivity() {
@@ -21,6 +24,12 @@ class InfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
+
+
+        val progress = Progress(this)
+        progress.setBackgroundColor(Color.parseColor("#323445"))
+            .setMessage("Loading")
+            .show()
 
         val id = intent.extras.getString("id")
 
@@ -44,6 +53,7 @@ class InfoActivity : AppCompatActivity() {
                 callParent.setOnClickListener{
                     startActivity(Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", t.result?.getString("parentPhone"), null)))
                 }
+                progress.dismiss()
             }
         }
 
