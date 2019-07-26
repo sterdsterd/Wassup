@@ -54,7 +54,7 @@ class EditActivity : AppCompatActivity() {
                 "studentPhone" to etNumSt.text.toString(),
                 "parentPhone" to etNumPa.text.toString()
             )
-            firestore.collection("class").document(classStr).collection("memberList").document(id).set(info)
+            firestore.collection("class").document(classStr).collection("memberList").document(id).update(info)
             finish()
         }
 

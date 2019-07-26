@@ -33,7 +33,13 @@ class FindFragment : Fragment() {
         findList?.adapter?.notifyDataSetChanged()
 
         restriction.setOnClickListener {
-            startActivity(Intent(activity, RestrictionActivity::class.java))
+            findList?.adapter?.notifyDataSetChanged()
+            //startActivity(Intent(activity, RestrictionActivity::class.java))
         }
+
+    }
+
+    fun update() {
+        findList?.adapter?.notifyDataSetChanged()
     }
 }

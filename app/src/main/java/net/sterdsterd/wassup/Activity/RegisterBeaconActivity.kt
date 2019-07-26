@@ -44,7 +44,7 @@ class RegisterBeaconActivity : AppCompatActivity() {
                 runOnUiThread {
                     filtered = minewBeacons.filter { it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_Name).stringValue.startsWith("MiniBeacon") }
                     Collections.sort(filtered, RSSIComp())
-                    if(filtered.isEmpty()) {
+                    if(filtered.isEmpty() || filtered[0].getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue < -55) {
                         register.visibility = View.GONE
                         registerDisabled.visibility = View.VISIBLE
                     } else {

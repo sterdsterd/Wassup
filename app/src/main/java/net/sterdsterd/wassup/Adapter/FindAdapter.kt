@@ -28,17 +28,21 @@ class FindAdapter(val activity: MainActivity, val items : MutableList<MemberData
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.name.text = items[position].name
-        holder.card.setOnClickListener { v ->
-            val intent = Intent(v.context, InfoActivity::class.java)
+        holder.stat.text = items[position].rssi.toString()
+        holder.card.setOnClickListener {
+            /*
+            val intent = Intent(it.context, InfoActivity::class.java)
             intent.putExtra("id", items[position].id)
             activity.startActivityForResult(intent, 2)
+            */
+            holder.stat.text = items[position].rssi.toString()
+
         }
 
         val storage = FirebaseStorage.getInstance().reference
         storage.child("profile/${items[position].id}.png").downloadUrl.addOnSuccessListener {
             Glide.with(activity).load(it).apply(RequestOptions.circleCropTransform().override(300)).into(holder.profile)
         }
-
     }
 
 
