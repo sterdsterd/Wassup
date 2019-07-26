@@ -51,6 +51,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'jp.wasabeef:glide-transformations:4.0.1'
     implementation 'com.github.Pierry:Progress:1.5'
+    implementation 'gun0912.ted:tedpermission:2.2.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

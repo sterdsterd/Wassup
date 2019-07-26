@@ -33,19 +33,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var textMessage: TextView
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_home -> {
+            R.id.nav_attandance -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment, AttandanceFragment())
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
+            R.id.nav_edit -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment, EditFragment())
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
+            R.id.nav_find -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment, FindFragment())
                     .commit()

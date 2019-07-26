@@ -45,4 +45,5 @@
     <string name="register_beacon">비콘 재등록</string>
     <string name="register">등록</string>
     <string name="deleteInfo">이 정보 지우기</string>
+    <string name="title_activity_splash">SplashActivity</string>
 </resources>
