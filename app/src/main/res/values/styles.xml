@@ -11,7 +11,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <!--style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/-->
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="TextInputLayoutHintText">
@@ -22,5 +22,14 @@
     <style name="Splash" parent="AppTheme.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
+
+    <style name="expanded" parent="@style/AppTheme">
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="col" parent="@android:style/TextAppearance.Medium"/>
 
 </resources>

@@ -1,23 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activity.MainActivity">
+        tools:context=".Activity.MainActivity"
+        android:orientation="vertical">
 
-    <FrameLayout
-            android:id="@+id/fragment"
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    </FrameLayout>
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_header">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="116dp"
+                app:contentScrim="@drawable/gradient_header"
+                android:id="@+id/collapsingToolBar"
+                app:expandedTitleGravity="top"
+                app:expandedTitleMarginTop="26dp"
+                app:expandedTitleMarginStart="27dp"
+                app:expandedTitleTextAppearance="@style/expanded"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="116dp"
+                    android:orientation="horizontal">
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:layout_marginStart="27dp"
+                            android:layout_marginTop="22dp"
+                            android:textSize="32sp"
+                            android:textColor="#fff"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="27dp"
+                            android:id="@+id/description"
+                            android:textSize="14sp"
+                            android:textColor="#fff"/>
+                </LinearLayout>
+
+                <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add"
+                        android:id="@+id/add"
+                        android:textColor="@color/colorAccent"
+                        android:padding="8dp"
+                        android:layout_marginEnd="18dp"
+                        android:textSize="14sp"
+                        android:layout_marginTop="24dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"/>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:gravity="top"
+                    app:layout_collapseMode="pin"
+                    android:id="@+id/toolBar">
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <FrameLayout
+                android:id="@+id/fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginEnd="0dp"
             android:layout_marginStart="0dp"
             android:background="#22232C"
@@ -28,4 +105,4 @@
             app:layout_constraintRight_toRightOf="parent"
             app:menu="@menu/bottom_nav_menu"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

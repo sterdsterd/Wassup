@@ -8,6 +8,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
+import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,6 +22,7 @@ import net.sterdsterd.wassup.R
 import com.google.firebase.firestore.Query
 import com.minew.beacon.*
 import io.github.pierry.progress.Progress
+import kotlinx.android.synthetic.main.activity_main.*
 import net.sterdsterd.wassup.SharedData
 
 
@@ -29,6 +32,8 @@ class MainActivity : AppCompatActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.nav_attandance -> {
+                collapsingToolBar.title = resources.getString(R.string.attandance)
+                description.text = "햇반"
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment, AttandanceFragment())
                     .commit()
@@ -36,6 +41,8 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_edit -> {
+                collapsingToolBar.title = resources.getString(R.string.edit)
+                description.text = resources.getString(R.string.description_edit, SharedData.studentList.size)
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment, EditFragment())
                     .commit()
@@ -43,6 +50,8 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_find -> {
+                collapsingToolBar.title = resources.getString(R.string.find)
+                description.text = resources.getString(R.string.description_find_no)
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment, FindFragment())
                     .commit()
@@ -64,6 +73,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setSupportActionBar(toolBar)
+
+
+        collapsingToolBar.title = resources.getString(R.string.attandance)
+        description.text = "햇반"
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
@@ -71,7 +87,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment, AttandanceFragment())
             .commit()
-
 
         FirebaseApp.initializeApp(this)
         FirebaseMessaging.getInstance().subscribeToTopic("all")

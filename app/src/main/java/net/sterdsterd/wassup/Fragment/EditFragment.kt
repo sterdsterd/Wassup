@@ -14,7 +14,9 @@ import at.favre.lib.crypto.bcrypt.BCrypt
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_edit.*
+import kotlinx.android.synthetic.main.fragment_edit.add
 import net.sterdsterd.wassup.Activity.EditActivity
 import net.sterdsterd.wassup.Activity.MainActivity
 import net.sterdsterd.wassup.Adapter.EditAdapter
@@ -36,8 +38,8 @@ class EditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val classStr = "하늘반"
-        description_edit.text = getString(R.string.description_edit, SharedData.studentList.size)
         editList?.layoutManager = LinearLayoutManager(activity)
         editList?.adapter = EditAdapter(activity as MainActivity, SharedData.studentList)
         editList?.adapter?.notifyDataSetChanged()

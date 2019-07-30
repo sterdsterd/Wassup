@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.activity_main.*
+import net.sterdsterd.wassup.Activity.MainActivity
 import net.sterdsterd.wassup.R
 
 class AttandanceFragment : Fragment() {
@@ -21,7 +23,6 @@ class AttandanceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
 
 }
