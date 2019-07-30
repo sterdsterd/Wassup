@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import android.bluetooth.BluetoothAdapter
 
 class SplashActivity : AppCompatActivity() {
 
@@ -26,6 +27,16 @@ class SplashActivity : AppCompatActivity() {
             .setDeniedMessage("않이;;")
             .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
             .check()
+
+        val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(this, "Bluetooth가 지원되지 않는 기기입니다. 다른 기기를 사용해주세요.", Toast.LENGTH_LONG).show()
+        } else {
+            if (!mBluetoothAdapter.isEnabled) {
+                startActivity(Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS))
+                Toast.makeText(this, "Bluetooth를 켜주세요.", Toast.LENGTH_LONG).show()
+            }
+        }
 
     }
 

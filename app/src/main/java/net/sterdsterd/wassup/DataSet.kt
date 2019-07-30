@@ -6,3 +6,9 @@ data class MemberData(
     val mac: String,
     var rssi: Int
 )
+
+class SharedData {
+    companion object {
+        val studentList = mutableListOf<MemberData>()
+    }
+}

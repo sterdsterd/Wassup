@@ -19,7 +19,7 @@ import net.sterdsterd.wassup.Activity.EditActivity
 import net.sterdsterd.wassup.Activity.MainActivity
 import net.sterdsterd.wassup.Adapter.EditAdapter
 import net.sterdsterd.wassup.R
-
+import net.sterdsterd.wassup.SharedData
 
 
 class EditFragment : Fragment() {
@@ -37,9 +37,9 @@ class EditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val classStr = "하늘반"
-        description_edit.text = getString(R.string.description_edit, (activity as MainActivity).s.size)
+        description_edit.text = getString(R.string.description_edit, SharedData.studentList.size)
         editList?.layoutManager = LinearLayoutManager(activity)
-        editList?.adapter = EditAdapter(activity as MainActivity, (activity as MainActivity).s)
+        editList?.adapter = EditAdapter(activity as MainActivity, SharedData.studentList)
         editList?.adapter?.notifyDataSetChanged()
         add.setOnClickListener { v ->
             val firestore = FirebaseFirestore.getInstance()
@@ -53,7 +53,6 @@ class EditFragment : Fragment() {
                     val intent = Intent(v.context, EditActivity::class.java)
                     intent.putExtra("id", t.result?.id)
                     (activity as MainActivity).startActivityForResult(intent, 1)
-                    //v.context.startActivity(intent)
                 }
             }
 

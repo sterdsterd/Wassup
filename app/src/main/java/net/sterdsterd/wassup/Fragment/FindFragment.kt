@@ -12,6 +12,7 @@ import net.sterdsterd.wassup.Activity.MainActivity
 import net.sterdsterd.wassup.Adapter.FindAdapter
 import net.sterdsterd.wassup.R
 import net.sterdsterd.wassup.Activity.RestrictionActivity
+import net.sterdsterd.wassup.SharedData
 
 
 class FindFragment : Fragment() {
@@ -29,12 +30,11 @@ class FindFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         findList?.layoutManager = GridLayoutManager(activity, 3)
-        findList?.adapter = FindAdapter(activity as MainActivity, (activity as MainActivity).s)
+        findList?.adapter = FindAdapter(activity as MainActivity, SharedData.studentList)
         findList?.adapter?.notifyDataSetChanged()
 
         restriction.setOnClickListener {
-            findList?.adapter?.notifyDataSetChanged()
-            //startActivity(Intent(activity, RestrictionActivity::class.java))
+            startActivity(Intent(activity, RestrictionActivity::class.java))
         }
 
     }

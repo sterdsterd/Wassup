@@ -182,22 +182,23 @@
                         android:layout_height="0.5dp"
                         android:background="#3FFFFFFF"
                         android:layout_marginBottom="16dp"
-                    android:layout_marginStart="76dp"
-                    android:layout_marginEnd="16dp"/>
+                        android:layout_marginStart="76dp"
+                        android:layout_marginEnd="16dp"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="제한 범위"
-                    android:layout_marginStart="76dp"
-                    android:textColor="#B3FFFFFF"
-                    android:textSize="12sp"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="제한 범위"
+                        android:layout_marginStart="76dp"
+                        android:textColor="#B3FFFFFF"
+                        android:textSize="12sp"/>
 
                 <com.warkiz.widget.IndicatorSeekBar
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="60dp"
                         android:layout_marginBottom="2dp"
+                        android:id="@+id/seekBar"
                         app:isb_max="30"
                         app:isb_min="5"
                         app:isb_progress="25"

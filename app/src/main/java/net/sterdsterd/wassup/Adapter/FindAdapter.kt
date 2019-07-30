@@ -30,12 +30,9 @@ class FindAdapter(val activity: MainActivity, val items : MutableList<MemberData
         holder.name.text = items[position].name
         holder.stat.text = items[position].rssi.toString()
         holder.card.setOnClickListener {
-            /*
             val intent = Intent(it.context, InfoActivity::class.java)
             intent.putExtra("id", items[position].id)
             activity.startActivityForResult(intent, 2)
-            */
-            holder.stat.text = items[position].rssi.toString()
 
         }
 

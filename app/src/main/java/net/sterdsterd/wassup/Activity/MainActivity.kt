@@ -20,11 +20,11 @@ import net.sterdsterd.wassup.R
 import com.google.firebase.firestore.Query
 import com.minew.beacon.*
 import io.github.pierry.progress.Progress
+import net.sterdsterd.wassup.SharedData
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var textMessage: TextView
     var now = R.id.nav_attandance
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -52,9 +52,6 @@ class MainActivity : AppCompatActivity() {
         }
         false
     }
-
-    val s = mutableListOf<MemberData>()
-
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode){
@@ -91,10 +88,10 @@ class MainActivity : AppCompatActivity() {
         mMinewBeaconManager.setDeviceManagerDelegateListener(object : MinewBeaconManagerListener {
             override fun onRangeBeacons(minewBeacons: List<MinewBeacon>) {
                 runOnUiThread {
-                    for (i in 0..(s.size - 1)) {
+                    for (i in 0..(SharedData.studentList.size - 1)) {
                         var rssiSeq = listOf<MinewBeacon>()
-                        if(s.isNotEmpty()) rssiSeq = minewBeacons.filter { it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue == s[i].mac }
-                        if(rssiSeq.isNotEmpty()) s[i].rssi = rssiSeq[0].getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue
+                        if(SharedData.studentList.isNotEmpty()) rssiSeq = minewBeacons.filter { it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue == SharedData.studentList[i].mac }
+                        if(rssiSeq.isNotEmpty()) SharedData.studentList[i].rssi = rssiSeq[0].getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue
                         if(now == R.id.nav_find) (supportFragmentManager.findFragmentById(R.id.fragment) as FindFragment).update()
                     }
                 }
@@ -104,20 +101,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onDisappearBeacons(minewBeacons: List<MinewBeacon>) { }
 
-            override fun onUpdateState(state: BluetoothState) {
-                when (state) {
-                    BluetoothState.BluetoothStatePowerOn -> Toast.makeText(
-                        applicationContext,
-                        "BluetoothStatePowerOn",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    BluetoothState.BluetoothStatePowerOff -> Toast.makeText(
-                        applicationContext,
-                        "BluetoothStatePowerOff",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
+            override fun onUpdateState(state: BluetoothState) { }
         })
 
         update(false)
@@ -125,7 +109,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun update(con: Boolean) {
-        s.clear()
+        SharedData.studentList.clear()
         val firestore = FirebaseFirestore.getInstance()
         val classStr = "하늘반"
         val progress = Progress(this)
@@ -136,7 +120,7 @@ class MainActivity : AppCompatActivity() {
             if(t.isComplete) {
                 val v = t.result?.documents?.size as Int
                 for (i in 0..(v - 1))
-                    s.add(MemberData(t.result?.documents?.get(i)?.id!!,
+                    SharedData.studentList.add(MemberData(t.result?.documents?.get(i)?.id!!,
                                      t.result?.documents?.get(i)?.getString("name")!!,
                                      t.result?.documents?.get(i)?.getString("mac")!!,
                                      0))
