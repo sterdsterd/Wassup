@@ -31,7 +31,8 @@ class FindFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        findList?.layoutManager = GridLayoutManager(activity, 3)
+        val count = ((context?.resources?.displayMetrics!!.widthPixels / context?.resources?.displayMetrics!!.density) - 54) / 92
+        findList?.layoutManager = GridLayoutManager(activity, count.toInt())
         findList?.adapter = FindAdapter(activity as MainActivity, SharedData.studentList)
         findList?.adapter?.notifyDataSetChanged()
 

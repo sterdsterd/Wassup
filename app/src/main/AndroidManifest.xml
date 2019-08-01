@@ -23,6 +23,11 @@
             android:theme="@style/AppTheme"
             tools:replace="android:label, android:theme">
         <activity
+                android:name=".Activity.BusActivity"
+                android:label="@string/title_activity_bus"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
                 android:name=".Activity.SplashActivity"
                 android:theme="@style/Splash">
             <intent-filter>

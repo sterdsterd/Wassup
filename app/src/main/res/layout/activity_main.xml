@@ -23,7 +23,8 @@
                 app:expandedTitleMarginTop="26dp"
                 app:expandedTitleMarginStart="27dp"
                 app:expandedTitleTextAppearance="@style/expanded"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:scrimAnimationDuration="150">
 
             <LinearLayout
                     android:layout_width="match_parent"

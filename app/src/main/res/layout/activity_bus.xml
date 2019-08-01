@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="116dp"
+            android:background="@drawable/gradient_header"
+            android:orientation="horizontal">
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="탑승"
+                    android:textStyle="bold"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginTop="22dp"
+                    android:textSize="32sp"
+                    android:textColor="#fff"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="아이들의 탑승을 확인할 수 있어요"
+                    android:layout_marginStart="27dp"
+                    android:textSize="14sp"
+                    android:textColor="#fff"/>
+        </LinearLayout>
+
+        <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+
+        <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="22dp"
+                android:id="@+id/switchActivate"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_contents"
+            android:orientation="vertical">
+        <com.skyfishjy.library.RippleBackground
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/ripple"
+                app:rb_color="@color/colorAccentTransparent"
+                app:rb_radius="36dp"
+                app:rb_rippleAmount="2"
+                app:rb_duration="2500"
+                app:rb_scale="6">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <FrameLayout
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:background="@drawable/shape_circle"
+                        android:layout_margin="16dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:elevation="8dp"
+                        android:id="@+id/btIcon">
+                    <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_bus"
+                            android:tint="#ffffff"
+                            android:layout_gravity="center"/>
+                </FrameLayout>
+            </RelativeLayout>
+        </com.skyfishjy.library.RippleBackground>
+    </LinearLayout>
+
+
+</LinearLayout>
