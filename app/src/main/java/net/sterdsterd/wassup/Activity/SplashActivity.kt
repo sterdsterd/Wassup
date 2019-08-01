@@ -8,21 +8,20 @@ import androidx.appcompat.app.AppCompatActivity
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import android.bluetooth.BluetoothAdapter
+import android.content.Context
 import android.util.Log
 
 class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
         TedPermission.with(this).setPermissionListener(object: PermissionListener {
             override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                //Toast.makeText(this@SplashActivity, "않이;;", Toast.LENGTH_LONG).show()
-            }
-
-            override fun onPermissionGranted() {
-                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
                 finish()
             }
+
+            override fun onPermissionGranted() { }
 
         }).setRationaleMessage("Beacon의 정보를 읽어들이기 위해 권한이 필요해요")
             .setDeniedMessage("않이;;")
@@ -37,6 +36,15 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS))
                 Toast.makeText(this, "Bluetooth를 켜주세요.", Toast.LENGTH_LONG).show()
             }
+        }
+
+        if (pref.getString("id", "Null") != "Null") {
+            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            //startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+            finish()
+        } else {
+            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+            finish()
         }
 
     }

@@ -1,5 +1,6 @@
 package net.sterdsterd.wassup.Activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
@@ -20,18 +21,23 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+
         val firestore = FirebaseFirestore.getInstance()
         registerBtn.setOnClickListener { v ->
             startActivity(Intent(this, RegisterActivity::class.java))
             finish()
         }
 
-        signin.setOnClickListener { v ->
+        signin.setOnClickListener {
             firestore.collection("member").document(etId.text.toString()).get().addOnCompleteListener {
                 if (it.isSuccessful) {
                     if (BCrypt.verifyer().verify(etPwd.text.toString().toCharArray(), it.result?.data?.get("pwd").toString()).verified) {
-
-                        Toast.makeText(this, "Signed In", Toast.LENGTH_SHORT).show()
+                        editor.putString("id", etId.text.toString())
+                        editor.apply()
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
                     } else textInputId.error = "아닌데요"
                 }
             }
