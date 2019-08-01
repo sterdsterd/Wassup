@@ -24,7 +24,10 @@ class RestrictionActivity : AppCompatActivity() {
         val editor = pref.edit()
 
         when (pref.getString("checked", "None")) {
-            "in" -> radioIn.isChecked = true
+            "in" -> {
+                radioIn.isChecked = true
+                seekBar.isEnabled = false
+            }
             "out" -> radioOut.isChecked = true
             "None" -> radioIn.isChecked = true
         }

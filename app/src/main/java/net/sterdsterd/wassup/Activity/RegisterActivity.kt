@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.google.android.gms.tasks.TaskExecutors
 import com.google.firebase.auth.FirebaseAuth
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 import java.util.concurrent.TimeUnit
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
+import kotlinx.android.synthetic.main.activity_register.collapsingToolBar
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -24,6 +26,9 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        collapsingToolBar.title = resources.getString(R.string.signup)
+        collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
+        collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
         val firestore = FirebaseFirestore.getInstance()
 

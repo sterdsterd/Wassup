@@ -23,13 +23,13 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
-    <style name="expanded" parent="@style/AppTheme">
-        <item name="android:textSize">32sp</item>
+    <style name="expanded" parent="AppTheme">
+        <item name="android:textSize">30sp</item>
+        <item name="fontFamily">@font/spoqa</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/spoqa</item>
     </style>
-    <style name="col" parent="@android:style/TextAppearance.Medium"/>
 
 </resources>

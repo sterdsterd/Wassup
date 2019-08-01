@@ -29,7 +29,7 @@
     <string name="edit_photo">사진 수정</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="id">아이디</string>
-    <string name="pwd">비밀번호</string>
+    <string name="pwd">암호</string>
     <string name="assign_beacon">비콘 재등록</string>
     <string name="signup">회원가입</string>
     <string name="no_account">아직 계정이 없으신가요?</string>
@@ -38,13 +38,14 @@
     <string name="phone">전화번호</string>
     <string name="verificationNo">인증번호</string>
     <string name="title_activity_forgot">ForgotActivity</string>
-    <string name="findPassword">비밀번호 찾기</string>
-    <string name="descriptionFind">비밀번호를 바꿀 수 있어요</string>
-    <string name="pwdCheck">비밀번호 확인</string>
+    <string name="findPassword">암호 찾기</string>
+    <string name="descriptionFind">암호를 바꿀 수 있어요</string>
+    <string name="pwdCheck">암호 확인</string>
     <string name="title_activity_register_beacon">RegisterBeaconActivity</string>
     <string name="register_beacon">비콘 재등록</string>
     <string name="register">등록</string>
     <string name="deleteInfo">이 정보 지우기</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_bus">BusActivity</string>
+    <string name="forgot">암호를 잊으셨나요?</string>
 </resources>

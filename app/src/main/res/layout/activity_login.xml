@@ -60,14 +60,15 @@
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:singleLine="true"
-                            android:hint="아이디"/>
+                            android:hint="@string/id"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hintTextAppearance="@style/TextInputLayoutHintText"
-                        android:id="@+id/textInputPwd">
+                        android:id="@+id/textInputPwd"
+                        app:passwordToggleEnabled="true">
                     <EditText
                             android:id="@+id/etPwd"
                             android:layout_width="match_parent"
@@ -76,7 +77,7 @@
                             android:textStyle="bold"
                             android:inputType="textPassword"
                             android:singleLine="true"
-                            android:hint="비밀번호"/>
+                            android:hint="@string/pwd"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -128,7 +129,7 @@
         </androidx.cardview.widget.CardView>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:text="비밀번호를 잊으셨나요?"
+                  android:text="@string/forgot"
                   android:textStyle="bold"
                   android:id="@+id/findBtn"
                   android:layout_gravity="end"

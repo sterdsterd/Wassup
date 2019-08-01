@@ -20,7 +20,7 @@
                 app:contentScrim="@drawable/gradient_header"
                 android:id="@+id/collapsingToolBar"
                 app:expandedTitleGravity="top"
-                app:expandedTitleMarginTop="26dp"
+                app:expandedTitleMarginTop="22dp"
                 app:expandedTitleMarginStart="27dp"
                 app:expandedTitleTextAppearance="@style/expanded"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
@@ -41,7 +41,7 @@
                             android:layout_marginStart="27dp"
                             android:layout_marginTop="22dp"
                             android:textSize="32sp"
-                            android:textColor="#fff"/>
+                            android:textColor="#ff00ff"/>
 
                     <TextView
                             android:layout_width="wrap_content"
