@@ -1,9 +1,15 @@
 package net.sterdsterd.wassup.Activity
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat
+import at.favre.lib.crypto.bcrypt.BCrypt
 import com.google.android.gms.tasks.TaskExecutors
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -56,19 +62,66 @@ class ForgotActivity : AppCompatActivity() {
                     )
                 }
             }
+            textInputCode.visibility = View.VISIBLE
+            check.setCardBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
+            check.isEnabled = true
+            check.isClickable = true
+            check.isFocusable = true
+            check.cardElevation = 12f
+            tvVerify.setTextColor(Color.parseColor("#ffffff"))
 
         }
+        check.isEnabled = false
+        change.isEnabled = false
 
         check.setOnClickListener {
             verify(etCode.text.toString())
         }
+
+        etPwd.addTextChangedListener( object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if (etPwd.text.isNotEmpty()) {
+                    change.setCardBackgroundColor(ContextCompat.getColor(this@ForgotActivity, R.color.colorAccent))
+                    change.cardElevation = 12f
+                    change.isFocusable = true
+                    change.isClickable = true
+                    change.isEnabled = true
+                    tvChange.setTextColor(Color.parseColor("#ffffff"))
+                } else {
+                    change.setCardBackgroundColor(Color.parseColor("#11ffffff"))
+                    change.cardElevation = 0f
+                    change.isFocusable = false
+                    change.isClickable = false
+                    change.isEnabled = false
+                    tvChange.setTextColor(Color.parseColor("#55ffffff"))
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        })
+
+        change.setOnClickListener {
+            firestore.collection("member").document(etId.text.toString())
+                .update(mapOf("pwd" to BCrypt.withDefaults().hashToString(12, etPwd.text.toString().toCharArray())))
+                .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Toast.makeText(this, "변경 완료", Toast.LENGTH_LONG).show()
+                    finish()
+                }
+            }
+
+        }
+
     }
 
     fun verify(code: String) {
         val credential = PhoneAuthProvider.getCredential(mVerificationId, code)
         auth.signInWithCredential(credential).addOnCompleteListener{ task ->
             if (task.isSuccessful) {
-                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "인증 완료", Toast.LENGTH_SHORT).show()
+                cardPwd.visibility = View.VISIBLE
             } else {
                 textInputCode.error = "아닌데요"
             }

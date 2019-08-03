@@ -2,11 +2,9 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Activity.MainActivity"
         android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -143,20 +141,37 @@
                     <RadioGroup
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:id="@+id/radioGroup">
                         <RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="인솔 교사"
+                                android:text="@string/lead_teacher"
                                 android:id="@+id/radioLead"
-                                android:layout_weight="1.3"/>
+                                android:layout_weight="1.2"/>
                         <RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="담임 교사"
+                                android:text="@string/class_teacher"
                                 android:id="@+id/radioHr"
-                                android:layout_weight="0.7"/>
+                                android:layout_weight="0.8"/>
                     </RadioGroup>
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:visibility="gone"
+                            android:id="@+id/textInputClass"
+                            app:hintTextAppearance="@style/TextInputLayoutHintText">
+                        <EditText
+                                android:id="@+id/etClass"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:singleLine="true"
+                                android:hint="@string/class_name"/>
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -177,8 +192,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:hintTextAppearance="@style/TextInputLayoutHintText"
-                            android:layout_marginBottom="12dp">
+                            app:hintTextAppearance="@style/TextInputLayoutHintText">
                         <EditText
                                 android:id="@+id/etNum"
                                 android:layout_width="match_parent"
@@ -189,11 +203,13 @@
                                 android:hint="@string/phone"
                                 android:inputType="phone"/>
                     </com.google.android.material.textfield.TextInputLayout>
+
                     <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:hintTextAppearance="@style/TextInputLayoutHintText"
-                            android:id="@+id/textInputCode">
+                            android:id="@+id/textInputCode"
+                            android:layout_marginTop="12dp">
                         <EditText
                                 android:id="@+id/etCode"
                                 android:layout_width="match_parent"
@@ -235,17 +251,17 @@
                                 android:layout_weight="1"
                                 android:layout_marginTop="16dp"
                                 app:cardCornerRadius="12dp"
-                                app:cardBackgroundColor="@color/colorAccent"
-                                android:clickable="true"
-                                android:focusable="true"
+                                app:cardElevation="0dp"
+                                app:cardBackgroundColor="#11ffffff"
                                 android:foreground="?attr/selectableItemBackground"
                                 android:id="@+id/check"
                                 android:layout_marginStart="8dp">
                             <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="린증"
-                                    android:textColor="#fff"
+                                    android:text="인증"
+                                    android:id="@+id/textAuth"
+                                    android:textColor="#55ffffff"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:layout_margin="16dp"
@@ -261,19 +277,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="27dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="27dp"
                     android:layout_marginStart="27dp"
+                    android:clickable="false"
+                    android:focusable="false"
                     app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="@color/colorAccent"
-                    android:clickable="true"
-                    android:focusable="true"
+                    app:cardBackgroundColor="#11ffffff"
+                    app:cardElevation="0dp"
                     android:foreground="?attr/selectableItemBackground"
                     android:id="@+id/signup">
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/signup"
-                        android:textColor="#fff"
+                        android:id="@+id/textSignUp"
+                        android:textColor="#55ffffff"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_margin="16dp"

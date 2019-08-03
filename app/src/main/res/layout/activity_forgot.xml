@@ -28,129 +28,168 @@
                 android:textColor="#fff"/>
     </LinearLayout>
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/gradient_contents"
-            android:orientation="vertical">
-
-        <androidx.cardview.widget.CardView
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+                                           android:layout_height="match_parent"
+                                           android:background="@drawable/gradient_contents">
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="27dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="27dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#323445"
-                app:cardElevation="10dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <LinearLayout
-                    android:layout_width="match_parent" android:layout_height="match_parent"
-                    android:layout_margin="18dp" android:orientation="vertical">
-                <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:hintTextAppearance="@style/TextInputLayoutHintText"
-                        android:layout_marginBottom="12dp"
-                        android:id="@+id/textInputId">
-                    <EditText
-                            android:id="@+id/etId"
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="27dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="27dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#323445"
+                    app:cardElevation="10dp">
+
+                <LinearLayout
+                        android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:layout_margin="18dp" android:orientation="vertical">
+                    <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:singleLine="true"
-                            android:hint="@string/id"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:hintTextAppearance="@style/TextInputLayoutHintText"
-                        android:id="@+id/textInputCode">
-                    <EditText
-                            android:id="@+id/etCode"
+                            app:hintTextAppearance="@style/TextInputLayoutHintText"
+                            android:id="@+id/textInputId">
+                        <EditText
+                                android:id="@+id/etId"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:singleLine="true"
+                                android:hint="@string/id"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:singleLine="true"
-                            android:hint="@string/verificationNo"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-                    <androidx.cardview.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginTop="16dp"
-                            app:cardCornerRadius="12dp"
-                            app:cardBackgroundColor="@color/colorAccent"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:id="@+id/send"
-                            android:layout_marginEnd="8dp">
-                        <TextView
-                                android:layout_width="wrap_content"
+                            app:hintTextAppearance="@style/TextInputLayoutHintText"
+                            android:id="@+id/textInputCode"
+                            android:layout_marginTop="12dp"
+                            android:visibility="gone">
+                        <EditText
+                                android:id="@+id/etCode"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="전송"
-                                android:textColor="#fff"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
-                                android:layout_margin="16dp"
-                                android:layout_gravity="center"/>
-                    </androidx.cardview.widget.CardView>
+                                android:singleLine="true"
+                                android:inputType="numberDecimal"
+                                android:hint="@string/verificationNo"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <androidx.cardview.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginTop="16dp"
-                            app:cardCornerRadius="12dp"
-                            app:cardBackgroundColor="@color/colorAccent"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:id="@+id/check"
-                            android:layout_marginStart="8dp">
-                        <TextView
-                                android:layout_width="wrap_content"
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <androidx.cardview.widget.CardView
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="린증"
-                                android:textColor="#fff"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:layout_margin="16dp"
-                                android:layout_gravity="center"/>
-                    </androidx.cardview.widget.CardView>
+                                android:layout_weight="1"
+                                android:layout_marginTop="16dp"
+                                app:cardCornerRadius="12dp"
+                                app:cardBackgroundColor="@color/colorAccent"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:id="@+id/send"
+                                android:layout_marginEnd="8dp">
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="전송"
+                                    android:textColor="#fff"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    android:layout_margin="16dp"
+                                    android:layout_gravity="center"/>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="16dp"
+                                app:cardCornerRadius="12dp"
+                                app:cardBackgroundColor="#11ffffff"
+                                app:cardElevation="0dp"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:id="@+id/check"
+                                android:layout_marginStart="8dp">
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/tvVerify"
+                                    android:text="인증"
+                                    android:textColor="#55ffffff"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    android:layout_margin="16dp"
+                                    android:layout_gravity="center"/>
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+
                 </LinearLayout>
 
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="27dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="27dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="@color/colorAccent"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:id="@+id/signin">
-            <TextView
-                    android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/signin"
-                    android:textColor="#fff"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_margin="16dp"
-                    android:layout_gravity="center"/>
-        </androidx.cardview.widget.CardView>
+                    android:layout_marginEnd="27dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="27dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#323445"
+                    app:cardElevation="10dp"
+                    android:id="@+id/cardPwd"
+                    android:visibility="gone">
 
-    </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:layout_margin="18dp" android:orientation="vertical">
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:hintTextAppearance="@style/TextInputLayoutHintText"
+                            android:id="@+id/textInputPwd"
+                            app:passwordToggleEnabled="true">
+                        <EditText
+                                android:id="@+id/etPwd"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:singleLine="true"
+                                android:hint="새 암호"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="27dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginBottom="27dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#11ffffff"
+                    app:cardElevation="0dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:id="@+id/change">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="변경"
+                        android:id="@+id/tvChange"
+                        android:textColor="#55ffffff"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_margin="16dp"
+                        android:layout_gravity="center"/>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

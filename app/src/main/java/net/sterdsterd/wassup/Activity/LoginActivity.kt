@@ -2,6 +2,8 @@ package net.sterdsterd.wassup.Activity
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.text.TextWatcher
 import android.widget.Toast
@@ -13,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 import net.sterdsterd.wassup.R
 import android.text.Editable
 import android.view.View
+import androidx.core.content.ContextCompat
+import io.github.pierry.progress.Progress
 
 
 class LoginActivity : AppCompatActivity() {
@@ -27,16 +31,21 @@ class LoginActivity : AppCompatActivity() {
         val firestore = FirebaseFirestore.getInstance()
         registerBtn.setOnClickListener { v ->
             startActivity(Intent(this, RegisterActivity::class.java))
-            finish()
         }
 
         signin.setOnClickListener {
+            val progress = Progress(this)
+            progress.setBackgroundColor(Color.parseColor("#323445"))
+                .setMessage("Loading")
+                .show()
             firestore.collection("member").document(etId.text.toString()).get().addOnCompleteListener {
                 if (it.isSuccessful) {
+                    progress.dismiss()
                     if (BCrypt.verifyer().verify(etPwd.text.toString().toCharArray(), it.result?.data?.get("pwd").toString()).verified) {
                         editor.putString("id", etId.text.toString())
+                        editor.putString("role", it.result!!.get("role").toString())
                         editor.apply()
-                        startActivity(Intent(this, MainActivity::class.java))
+                        startActivity(Intent(this, SplashActivity::class.java))
                         finish()
                     } else textInputId.error = "아닌데요"
                 }
@@ -45,19 +54,26 @@ class LoginActivity : AppCompatActivity() {
 
         findBtn.setOnClickListener {
             startActivity(Intent(this, ForgotActivity::class.java))
-            finish()
         }
 
         val tw = object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
                 if(etId.text.isEmpty() || etPwd.text.isEmpty()) {
-                    signin.visibility = View.GONE
-                    signinDisabled.visibility = View.VISIBLE
+                    signin.isEnabled = false
+                    signin.isClickable = false
+                    signin.isFocusable = false
+                    signin.setCardBackgroundColor(Color.parseColor("#11ffffff"))
+                    signin.cardElevation = 0f
+                    textLogin.setTextColor(Color.parseColor("#55ffffff"))
                 }
                 else {
-                    signin.visibility = View.VISIBLE
-                    signinDisabled.visibility = View.GONE
+                    signin.isEnabled = true
+                    signin.isClickable = true
+                    signin.isFocusable = true
+                    signin.setCardBackgroundColor(ContextCompat.getColor(this@LoginActivity, R.color.colorAccent))
+                    signin.cardElevation = 12f
+                    textLogin.setTextColor(Color.parseColor("#ffffff"))
                 }
             }
 
@@ -68,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
 
         etId.addTextChangedListener(tw)
         etPwd.addTextChangedListener(tw)
+        signin.isEnabled = false
 
     }
 

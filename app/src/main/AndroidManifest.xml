@@ -44,6 +44,7 @@
         <activity
                 android:name=".Activity.ForgotActivity"
                 android:label="@string/title_activity_forgot"
+                android:windowSoftInputMode="stateHidden|adjustResize"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity

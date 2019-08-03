@@ -90,40 +90,20 @@
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="16dp"
                 app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="@color/colorAccent"
+                app:cardBackgroundColor="#11ffffff"
+                app:cardElevation="0dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
-                android:id="@+id/signin"
-                android:visibility="gone">
+                android:id="@+id/signin">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/signin"
-                    android:textColor="#fff"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_margin="16dp"
-                    android:layout_gravity="center"/>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="27dp"
-                android:layout_marginStart="27dp"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="#11ffffff"
-                android:id="@+id/signinDisabled">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/signin"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:id="@+id/textLogin"
                     android:textColor="#55ffffff"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     android:layout_margin="16dp"
                     android:layout_gravity="center"/>
         </androidx.cardview.widget.CardView>

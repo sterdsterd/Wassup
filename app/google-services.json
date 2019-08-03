@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "833490405891-dpaqr51sskotg6b2la2ufpnikbj7gg72.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.sterdsterd.wassup",
+            "certificate_hash": "958e19378849be5a83386549bd605c9b8262d11b"
+          }
+        },
+        {
           "client_id": "833490405891-rjqcp81u9makqrp6iekge8mvph445b13.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

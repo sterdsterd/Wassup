@@ -48,4 +48,8 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_bus">BusActivity</string>
     <string name="forgot">암호를 잊으셨나요?</string>
+    <string name="next">다음</string>
+    <string name="class_name">담당 반 이름</string>
+    <string name="lead_teacher">인솔 교사</string>
+    <string name="class_teacher">담임 교사</string>
 </resources>

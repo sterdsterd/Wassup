@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
         firestore.collection("class").document(classStr).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
             if(t.isComplete) {
                 val v = t.result?.documents?.size as Int
-                for (i in 0..(v - 1))
+                for (i in 0 until v)
                     SharedData.studentList.add(MemberData(t.result?.documents?.get(i)?.id!!,
                                      t.result?.documents?.get(i)?.getString("name")!!,
                                      t.result?.documents?.get(i)?.getString("mac")!!,

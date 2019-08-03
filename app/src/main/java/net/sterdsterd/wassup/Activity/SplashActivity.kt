@@ -16,18 +16,6 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
-        TedPermission.with(this).setPermissionListener(object: PermissionListener {
-            override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                finish()
-            }
-
-            override fun onPermissionGranted() { }
-
-        }).setRationaleMessage("Beacon의 정보를 읽어들이기 위해 권한이 필요해요")
-            .setDeniedMessage("않이;;")
-            .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-            .check()
-
         val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         if (mBluetoothAdapter == null) {
             Toast.makeText(this, "Bluetooth가 지원되지 않는 기기입니다. 다른 기기를 사용해주세요.", Toast.LENGTH_LONG).show()
@@ -38,14 +26,23 @@ class SplashActivity : AppCompatActivity() {
             }
         }
 
-        if (pref.getString("id", "Null") != "Null") {
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-            //startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-            finish()
-        } else {
-            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-            finish()
-        }
+        TedPermission.with(this).setPermissionListener(object: PermissionListener {
+            override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+                finish()
+            }
+
+            override fun onPermissionGranted() {
+                var target = if (pref.getString("id", "Null") == "Null") LoginActivity::class.java
+                else if (pref.getString("role", "None") == "lead") BusActivity::class.java
+                else MainActivity::class.java
+                startActivity(Intent(this@SplashActivity, target))
+                finish()
+            }
+
+        }).setRationaleMessage("Beacon의 정보를 읽어들이기 위해 권한이 필요해요")
+            .setDeniedMessage("않이;;")
+            .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+            .check()
 
     }
 
