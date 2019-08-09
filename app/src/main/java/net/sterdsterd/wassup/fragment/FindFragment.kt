@@ -1,4 +1,4 @@
-package net.sterdsterd.wassup.Fragment
+package net.sterdsterd.wassup.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,13 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_find.*
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.activity_main.*
-import net.sterdsterd.wassup.Activity.MainActivity
-import net.sterdsterd.wassup.Adapter.FindAdapter
+import net.sterdsterd.wassup.activity.MainActivity
+import net.sterdsterd.wassup.adapter.FindAdapter
 import net.sterdsterd.wassup.R
-import net.sterdsterd.wassup.Activity.RestrictionActivity
+import net.sterdsterd.wassup.activity.RestrictionActivity
 import net.sterdsterd.wassup.SharedData
-import kotlin.math.round
 import kotlin.math.roundToInt
 
 

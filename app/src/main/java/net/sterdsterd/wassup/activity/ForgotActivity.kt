@@ -1,4 +1,4 @@
-package net.sterdsterd.wassup.Activity
+package net.sterdsterd.wassup.activity
 
 import android.graphics.Color
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat
 import at.favre.lib.crypto.bcrypt.BCrypt

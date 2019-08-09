@@ -1,4 +1,4 @@
-package net.sterdsterd.wassup.Adapter
+package net.sterdsterd.wassup.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.item_find.view.*
-import net.sterdsterd.wassup.Activity.InfoActivity
-import net.sterdsterd.wassup.Activity.MainActivity
+import net.sterdsterd.wassup.activity.InfoActivity
+import net.sterdsterd.wassup.activity.MainActivity
 import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
 

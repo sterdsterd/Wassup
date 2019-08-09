@@ -1,12 +1,10 @@
-package net.sterdsterd.wassup.Activity
+package net.sterdsterd.wassup.activity
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextWatcher
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.google.firebase.firestore.FirebaseFirestore
@@ -14,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 import net.sterdsterd.wassup.R
 import android.text.Editable
-import android.view.View
 import androidx.core.content.ContextCompat
 import io.github.pierry.progress.Progress
 

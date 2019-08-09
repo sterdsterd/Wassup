@@ -1,4 +1,4 @@
-package net.sterdsterd.wassup.Fragment
+package net.sterdsterd.wassup.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_edit.*
-import net.sterdsterd.wassup.Activity.MainActivity
-import net.sterdsterd.wassup.Adapter.EditAdapter
+import net.sterdsterd.wassup.activity.MainActivity
+import net.sterdsterd.wassup.adapter.EditAdapter
 import net.sterdsterd.wassup.R
 import net.sterdsterd.wassup.SharedData
 

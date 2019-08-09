@@ -1,12 +1,10 @@
-package net.sterdsterd.wassup.Activity
+package net.sterdsterd.wassup.activity
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlinx.android.synthetic.main.activity_info.*
 
 import net.sterdsterd.wassup.R

@@ -1,4 +1,4 @@
-package net.sterdsterd.wassup.Activity
+package net.sterdsterd.wassup.activity
 
 import android.graphics.Color
 import android.os.Bundle

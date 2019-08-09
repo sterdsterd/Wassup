@@ -13,7 +13,7 @@ import android.graphics.Color
 import android.media.RingtoneManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import net.sterdsterd.wassup.Activity.MainActivity
+import net.sterdsterd.wassup.activity.MainActivity
 
 
 class PushSvc : FirebaseMessagingService() {

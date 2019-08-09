@@ -1,4 +1,4 @@
-package net.sterdsterd.wassup.Activity
+package net.sterdsterd.wassup.activity
 
 import android.Manifest
 import android.content.Intent
@@ -9,7 +9,6 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
-import android.util.Log
 
 class SplashActivity : AppCompatActivity() {
 

@@ -1,20 +1,14 @@
-package net.sterdsterd.wassup.Activity
+package net.sterdsterd.wassup.activity
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import net.sterdsterd.wassup.R
 
 import kotlinx.android.synthetic.main.activity_bus.*
-import android.widget.CompoundButton
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.minew.beacon.*
-import kotlinx.android.synthetic.main.activity_edit.*
-import net.sterdsterd.wassup.Fragment.FindFragment
-import net.sterdsterd.wassup.SharedData
 import java.sql.Timestamp
 
 

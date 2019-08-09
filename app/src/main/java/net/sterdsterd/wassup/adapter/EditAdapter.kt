@@ -1,13 +1,12 @@
-package net.sterdsterd.wassup.Adapter
+package net.sterdsterd.wassup.adapter
 
-import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_edit.view.*
-import net.sterdsterd.wassup.Activity.EditActivity
-import net.sterdsterd.wassup.Activity.MainActivity
+import net.sterdsterd.wassup.activity.EditActivity
+import net.sterdsterd.wassup.activity.MainActivity
 import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
 

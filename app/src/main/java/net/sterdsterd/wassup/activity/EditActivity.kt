@@ -1,27 +1,21 @@
-package net.sterdsterd.wassup.Activity
+package net.sterdsterd.wassup.activity
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.TransformationUtils.circleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.storage.FirebaseStorage
 import gun0912.tedbottompicker.TedBottomPicker
 import io.github.pierry.progress.Progress
 import kotlinx.android.synthetic.main.activity_edit.*
 
 import net.sterdsterd.wassup.R
-import android.view.Menu
-import android.view.MenuItem
 
 
 class EditActivity : AppCompatActivity() {

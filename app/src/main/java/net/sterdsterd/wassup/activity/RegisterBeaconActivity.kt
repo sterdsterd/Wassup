@@ -1,4 +1,4 @@
-package net.sterdsterd.wassup.Activity
+package net.sterdsterd.wassup.activity
 
 import android.os.Bundle
 import android.view.View
@@ -11,7 +11,6 @@ import net.sterdsterd.wassup.R
 import kotlinx.android.synthetic.main.activity_register_beacon.*
 import net.sterdsterd.wassup.RSSIComp
 import java.util.*
-import kotlin.math.min
 
 class RegisterBeaconActivity : AppCompatActivity() {
 
