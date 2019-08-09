@@ -44,6 +44,8 @@ class LoginActivity : AppCompatActivity() {
                     if (BCrypt.verifyer().verify(etPwd.text.toString().toCharArray(), it.result?.data?.get("pwd").toString()).verified) {
                         editor.putString("id", etId.text.toString())
                         editor.putString("role", it.result!!.get("role").toString())
+                        if (it.result!!.get("role").toString() == "class")
+                            editor.putString("class", it.result!!.get("class").toString())
                         editor.apply()
                         startActivity(Intent(this, SplashActivity::class.java))
                         finish()

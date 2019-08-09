@@ -1,6 +1,7 @@
 package net.sterdsterd.wassup.Activity
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -43,7 +44,8 @@ class EditActivity : AppCompatActivity() {
         val firestore = FirebaseFirestore.getInstance()
         val storage = FirebaseStorage.getInstance().reference
 
-        val classStr = "하늘반"
+        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val classStr = pref.getString("class", "Null")
         firestore.collection("class").document(classStr).collection("memberList").document(id!!).get().addOnCompleteListener { t ->
             if(t.isComplete) {
                 etName.setText(t.result?.getString("name"))

@@ -1,5 +1,6 @@
 package net.sterdsterd.wassup.Activity
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.fragment, AttandanceFragment())
                     .commit()
                 now = R.id.nav_attandance
+                btnToolbar.text = "설정"
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_edit -> {
@@ -50,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.fragment, EditFragment())
                     .commit()
                 now = R.id.nav_edit
+                btnToolbar.text = "추가"
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_find -> {
@@ -59,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.fragment, FindFragment())
                     .commit()
                 now = R.id.nav_find
+                btnToolbar.text = ""
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -73,16 +77,7 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun Toolbar.changeToolbarFont(){
-        for (i in 0 until childCount) {
-            val view = getChildAt(i)
-            if (view is TextView && view.text == title) {
-                view.typeface = Typeface.createFromAsset(view.context.assets, "font/spoqa_bold")
-                break
-            }
-        }
-    }
-
+    lateinit var classStr: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -92,7 +87,9 @@ class MainActivity : AppCompatActivity() {
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.title = resources.getString(R.string.attandance)
-        description.text = "햇반"
+        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
+        classStr = pref.getString("class", "Null")
+        description.text = classStr
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -138,7 +135,6 @@ class MainActivity : AppCompatActivity() {
     fun update(con: Boolean) {
         SharedData.studentList.clear()
         val firestore = FirebaseFirestore.getInstance()
-        val classStr = "하늘반"
         val progress = Progress(this)
         progress.setBackgroundColor(Color.parseColor("#323445"))
             .setMessage("Loading")

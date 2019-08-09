@@ -1,6 +1,7 @@
 package net.sterdsterd.wassup.Activity
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -40,7 +41,8 @@ class InfoActivity : AppCompatActivity() {
 
         val firestore = FirebaseFirestore.getInstance()
 
-        val classStr = "하늘반"
+        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val classStr = pref.getString("class", "Null")
         firestore.collection("class").document(classStr).collection("memberList").document(id).get().addOnCompleteListener { t ->
             if(t.isComplete) {
                 tvName.setText(t.result?.getString("name"))

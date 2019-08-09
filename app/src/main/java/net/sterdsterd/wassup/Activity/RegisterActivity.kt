@@ -82,13 +82,14 @@ class RegisterActivity : AppCompatActivity() {
             firestore.collection("member").document(etId.text.toString()).get().addOnCompleteListener { t ->
                 if (t.isSuccessful) {
                     if(t.result?.exists() == false) {
-                        val user = mapOf(
+                        val user = mutableMapOf(
                             "name" to etName.text.toString(),
                             "id" to etId.text.toString(),
                             "pwd" to BCrypt.withDefaults().hashToString(12, etPwd.text.toString().toCharArray()),
                             "mobile" to Regex("[^0-9]").replace(etNum.text.toString(), ""),
                             "role" to role
                         )
+                        if (role == "class") user.put("class", etClass.text.toString())
                         firestore.collection("member").document(etId.text.toString()).set(user)
                         Toast.makeText(this, "가입 완료", Toast.LENGTH_SHORT).show()
                         finish()
