@@ -4,8 +4,10 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.circleCrop
 import com.bumptech.glide.request.RequestOptions
@@ -17,12 +19,19 @@ import io.github.pierry.progress.Progress
 import kotlinx.android.synthetic.main.activity_edit.*
 
 import net.sterdsterd.wassup.R
+import android.view.Menu
+import android.view.MenuItem
+
 
 class EditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit)
+
+        setSupportActionBar(toolBar)
+        collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
+        collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
         val progress = Progress(this)
         progress.setBackgroundColor(Color.parseColor("#323445"))

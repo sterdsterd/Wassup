@@ -3,106 +3,74 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@drawable/gradient_contents">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="116dp"
-        android:background="@drawable/gradient_header"
-        android:orientation="vertical"
-        android:visibility="gone">
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/find"
-                android:textStyle="bold"
-                android:layout_marginStart="27dp"
-                android:layout_marginTop="22dp"
-                android:textSize="32sp"
-                android:textColor="#fff"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/description_find_no"
-                android:layout_marginStart="27dp"
-                android:textSize="14sp"
-                android:textColor="#fff"/>
-    </LinearLayout>
-
-    <androidx.core.widget.NestedScrollView
-            android:fillViewport="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gradient_contents"
-            android:paddingBottom="56dp">
-        <LinearLayout
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="76dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="27dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="#323445"
+            app:cardElevation="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:id="@+id/restriction">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="76dp"
-                android:layout_marginEnd="27dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="27dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#323445"
-                app:cardElevation="10dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:id="@+id/restriction">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-                    <FrameLayout
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:background="@drawable/shape_circle"
-                        android:layout_margin="16dp">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_restriction"
-                            android:layout_gravity="center"/>
-                    </FrameLayout>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/edit_range"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:layout_gravity="center_vertical"
-                            android:textColor="#fff"/>
-
-                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                android:orientation="horizontal">
+                <FrameLayout
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/shape_circle"
+                    android:layout_margin="16dp">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_enter"
+                        android:src="@drawable/ic_restriction"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/edit_range"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
                         android:layout_gravity="center_vertical"
-                        android:elevation="12dp"
-                        android:layout_marginEnd="16dp"/>
-                </LinearLayout>
+                        android:textColor="#fff"/>
 
-            </androidx.cardview.widget.CardView>
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
+                <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/findList"
-                    android:paddingBottom="16dp"
-                    android:layout_marginStart="19dp"
-                    android:layout_marginEnd="19dp"
-                    android:clipToPadding="false">
+                    android:src="@drawable/ic_enter"
+                    android:layout_gravity="center_vertical"
+                    android:elevation="12dp"
+                    android:layout_marginEnd="16dp"/>
+            </LinearLayout>
 
-            </androidx.recyclerview.widget.RecyclerView>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        </androidx.cardview.widget.CardView>
 
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/findList"
+                android:paddingBottom="16dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginEnd="19dp"
+                android:clipToPadding="false">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 
 </LinearLayout>

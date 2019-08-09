@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.item_find.view.*
 import net.sterdsterd.wassup.Activity.InfoActivity
 import net.sterdsterd.wassup.Activity.MainActivity
@@ -28,7 +27,7 @@ class FindAdapter(val activity: MainActivity, val items : MutableList<MemberData
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.name.text = items[position].name
-        holder.stat.text = items[position].rssi.toString()
+        holder.stat.text = items[position].rssi.toString() //"${Math.pow(10.0, (-59.0 - items[position].rssi) / (10 * 2))}m"
         holder.card.setOnClickListener {
             val intent = Intent(it.context, InfoActivity::class.java)
             intent.putExtra("id", items[position].id)

@@ -52,4 +52,5 @@
     <string name="class_name">담당 반 이름</string>
     <string name="lead_teacher">인솔 교사</string>
     <string name="class_teacher">담임 교사</string>
+    <string name="save">저장</string>
 </resources>

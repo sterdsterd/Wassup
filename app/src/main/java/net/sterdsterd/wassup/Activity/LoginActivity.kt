@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         val editor = pref.edit()
 
         val firestore = FirebaseFirestore.getInstance()
-        registerBtn.setOnClickListener { v ->
+        registerBtn.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 

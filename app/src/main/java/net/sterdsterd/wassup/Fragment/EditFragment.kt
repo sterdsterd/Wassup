@@ -1,23 +1,12 @@
 package net.sterdsterd.wassup.Fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import at.favre.lib.crypto.bcrypt.BCrypt
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_edit.*
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_edit.*
-import kotlinx.android.synthetic.main.fragment_edit.add
-import net.sterdsterd.wassup.Activity.EditActivity
 import net.sterdsterd.wassup.Activity.MainActivity
 import net.sterdsterd.wassup.Adapter.EditAdapter
 import net.sterdsterd.wassup.R
@@ -43,6 +32,7 @@ class EditFragment : Fragment() {
         editList?.layoutManager = LinearLayoutManager(activity)
         editList?.adapter = EditAdapter(activity as MainActivity, SharedData.studentList)
         editList?.adapter?.notifyDataSetChanged()
+        /*
         add.setOnClickListener { v ->
             val firestore = FirebaseFirestore.getInstance()
             val user = mapOf(
@@ -58,8 +48,7 @@ class EditFragment : Fragment() {
                 }
             }
 
-        }
-
+        }*/
 
     }
 

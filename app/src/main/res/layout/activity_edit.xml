@@ -1,55 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".Activity.EditActivity">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="116dp"
-                  android:background="@drawable/gradient_header">
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="정보 수정"
-                    android:textStyle="bold"
-                    android:layout_marginStart="27dp"
-                    android:layout_marginTop="22dp"
-                    android:textSize="32sp"
-                    android:textColor="#fff"/>
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activity.MainActivity"
+        android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_header">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="116dp"
+                app:contentScrim="@drawable/gradient_header"
+                android:id="@+id/collapsingToolBar"
+                app:expandedTitleGravity="top"
+                app:expandedTitleMarginTop="22dp"
+                app:expandedTitleMarginStart="27dp"
+                app:expandedTitleTextAppearance="@style/expanded"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:scrimAnimationDuration="150">
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="아이의 정보를 수정할 수 있어요"
+                    android:layout_marginTop="63dp"
                     android:layout_marginStart="27dp"
+                    android:text="아이들의 정보를 수정할 수 있어요"
                     android:textSize="14sp"
                     android:textColor="#fff"/>
-        </LinearLayout>
 
-        <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="저장"
-                android:id="@+id/save"
-                android:padding="8dp"
-                android:textColor="@color/colorAccent"
-                android:layout_marginEnd="18dp"
-                android:textSize="14sp"
-                android:layout_marginTop="24dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"/>
+            <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:gravity="top"
+                    app:title="@string/description_edit_info"
+                    app:layout_collapseMode="pin"
+                    android:id="@+id/toolBar">
+            </androidx.appcompat.widget.Toolbar>
 
-    </LinearLayout>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/save"
+                    android:textColor="@color/colorAccent"
+                    android:padding="8dp"
+                    android:layout_marginEnd="18dp"
+                    android:textSize="14sp"
+                    android:layout_marginTop="24dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/save"
+                    android:layout_gravity="end"/>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-    <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
-                                           android:layout_height="wrap_content"
-                                           android:background="@drawable/gradient_contents">
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_contents"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -214,9 +231,7 @@
                       android:id="@+id/deleteInfo"
                       android:background="?attr/selectableItemBackgroundBorderless"
                       android:layout_gravity="center_horizontal"
-                      android:layout_margin="32dp"
-                      />
+                      android:layout_margin="32dp"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

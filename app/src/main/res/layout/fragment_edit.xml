@@ -3,67 +3,13 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@drawable/gradient_contents">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="116dp"
-        android:background="@drawable/gradient_header"
-        android:orientation="horizontal"
-        android:visibility="gone">
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/edit"
-                    android:textStyle="bold"
-                    android:layout_marginStart="27dp"
-                    android:layout_marginTop="22dp"
-                    android:textSize="32sp"
-                    android:textColor="#fff"/>
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/description_edit"
-                    android:layout_marginStart="27dp"
-                    android:id="@+id/description_edit"
-                    android:textSize="14sp"
-                    android:textColor="#fff"/>
-        </LinearLayout>
-
-        <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add"
-            android:id="@+id/add"
-            android:textColor="@color/colorAccent"
-            android:padding="8dp"
-            android:layout_marginEnd="18dp"
-            android:textSize="14sp"
-            android:layout_marginTop="24dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gradient_contents"
-        android:paddingBottom="56dp"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/editList">
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/editList">
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

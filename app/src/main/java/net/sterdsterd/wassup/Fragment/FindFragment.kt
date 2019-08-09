@@ -14,6 +14,8 @@ import net.sterdsterd.wassup.Adapter.FindAdapter
 import net.sterdsterd.wassup.R
 import net.sterdsterd.wassup.Activity.RestrictionActivity
 import net.sterdsterd.wassup.SharedData
+import kotlin.math.round
+import kotlin.math.roundToInt
 
 
 class FindFragment : Fragment() {
@@ -31,8 +33,8 @@ class FindFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val count = ((context?.resources?.displayMetrics!!.widthPixels / context?.resources?.displayMetrics!!.density) - 54) / 92
-        findList?.layoutManager = GridLayoutManager(activity, count.toInt())
+        val count = ((context?.resources?.displayMetrics!!.widthPixels / context?.resources?.displayMetrics!!.density) - 54) / 92 - 0.3
+        findList?.layoutManager = GridLayoutManager(activity, count.roundToInt())
         findList?.adapter = FindAdapter(activity as MainActivity, SharedData.studentList)
         findList?.adapter?.notifyDataSetChanged()
 
