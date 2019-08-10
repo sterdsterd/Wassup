@@ -22,6 +22,14 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:replace="android:label, android:theme">
+        <meta-data
+                android:name="com.naver.maps.map.CLIENT_ID"
+                android:value="zfet2cpx92" />
+        <activity
+                android:name=".activity.DetailActivity"
+                android:label="@string/title_activity_detail"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
                 android:name=".activity.BusActivity"
                 android:label="@string/title_activity_bus"
@@ -44,8 +52,8 @@
         <activity
                 android:name=".activity.ForgotActivity"
                 android:label="@string/title_activity_forgot"
-                android:windowSoftInputMode="stateHidden|adjustResize"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
         <activity
                 android:name=".activity.RegisterActivity"

@@ -41,7 +41,7 @@ class PushSvc : FirebaseMessagingService() {
         }
     }
 
-    private fun sendNotification(title: String, body: String) {
+    fun sendNotification(title: String, body: String) {
 
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

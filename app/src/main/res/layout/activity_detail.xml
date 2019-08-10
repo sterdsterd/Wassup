@@ -6,7 +6,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.MainActivity"
+        tools:context=".activity.DetailActivity"
         android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -40,7 +40,8 @@
                     android:layout_height="?attr/actionBarSize"
                     android:gravity="top"
                     app:layout_collapseMode="pin"
-                    android:id="@+id/toolBar">
+                    android:id="@+id/toolBar"
+                    app:title="탑승">
             </androidx.appcompat.widget.Toolbar>
 
             <TextView
@@ -60,32 +61,17 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <FrameLayout
-            android:id="@+id/fragment"
+    <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/findList"
+            android:paddingBottom="16dp"
+            android:paddingStart="19dp"
+            android:paddingEnd="19dp"
+            android:clipToPadding="false"
+            android:background="@drawable/gradient_contents"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    </FrameLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="#22232C"
-            app:itemIconTint="@drawable/nav_colour"
-            app:itemTextColor="@drawable/nav_colour"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:menu="@menu/bottom_nav_menu"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:padding="24dp"
-            android:layout_marginBottom="?actionBarSize"
-            app:layout_constraintBottom_toTopOf="@id/nav_view"/>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
