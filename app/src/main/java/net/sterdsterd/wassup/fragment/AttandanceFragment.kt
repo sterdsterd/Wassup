@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_attandance.*
 import net.sterdsterd.wassup.R
+import net.sterdsterd.wassup.SharedData
 import net.sterdsterd.wassup.activity.DetailActivity
 
 class AttandanceFragment : Fragment() {
@@ -28,6 +29,9 @@ class AttandanceFragment : Fragment() {
         cardBoard.setOnClickListener {
             startActivity(Intent(activity, DetailActivity::class.java))
         }
+
+        badgeBus.text = "${SharedData.studentList.filter { it.isBus }.size}"
+
     }
 
 }

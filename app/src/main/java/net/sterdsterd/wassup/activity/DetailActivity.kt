@@ -1,24 +1,21 @@
 package net.sterdsterd.wassup.activity
 
-import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.gms.location.LocationServices
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.minew.beacon.*
-import com.naver.maps.geometry.LatLng
 import net.sterdsterd.wassup.R
 
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_detail.collapsingToolBar
 import kotlinx.android.synthetic.main.activity_detail.findList
-import kotlinx.android.synthetic.main.item_find.*
 import net.sterdsterd.wassup.SharedData
-import net.sterdsterd.wassup.adapter.FindAdapter
+import net.sterdsterd.wassup.adapter.DetailAdapter
+import java.sql.Timestamp
 import kotlin.math.roundToInt
 
 class DetailActivity : AppCompatActivity() {
@@ -30,12 +27,16 @@ class DetailActivity : AppCompatActivity() {
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
-        description.text = "현재 출석 인원 ${SharedData.studentList.size}명"
+        description.text = "현재 탑승 인원 ${SharedData.studentList.filter { it.isBus }.size}명"
+        val firestore = FirebaseFirestore.getInstance()
 
-        val count = ((this?.resources?.displayMetrics!!.widthPixels / this?.resources?.displayMetrics!!.density) - 54) / 92 - 0.3
+        val count = ((this.resources?.displayMetrics!!.widthPixels / this.resources?.displayMetrics!!.density) - 54) / 92 - 0.3
         findList?.layoutManager = GridLayoutManager(this, count.roundToInt())
-        findList?.adapter = FindAdapter(this, SharedData.studentList)
+        findList?.adapter = DetailAdapter(this, SharedData.studentList)
         findList?.adapter?.notifyDataSetChanged()
+
+        var isChecked = false
+        switchActivate.setOnCheckedChangeListener { _, b -> isChecked = b }
 
         val mMinewBeaconManager = MinewBeaconManager.getInstance(this)
         try {
@@ -60,9 +61,22 @@ class DetailActivity : AppCompatActivity() {
                             if (SharedData.studentList[i].undetected > 5)
                                 SharedData.studentList[i].isDetected = false
                         }
-                        //if(now == R.id.nav_find) (supportFragmentManager.findFragmentById(R.id.fragment) as FindFragment).update()
                     }
                     findList?.adapter?.notifyDataSetChanged()
+
+                    if (isChecked) {
+                        minewBeacons.filter {
+                            it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_Name).stringValue.startsWith("MiniBeacon")
+                                    && it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue > -55
+                        }.forEach {
+                            val mac = it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue
+                            val info = mapOf(mac to Timestamp(System.currentTimeMillis()))
+                            Log.e("Beacon", info.toString())
+                            firestore.collection("list").document("bus").set(info, SetOptions.merge())
+                            SharedData.studentList.find { it0 -> it0.mac == mac }?.isBus = true
+                        }
+                    }
+                    description.text = "현재 탑승 인원 ${SharedData.studentList.filter { it.isBus }.size}명"
                 }
             }
 

@@ -4,6 +4,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.item_edit.view.*
 import net.sterdsterd.wassup.activity.EditActivity
 import net.sterdsterd.wassup.activity.MainActivity
@@ -31,11 +34,17 @@ class EditAdapter(val activity: MainActivity, val items : MutableList<MemberData
             //v.context.startActivity(intent)
         }
 
+        val storage = FirebaseStorage.getInstance().reference
+        storage.child("profile/${items[position].id}.png").downloadUrl.addOnSuccessListener {
+            Glide.with(activity.applicationContext).load(it).apply(RequestOptions.circleCropTransform().override(300)).into(holder.imgProfile)
+        }
+
     }
 
     inner class MainViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_edit, parent, false)) {
         val name = itemView.name
         val item = itemView.list_item
+        val imgProfile = itemView.imgProfile
     }
 }

@@ -44,18 +44,12 @@
                     app:title="탑승">
             </androidx.appcompat.widget.Toolbar>
 
-            <TextView
+            <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/btnToolbar"
-                    android:textColor="@color/colorAccent"
-                    android:padding="8dp"
-                    android:layout_marginEnd="18dp"
-                    android:textSize="14sp"
-                    android:layout_marginTop="24dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="22dp"
+                    android:id="@+id/switchActivate"
                     android:layout_gravity="end"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

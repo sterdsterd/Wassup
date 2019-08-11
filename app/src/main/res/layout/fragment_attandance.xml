@@ -56,6 +56,23 @@
                             android:textColor="#fff"/>
 
                     <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+
+                    <FrameLayout
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:background="@drawable/shape_badge"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="12dp">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#fff"
+                                android:id="@+id/badgeBus"
+                                android:layout_gravity="center"
+                                android:textStyle="bold"
+                                android:text="0"/>
+                    </FrameLayout>
+
                     <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

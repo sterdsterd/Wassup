@@ -4,22 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 import net.sterdsterd.wassup.fragment.AttandanceFragment
 import net.sterdsterd.wassup.fragment.EditFragment
-import net.sterdsterd.wassup.fragment.FindFragment
+import net.sterdsterd.wassup.fragment.MapFragment
 import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
 import com.google.firebase.firestore.Query
@@ -32,42 +29,38 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-
-
 class MainActivity : AppCompatActivity() {
 
-    var now = R.id.nav_attandance
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.nav_attandance -> {
-                collapsingToolBar.title = resources.getString(R.string.attandance)
-                description.text = classStr
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment, AttandanceFragment())
-                    .commit()
-                now = R.id.nav_attandance
+                appBarLayout.setExpanded(true)
+                collapsingToolBar.title = "$classStr ${resources.getString(R.string.attandance)}"
+                description.text = SimpleDateFormat("yyyy년 MM월 dd일").format(Calendar.getInstance().time)
+                supportFragmentManager.beginTransaction().replace(R.id.fragment, AttandanceFragment()).commit()
                 btnToolbar.text = "설정"
+                fab.show()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_edit -> {
+                appBarLayout.setExpanded(true)
                 collapsingToolBar.title = resources.getString(R.string.edit)
                 description.text = resources.getString(R.string.description_edit, SharedData.studentList.size)
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment, EditFragment())
-                    .commit()
-                now = R.id.nav_edit
+                supportFragmentManager.beginTransaction().replace(R.id.fragment, EditFragment()).commit()
                 btnToolbar.text = "추가"
+                btnToolbar.setOnClickListener {
+                    (supportFragmentManager.findFragmentById(R.id.fragment) as EditFragment).add()
+                }
+                fab.hide()
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.nav_find -> {
+            R.id.nav_map -> {
                 appBarLayout.setExpanded(false)
-                collapsingToolBar.title = resources.getString(R.string.find)
+                collapsingToolBar.title = resources.getString(R.string.activity)
                 description.text = resources.getString(R.string.description_find_no)
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment, FindFragment())
-                    .commit()
-                now = R.id.nav_find
+                supportFragmentManager.beginTransaction().replace(R.id.fragment, MapFragment()).commit()
                 btnToolbar.text = ""
+                fab.hide()
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -145,7 +138,7 @@ class MainActivity : AppCompatActivity() {
                             var locationProviderClient = getFusedLocationProviderClient(this@MainActivity)
                             if (ContextCompat.checkSelfPermission( this@MainActivity, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
                                 locationProviderClient.lastLocation.addOnSuccessListener {
-                                    SharedData.studentList[i].position = LatLng(it.latitude, it.longitude)
+                                    SharedData.studentList[i].vec = Pair(LatLng(it.latitude, it.longitude), Calendar.getInstance().time)
                                 }
                             }
                             SharedData.studentList[i].isDetected = true
@@ -155,9 +148,9 @@ class MainActivity : AppCompatActivity() {
                             if (SharedData.studentList[i].undetected > 5)
                                 SharedData.studentList[i].isDetected = false
                         }
-                        //if(now == R.id.nav_find) (supportFragmentManager.findFragmentById(R.id.fragment) as FindFragment).update()
-
                     }
+
+                    if (navView.selectedItemId == R.id.nav_map) (supportFragmentManager.findFragmentById(R.id.fragment) as MapFragment).update()
                 }
             }
 
@@ -185,8 +178,7 @@ class MainActivity : AppCompatActivity() {
                 for (i in 0 until v)
                     SharedData.studentList.add(MemberData(t.result?.documents?.get(i)?.id!!,
                                      t.result?.documents?.get(i)?.getString("name")!!,
-                                     t.result?.documents?.get(i)?.getString("mac")!!,
-                                     0, LatLng(0.0, 0.0), false, 0
+                                     t.result?.documents?.get(i)?.getString("mac")
                     ))
                 progress.dismiss()
                 if(con) supportFragmentManager.beginTransaction().replace(R.id.fragment, EditFragment()).commit()

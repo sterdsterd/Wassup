@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="123dp" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardBackgroundColor="#323445"
+        android:id="@+id/card"
+        app:cardElevation="10dp" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:focusable="true"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#55000000"
+            android:id="@+id/cardTint"
+            android:orientation="vertical"
+            android:elevation="4dp">
+
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_bus"
+                android:visibility="invisible"
+                android:id="@+id/iconBus"
+                android:layout_gravity="center_horizontal"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:id="@+id/tvName"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#fff"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvStat"
+                android:textSize="14sp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#B3FFFFFF"/>
+    </LinearLayout>
+
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:id="@+id/profile"
+            android:layout_gravity="center_horizontal"/>
+
+</androidx.cardview.widget.CardView>

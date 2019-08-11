@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/gradient_contents">
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="SHARE"
+            android:id="@+id/btnShare"/>
+
+    <com.naver.maps.map.MapView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    </com.naver.maps.map.MapView>
+
+    <com.naver.maps.map.widget.LocationButtonView
+            android:id="@+id/locationbuttonview"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="?actionBarSize"
+            android:layout_gravity="bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+    </com.naver.maps.map.widget.LocationButtonView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

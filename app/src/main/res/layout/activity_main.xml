@@ -68,9 +68,9 @@
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?actionBarSize"
+            android:id="@+id/nav_view"
             android:layout_gravity="bottom"
             android:background="#22232C"
             app:itemIconTint="@drawable/nav_colour"
@@ -78,14 +78,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:menu="@menu/bottom_nav_menu"/>
+            app:menu="@menu/bottom_nav_menu">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            android:id="@+id/fab"
             android:layout_gravity="end|bottom"
-            android:padding="24dp"
-            android:layout_marginBottom="?actionBarSize"
-            app:layout_constraintBottom_toTopOf="@id/nav_view"/>
+            android:layout_marginEnd="16dp"
+            android:paddingBottom="16dp"
+            android:layout_marginBottom="?actionBarSize"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
