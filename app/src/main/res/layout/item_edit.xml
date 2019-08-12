@@ -7,25 +7,28 @@
               android:focusable="true"
               android:id="@+id/list_item"
               android:background="?attr/selectableItemBackground">
-    <LinearLayout
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="27dp"
             android:layout_marginEnd="27dp"
-            android:orientation="vertical">
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp">
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp">
 
-            <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:id="@+id/imgProfile"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_profile"
-                    android:layout_marginEnd="16dp"/>
+        <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:id="@+id/imgProfile"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_profile"
+                android:layout_marginEnd="16dp"/>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/imgProfile"
+                android:orientation="vertical">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -34,10 +37,20 @@
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="#fff"/>
-            <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
-            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                       android:layout_gravity="center_vertical" android:src="@drawable/ic_enter"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/phone"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp"
+                    android:textColor="#fff"/>
         </LinearLayout>
-        <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="#33FFFFFF"/>
-    </LinearLayout>
+
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                   android:layout_gravity="center_vertical" android:src="@drawable/ic_enter"
+                android:layout_alignParentEnd="true" android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="#33FFFFFF"
+            android:layout_marginStart="27dp" android:layout_marginEnd="27dp"/>
 </LinearLayout>

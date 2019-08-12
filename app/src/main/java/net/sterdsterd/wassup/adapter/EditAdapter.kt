@@ -27,6 +27,7 @@ class EditAdapter(val activity: MainActivity, val items : MutableList<MemberData
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.name.text = items[position].name
+        holder.phone.text = items[position].phone
         holder.item.setOnClickListener { v ->
             val intent = Intent(v.context, EditActivity::class.java)
             intent.putExtra("id", items[position].id)
@@ -44,6 +45,7 @@ class EditAdapter(val activity: MainActivity, val items : MutableList<MemberData
     inner class MainViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_edit, parent, false)) {
         val name = itemView.name
+        val phone = itemView.phone
         val item = itemView.list_item
         val imgProfile = itemView.imgProfile
     }

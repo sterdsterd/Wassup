@@ -190,6 +190,7 @@ class MainActivity : AppCompatActivity() {
                 for (i in 0 until v)
                     SharedData.studentList.add(MemberData(t.result?.documents?.get(i)?.id!!,
                                      t.result?.documents?.get(i)?.getString("name")!!,
+                                     t.result?.documents?.get(i)?.getString("parentPhone")!!,
                                      t.result?.documents?.get(i)?.getString("mac")
                     ))
                 progress.dismiss()
