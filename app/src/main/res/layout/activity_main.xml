@@ -89,7 +89,6 @@
             android:id="@+id/fab"
             android:layout_gravity="end|bottom"
             android:layout_marginEnd="16dp"
-            android:paddingBottom="16dp"
             android:layout_marginBottom="?actionBarSize"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

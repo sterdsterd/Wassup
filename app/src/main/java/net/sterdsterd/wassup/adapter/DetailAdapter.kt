@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
@@ -45,9 +46,9 @@ class DetailAdapter(val activity: DetailActivity, val items : MutableList<Member
         }
 
         holder.iconBus.visibility = if (items[position].isBus) View.VISIBLE else View.INVISIBLE
-        if (items[position].isDetected) holder.cardTint.setBackgroundColor(Color.parseColor("#55000000"))
+        if (items[position].isDetected) holder.cardTint.background = ContextCompat.getDrawable(activity, R.drawable.gradient_card)
         else {
-            holder.cardTint.setBackgroundColor(Color.parseColor("#55FF3B00"))
+            holder.cardTint.background = ContextCompat.getDrawable(activity, R.drawable.gradient_card_warning)
 
             val intent = Intent(activity, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

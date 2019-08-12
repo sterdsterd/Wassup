@@ -160,7 +160,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
 
     }
-
     /*
     fun update() {
         findList?.adapter?.notifyDataSetChanged()

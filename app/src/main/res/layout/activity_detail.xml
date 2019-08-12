@@ -57,14 +57,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/findList"
             android:paddingBottom="16dp"
             android:paddingStart="19dp"
             android:paddingEnd="19dp"
             android:clipToPadding="false"
             android:background="@drawable/gradient_contents"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:fillViewport="true">
 
     </androidx.recyclerview.widget.RecyclerView>
 

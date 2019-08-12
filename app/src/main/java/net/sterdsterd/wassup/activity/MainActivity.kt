@@ -5,10 +5,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
+import android.util.TypedValue
+import android.widget.LinearLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.marginBottom
 import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.firebase.FirebaseApp
@@ -29,6 +34,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
+
+
 class MainActivity : AppCompatActivity() {
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -38,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 collapsingToolBar.title = "$classStr ${resources.getString(R.string.attandance)}"
                 description.text = SimpleDateFormat("yyyy년 MM월 dd일").format(Calendar.getInstance().time)
                 supportFragmentManager.beginTransaction().replace(R.id.fragment, AttandanceFragment()).commit()
-                btnToolbar.text = "설정"
+                btnToolbar.text = ""
                 fab.show()
                 return@OnNavigationItemSelectedListener true
             }
@@ -57,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_map -> {
                 appBarLayout.setExpanded(false)
                 collapsingToolBar.title = resources.getString(R.string.activity)
-                description.text = resources.getString(R.string.description_find_no)
+                description.text = ""
                 supportFragmentManager.beginTransaction().replace(R.id.fragment, MapFragment()).commit()
                 btnToolbar.text = ""
                 fab.hide()
@@ -104,18 +111,15 @@ class MainActivity : AppCompatActivity() {
 
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
-        collapsingToolBar.title = resources.getString(R.string.attandance)
         val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
         classStr = pref.getString("class", "Null")
-        description.text = classStr
 
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        nav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        nav_view.selectedItemId = nav_view.selectedItemId
 
-        navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment, AttandanceFragment())
-            .commit()
+        var mar = (fab.layoutParams) as CoordinatorLayout.LayoutParams
+        mar.bottomMargin = (this.resources.displayMetrics.density * 16).toInt() + toolBarHeight()
+        fab.layoutParams = mar
 
         FirebaseApp.initializeApp(this)
         FirebaseMessaging.getInstance().subscribeToTopic("all")
@@ -150,7 +154,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
-                    if (navView.selectedItemId == R.id.nav_map) (supportFragmentManager.findFragmentById(R.id.fragment) as MapFragment).update()
+                    if (nav_view.selectedItemId == R.id.nav_map) (supportFragmentManager.findFragmentById(R.id.fragment) as MapFragment).update()
                 }
             }
 
@@ -163,6 +167,14 @@ class MainActivity : AppCompatActivity() {
 
         update(false)
 
+    }
+
+    fun toolBarHeight() : Int {
+        val attrs = intArrayOf(R.attr.actionBarSize)
+        val ta = this.obtainStyledAttributes(attrs)
+        val toolBarHeight = ta.getDimensionPixelSize(0, -1)
+        ta.recycle()
+        return toolBarHeight
     }
 
     fun update(con: Boolean) {
