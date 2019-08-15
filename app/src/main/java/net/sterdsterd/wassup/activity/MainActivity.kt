@@ -165,8 +165,6 @@ class MainActivity : AppCompatActivity() {
             override fun onUpdateState(state: BluetoothState) { }
         })
 
-        update(false)
-
     }
 
     fun toolBarHeight() : Int {
