@@ -3,17 +3,27 @@ package net.sterdsterd.wassup.activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.widget.LinearLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.marginBottom
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.firebase.FirebaseApp
@@ -25,6 +35,7 @@ import net.sterdsterd.wassup.fragment.MapFragment
 import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
 import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
 import com.minew.beacon.*
 import com.naver.maps.geometry.LatLng
 import io.github.pierry.progress.Progress
@@ -124,6 +135,10 @@ class MainActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         FirebaseMessaging.getInstance().subscribeToTopic("all")
 
+        fab.setOnClickListener {
+            startActivity(Intent(this, AddActivity::class.java))
+        }
+
         mMinewBeaconManager = MinewBeaconManager.getInstance(this)
         try {
             mMinewBeaconManager.startScan()
@@ -185,12 +200,30 @@ class MainActivity : AppCompatActivity() {
         firestore.collection("class").document(classStr).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
             if(t.isComplete) {
                 val v = t.result?.documents?.size as Int
-                for (i in 0 until v)
-                    SharedData.studentList.add(MemberData(t.result?.documents?.get(i)?.id!!,
-                                     t.result?.documents?.get(i)?.getString("name")!!,
-                                     t.result?.documents?.get(i)?.getString("parentPhone")!!,
-                                     t.result?.documents?.get(i)?.getString("mac")
-                    ))
+                for (i in 0 until v) {
+                    val storage = FirebaseStorage.getInstance().reference
+                    var profile: Bitmap? = null
+                    storage.child("profile/${t.result?.documents?.get(i)?.id}.png").downloadUrl.addOnSuccessListener {
+                        Glide.with(this).asBitmap().load(it)
+                            .listener(object : RequestListener<Bitmap> {
+                                override fun onResourceReady(bitmap: Bitmap, o: Any, target: Target<Bitmap>, dataSource: DataSource, b: Boolean): Boolean {
+                                    profile = bitmap
+                                    return false
+                                }
+                                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean) = false
+                            }
+                            ).submit()
+                    }
+                    SharedData.studentList.add(
+                        MemberData(
+                            t.result?.documents?.get(i)?.id!!,
+                            t.result?.documents?.get(i)?.getString("name")!!,
+                            t.result?.documents?.get(i)?.getString("parentPhone")!!,
+                            t.result?.documents?.get(i)?.getString("mac"),
+                            t.result?.documents?.get(i)?.getString("hash")!!
+                        )
+                    )
+                }
                 progress.dismiss()
                 if(con) supportFragmentManager.beginTransaction().replace(R.id.fragment, EditFragment()).commit()
             }

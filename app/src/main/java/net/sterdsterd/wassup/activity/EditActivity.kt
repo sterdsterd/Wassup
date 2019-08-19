@@ -2,7 +2,9 @@ package net.sterdsterd.wassup.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +18,15 @@ import io.github.pierry.progress.Progress
 import kotlinx.android.synthetic.main.activity_edit.*
 
 import net.sterdsterd.wassup.R
+import android.provider.MediaStore
+import android.util.Log
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
+import net.sterdsterd.wassup.SharedData
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.lang.Exception
 
 
 class EditActivity : AppCompatActivity() {
@@ -49,9 +60,14 @@ class EditActivity : AppCompatActivity() {
             }
         }
 
-        storage.child("profile/$id.png").downloadUrl.addOnSuccessListener {
-            Glide.with(this).load(it).apply(RequestOptions.circleCropTransform()).into(profile)
-        }
+
+        val file = File(cacheDir.toString()).listFiles().filter { it.name == "$id${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash}.jpg" }[0]
+        Glide.with(this)
+            .asBitmap()
+            .load(file)
+            .error(R.drawable.ic_profile)
+            .apply(RequestOptions.circleCropTransform())
+            .into(profile)
 
         save.setOnClickListener {
             val info = mapOf(
@@ -75,17 +91,66 @@ class EditActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        selectImg.setOnClickListener { v ->
+
+        selectImg.setOnClickListener {
             TedBottomPicker.with(this).show {
                 val progress = Progress(this)
                 progress.setBackgroundColor(Color.parseColor("#323445"))
-                    .setMessage("Uploading Image")
+                    .setMessage("Compressing Image")
                     .show()
-                storage.child("profile/$id.png").putFile(it).addOnSuccessListener {
-                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
-                    progress.dismiss()
+
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                MediaStore.Images.Media.getBitmap(this.contentResolver, it).compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream)
+                val data = byteArrayOutputStream.toByteArray()
+                progress.setMessage("Uploading Image")
+                storage.child("profile/$id.jpeg").putBytes(data).addOnSuccessListener {
+                    Log.d("dex", "BEFORE ${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash}")
+                    SharedData.studentList.filter { it0 -> it0.id == id }[0].hash = "${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash.toInt() + 1}"
+                    Log.d("dex", "AFTER ${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash}")
+                    val info = mapOf(
+                        "hash" to SharedData.studentList.filter { it0 -> it0.id == id }[0].hash
+                    )
+                    firestore.collection("class").document(classStr).collection("memberList").document(id).update(info)
+                    val storage = FirebaseStorage.getInstance().reference
+                    storage.child("profile/$id.jpeg")
+                        .downloadUrl.addOnSuccessListener { uri ->
+                        progress.setMessage("Caching Image")
+                        Glide.with(this.applicationContext).asBitmap().load(uri)
+                            .into(object : CustomTarget<Bitmap>() {
+                                override fun onResourceReady(
+                                    resource: Bitmap,
+                                    transition: Transition<in Bitmap>?
+                                ) {
+                                    Log.d("dex", "$id${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash} CACHED")
+                                    saveImg(resource, id + SharedData.studentList.filter { it0 -> it0.id == id }[0].hash)
+                                    progress.setMessage("Applying Image")
+                                    Glide.with(this@EditActivity)
+                                        .asBitmap()
+                                        .load(File(cacheDir.toString()).listFiles().filter { it.name == "$id${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash}.jpg" }[0])
+                                        .error(R.drawable.ic_profile)
+                                        .apply(RequestOptions.circleCropTransform())
+                                        .into(profile)
+                                    Toast.makeText(this@EditActivity, "Success", Toast.LENGTH_SHORT).show()
+                                    progress.dismiss()
+                                }
+                                override fun onLoadCleared(placeholder: Drawable?) {}
+                            })
+                    }
+
                 }
             }
+        }
+    }
+
+    fun saveImg(bitmap: Bitmap, id: String?) {
+        val file = File(cacheDir, "$id.jpg")
+        try {
+            file.createNewFile()
+            val fos = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos)
+            fos.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

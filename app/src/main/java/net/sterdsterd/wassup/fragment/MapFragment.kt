@@ -54,11 +54,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        progress = Progress(activity)
-        progress.setBackgroundColor(Color.parseColor("#323445"))
-            .setMessage("Loading")
-            .show()
-
         map_view.onCreate(savedInstanceState)
         map_view.getMapAsync(this)
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
@@ -108,7 +103,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         if (ContextCompat.checkSelfPermission(activity!!.applicationContext, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
             LocationServices.getFusedLocationProviderClient(activity!!.applicationContext).lastLocation.addOnSuccessListener {
                 p0.cameraPosition = CameraPosition(LatLng(it.latitude, it.longitude), 18.0)
-                progress.dismiss()
             }
         }
 

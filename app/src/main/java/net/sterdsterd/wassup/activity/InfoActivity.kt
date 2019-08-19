@@ -12,6 +12,7 @@ import java.util.*
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.widget.ArrayAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
@@ -56,6 +57,8 @@ class InfoActivity : AppCompatActivity() {
                 progress.dismiss()
             }
         }
+
+        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, mutableListOf("출석", "결석", "탑승"))
 
         back.setOnClickListener {
             super.finish()

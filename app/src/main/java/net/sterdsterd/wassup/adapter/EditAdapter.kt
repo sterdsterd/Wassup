@@ -1,10 +1,13 @@
 package net.sterdsterd.wassup.adapter
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.item_edit.view.*
@@ -12,6 +15,8 @@ import net.sterdsterd.wassup.activity.EditActivity
 import net.sterdsterd.wassup.activity.MainActivity
 import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
+import java.io.ByteArrayOutputStream
+import java.io.File
 
 
 class EditAdapter(val activity: MainActivity, val items : MutableList<MemberData>) : RecyclerView.Adapter<EditAdapter.MainViewHolder>() {
@@ -35,10 +40,15 @@ class EditAdapter(val activity: MainActivity, val items : MutableList<MemberData
             //v.context.startActivity(intent)
         }
 
-        val storage = FirebaseStorage.getInstance().reference
-        storage.child("profile/${items[position].id}.png").downloadUrl.addOnSuccessListener {
-            Glide.with(activity.applicationContext).load(it).apply(RequestOptions.circleCropTransform().override(300)).into(holder.imgProfile)
-        }
+        //holder.imgProfile.setImageBitmap(items[position].profile)
+        Log.d("dex", "${items[position].id}${items[position].hash}.jpg")
+        val file = File(activity.cacheDir.toString()).listFiles().filter { it.name == "${items[position].id}${items[position].hash}.jpg" }[0]
+        Glide.with(activity)
+            .asBitmap()
+            .load(file)
+            .error(R.drawable.ic_profile)
+            .apply(RequestOptions.circleCropTransform())
+            .into(holder.imgProfile)
 
     }
 

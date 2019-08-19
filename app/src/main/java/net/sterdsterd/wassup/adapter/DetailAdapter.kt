@@ -15,6 +15,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.item_detail.view.*
 import net.sterdsterd.wassup.activity.InfoActivity
@@ -22,6 +23,7 @@ import net.sterdsterd.wassup.activity.MainActivity
 import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
 import net.sterdsterd.wassup.activity.DetailActivity
+import java.io.File
 
 
 class DetailAdapter(val activity: DetailActivity, val items : MutableList<MemberData>) : RecyclerView.Adapter<DetailAdapter.MainViewHolder>() {
@@ -87,10 +89,14 @@ class DetailAdapter(val activity: DetailActivity, val items : MutableList<Member
             notificationManager.notify(0, notificationBuilder.build())
         }
 
-        val storage = FirebaseStorage.getInstance().reference
-        storage.child("profile/${items[position].id}.png").downloadUrl.addOnSuccessListener {
-            Glide.with(activity.applicationContext).load(it).into(holder.profile)
-        }
+
+        val file = File(activity.cacheDir.toString()).listFiles().filter { it.name == "${items[position].id}${items[position].hash}.jpg" }[0]
+        Glide.with(activity)
+            .asBitmap()
+            .load(file)
+            .error(R.drawable.ic_profile)
+            .into(holder.profile)
+
     }
 
     inner class MainViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(

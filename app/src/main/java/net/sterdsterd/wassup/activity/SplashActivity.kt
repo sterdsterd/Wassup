@@ -10,11 +10,34 @@ import com.gun0912.tedpermission.TedPermission
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
 import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
 import net.sterdsterd.wassup.SharedData
+import com.naver.maps.map.style.sources.ImageSource
+import android.R.attr.bitmap
+import android.graphics.Bitmap
+import android.os.Environment
+import android.util.Log
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
+import java.lang.Exception
+
 
 class SplashActivity : AppCompatActivity() {
 
@@ -37,27 +60,72 @@ class SplashActivity : AppCompatActivity() {
             }
 
             override fun onPermissionGranted() {
-                var target = if (pref.getString("id", "Null") == "Null") LoginActivity::class.java
-                else if (pref.getString("role", "None") == "lead") BusActivity::class.java
-                else MainActivity::class.java
-                if (target == MainActivity::class.java) {
+                if (pref.getString("id", "Null") == "Null") {
+                    startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                    finish()
+                } else if (pref.getString("role", "None") == "lead") {
+                    startActivity(Intent(this@SplashActivity, BusActivity::class.java))
+                    finish()
+                }
+                else {
                     val firestore = FirebaseFirestore.getInstance()
                     firestore.collection("class").document(pref.getString("class", "Null")).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
                         if(t.isComplete) {
                             val v = t.result?.documents?.size as Int
-                            for (i in 0 until v)
+                            var cnt = 0
+                            for (i in 0 until v) {
+                                Log.d("dex", "${t.result?.documents?.get(i)?.getString("name")} LOADED")
                                 SharedData.studentList.add(
-                                    MemberData(t.result?.documents?.get(i)?.id!!,
+                                    MemberData(
+                                        t.result?.documents?.get(i)?.id!!,
                                         t.result?.documents?.get(i)?.getString("name")!!,
                                         t.result?.documents?.get(i)?.getString("parentPhone")!!,
-                                        t.result?.documents?.get(i)?.getString("mac")
+                                        t.result?.documents?.get(i)?.getString("mac"),
+                                        t.result?.documents?.get(i)?.getString("hash")!!
                                     )
                                 )
+
+                                File(this@SplashActivity.cacheDir.toString()).listFiles().forEach {
+                                    Log.d("dex", "File : ${it.name}")
+                                }
+
+                                Log.d("dex", "File : ${File(this@SplashActivity.cacheDir.toString()).listFiles().size}")
+
+                                if(File(this@SplashActivity.cacheDir.toString()).listFiles().filter { it.name == "${t.result?.documents?.get(i)?.id}${t.result?.documents?.get(i)?.getString("hash")}.jpg" }.isEmpty()) {
+                                    Log.d("dex", "${t.result?.documents?.get(i)?.getString("name")} FILTERED")
+                                    val storage = FirebaseStorage.getInstance().reference
+                                    storage.child("profile/${t.result?.documents?.get(i)?.id}.jpeg")
+                                        .downloadUrl.addOnSuccessListener {
+                                        Log.d("dex", "${t.result?.documents?.get(i)?.getString("name")} DOWNLOADED")
+                                        Glide.with(this@SplashActivity.applicationContext).asBitmap().load(it)
+                                            .into(object : CustomTarget<Bitmap>() {
+                                                override fun onResourceReady(
+                                                    resource: Bitmap,
+                                                    transition: Transition<in Bitmap>?
+                                                ) {
+                                                    saveImg(resource, t.result?.documents?.get(i)?.id + t.result?.documents?.get(i)?.getString("hash"))
+                                                    cnt++
+                                                    if (cnt == v) {
+                                                        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                                                        finish()
+                                                    }
+                                                }
+
+                                                override fun onLoadCleared(placeholder: Drawable?) {}
+                                            })
+                                    }
+                                } else {
+                                    Log.d("dex", "${t.result?.documents?.get(i)?.getString("name")} ALREADY CACHED")
+                                    cnt++
+                                    if (cnt == v) {
+                                        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                                        finish()
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-                startActivity(Intent(this@SplashActivity, target))
-                finish()
             }
 
         }).setRationaleMessage("Beacon의 정보를 읽어들이기 위해 권한이 필요해요")
@@ -65,6 +133,18 @@ class SplashActivity : AppCompatActivity() {
             .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
             .check()
 
+    }
+
+    fun saveImg(bitmap: Bitmap, id: String?) {
+        val file = File(cacheDir, "$id.jpg")
+        try {
+            file.createNewFile()
+            val fos = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos)
+            fos.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
 }
