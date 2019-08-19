@@ -17,6 +17,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
 import io.github.pierry.progress.Progress
+import kotlinx.android.synthetic.main.activity_edit.*
+import kotlinx.android.synthetic.main.activity_info.profile
+import net.sterdsterd.wassup.SharedData
+import java.io.File
 
 
 class InfoActivity : AppCompatActivity() {
@@ -32,11 +36,17 @@ class InfoActivity : AppCompatActivity() {
             .show()
 
         val id = intent.extras.getString("id")
+        val data = SharedData.studentList.filter { it0 -> it0.id == id }[0]
 
-        val storage = FirebaseStorage.getInstance().reference
-        storage.child("profile/$id.png").downloadUrl.addOnSuccessListener {
-            Glide.with(this).load(it).apply(RequestOptions.circleCropTransform()).into(profile)
-        }
+        tvTitle.text = data.name
+
+        val file = File(cacheDir.toString()).listFiles().filter { it.name == "$id${data.hash}.jpg" }[0]
+        Glide.with(this)
+            .asBitmap()
+            .load(file)
+            .error(R.drawable.ic_profile)
+            .apply(RequestOptions.circleCropTransform())
+            .into(profile)
 
         val firestore = FirebaseFirestore.getInstance()
 
