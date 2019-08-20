@@ -56,4 +56,6 @@
     <string name="title_activity_detail">DetailActivity</string>
     <string name="title_activity_add">AddActivity</string>
     <string name="back">이전</string>
+    <string name="select_icon">아이콘 선택</string>
+    <string name="add_event">이벤트 추가</string>
 </resources>
