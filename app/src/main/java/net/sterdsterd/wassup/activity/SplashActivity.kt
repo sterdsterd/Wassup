@@ -130,7 +130,7 @@ class SplashActivity : AppCompatActivity() {
 
         }).setRationaleMessage("Beacon의 정보를 읽어들이기 위해 권한이 필요해요")
             .setDeniedMessage("않이;;")
-            .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+            .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
             .check()
 
     }

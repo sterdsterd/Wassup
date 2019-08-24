@@ -30,8 +30,10 @@ import android.graphics.Canvas
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
+import androidx.core.content.FileProvider
 import java.io.File
 import java.io.FileOutputStream
+import java.lang.Exception
 import java.util.*
 
 
@@ -58,9 +60,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         map_view.getMapAsync(this)
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
-        btnShare.setOnClickListener {
-            takeScreenshot()
-        }
     }
 
     private val markerList = mutableListOf<Pair<Marker, CircleOverlay>>()
@@ -106,6 +105,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
+        btnShare.setOnClickListener {
+            p0.takeSnapshot {
+                share(it)
+            }
+        }
+
         SharedData.studentList.forEach {
             val marker = Marker()
             marker.position = it.vec.first
@@ -128,28 +133,27 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-    private fun takeScreenshot() {
+    private fun share(bitmap: Bitmap) {
 
-        Log.e("arst", "arst")
         try {
-            val bitmap = Bitmap.createBitmap(view!!.width, view!!.height, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(bitmap)
-            map_view.draw(canvas)
+            val file = File(activity?.applicationContext?.externalCacheDir, "maps")
+            file.mkdirs()
+            val fout = FileOutputStream("$file/asdf.png")
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fout)
+            fout.close()
 
-            val mPath = Environment.getExternalStorageDirectory().toString() + "/" + "temp" + ".jpg"
+            val newFile = File(file, "asdf.png")
+            val contentUri = FileProvider.getUriForFile(this.requireContext(), "net.sterdsterd.wassup.FileProvider", newFile)
 
-            Log.e("arst", "qwfpnyu")
-            val imageFile = File(mPath)
-
-            bitmap
-            Log.e("arst", "arstars")
-            var i = Intent(Intent.ACTION_SEND)
-            i.type = "image/*"
-            i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(imageFile))
-            startActivity(Intent.createChooser(i, "Share Image"))
-            Log.e("arst", "qwfpqwpspwds")
-
-        } catch (e: Throwable) {
+            if (contentUri != null) {
+                val shareIntent = Intent()
+                shareIntent.action = Intent.ACTION_SEND
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                shareIntent.type = "image/png"
+                shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
+                startActivity(Intent.createChooser(shareIntent, "공유할 앱을 선택해주세요"))
+            }
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
