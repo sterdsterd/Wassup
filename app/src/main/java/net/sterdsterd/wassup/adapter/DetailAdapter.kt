@@ -39,7 +39,7 @@ class DetailAdapter(val activity: DetailActivity, val items : MutableList<Member
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.name.text = items[position].name
-        holder.stat.text = items[position].rssi.toString() //"${Math.pow(10.0, (-59.0 - items[position].rssi) / (10 * 2))}m"
+        holder.stat.text = "RSSI : ${items[position].rssi}"
         holder.card.setOnClickListener {
             val intent = Intent(it.context, InfoActivity::class.java)
             intent.putExtra("id", items[position].id)
@@ -90,7 +90,7 @@ class DetailAdapter(val activity: DetailActivity, val items : MutableList<Member
         }
 
 
-        val file = File(activity.cacheDir.toString()).listFiles().filter { it.name == "${items[position].id}${items[position].hash}.jpg" }[0]
+        val file = File(activity.applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "${items[position].id}${items[position].hash}.jpg" }[0]
         Glide.with(activity)
             .asBitmap()
             .load(file)

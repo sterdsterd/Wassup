@@ -80,11 +80,6 @@
                 android:windowSoftInputMode="stateHidden|adjustResize">
         </activity>
         <activity
-                android:name=".activity.RestrictionActivity"
-                android:label="@string/title_activity_restriction"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
                 android:name=".activity.InfoActivity"
                 android:label="@string/title_activity_info"
                 android:theme="@style/AppTheme.NoActionBar">

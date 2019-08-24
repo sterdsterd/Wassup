@@ -41,7 +41,7 @@ class InfoActivity : AppCompatActivity() {
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
-        val file = File(cacheDir.toString()).listFiles().filter { it.name == "$id${data.hash}.jpg" }[0]
+        val file = File(applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "$id${data.hash}.jpg" }[0]
         Glide.with(this)
             .asBitmap()
             .load(file)

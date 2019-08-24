@@ -136,7 +136,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     fun saveImg(bitmap: Bitmap, id: String?) {
-        val file = File(cacheDir, "$id.jpg")
+        val file = File(applicationContext?.externalCacheDir, "$id.jpg")
         try {
             file.createNewFile()
             val fos = FileOutputStream(file)
