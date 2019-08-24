@@ -13,12 +13,12 @@
             android:text="SHARE"
             android:id="@+id/btnShare"/>
 
-    <com.naver.maps.map.MapView
-            android:id="@+id/map_view"
+
+    <FrameLayout
+            android:id="@+id/map_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="?actionBarSize">
-    </com.naver.maps.map.MapView>
+            android:layout_marginBottom="?actionBarSize" />
 
     <com.naver.maps.map.widget.LocationButtonView
             android:id="@+id/locationbuttonview"

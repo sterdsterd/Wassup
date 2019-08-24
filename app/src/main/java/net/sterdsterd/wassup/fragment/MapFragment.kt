@@ -11,10 +11,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.gms.location.LocationServices
 import com.naver.maps.geometry.LatLng
 import kotlinx.android.synthetic.main.fragment_map.*
-import com.naver.maps.map.CameraPosition
-import com.naver.maps.map.LocationTrackingMode
-import com.naver.maps.map.NaverMap
-import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.CircleOverlay
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
@@ -31,6 +27,7 @@ import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import androidx.core.content.FileProvider
+import com.naver.maps.map.*
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.Exception
@@ -53,11 +50,17 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     lateinit var locationSource: FusedLocationSource
     lateinit var progress: Progress
 
+    lateinit var mapFragment: com.naver.maps.map.MapFragment
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        map_view.onCreate(savedInstanceState)
-        map_view.getMapAsync(this)
+        mapFragment = activity?.supportFragmentManager?.findFragmentById(R.id.map_fragment) as com.naver.maps.map.MapFragment?
+            ?: com.naver.maps.map.MapFragment.newInstance(NaverMapOptions().locationButtonEnabled(true)).also {
+                activity?.supportFragmentManager?.beginTransaction()?.add(R.id.map_fragment, it)?.commit()
+            }
+        mapFragment.getMapAsync(this)
+
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
     }
@@ -65,7 +68,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private val markerList = mutableListOf<Pair<Marker, CircleOverlay>>()
 
     fun update() {
-        map_view.getMapAsync { p0 ->
+        mapFragment.getMapAsync { p0 ->
             markerList.forEach {
                 it.first.map = null
                 it.second.map = null
@@ -97,13 +100,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         locationbuttonview.map = p0
 
         p0.locationSource = locationSource
-        p0.locationTrackingMode = LocationTrackingMode.Follow
+        p0.locationTrackingMode = LocationTrackingMode.NoFollow
         p0.isIndoorEnabled = true
         if (ContextCompat.checkSelfPermission(activity!!.applicationContext, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
             LocationServices.getFusedLocationProviderClient(activity!!.applicationContext).lastLocation.addOnSuccessListener {
                 p0.cameraPosition = CameraPosition(LatLng(it.latitude, it.longitude), 18.0)
             }
         }
+
+        locationSource?.isCompassEnabled = true
 
         btnShare.setOnClickListener {
             p0.takeSnapshot {
