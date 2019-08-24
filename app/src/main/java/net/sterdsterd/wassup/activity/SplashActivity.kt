@@ -85,13 +85,13 @@ class SplashActivity : AppCompatActivity() {
                                     )
                                 )
 
-                                File(this@SplashActivity.cacheDir.toString()).listFiles().forEach {
+                                File(this@SplashActivity.applicationContext?.externalCacheDir.toString()).listFiles().forEach {
                                     Log.d("dex", "File : ${it.name}")
                                 }
 
-                                Log.d("dex", "File : ${File(this@SplashActivity.cacheDir.toString()).listFiles().size}")
+                                Log.d("dex", "File : ${File(this@SplashActivity.applicationContext?.externalCacheDir.toString()).listFiles().size}")
 
-                                if(File(this@SplashActivity.cacheDir.toString()).listFiles().filter { it.name == "${t.result?.documents?.get(i)?.id}${t.result?.documents?.get(i)?.getString("hash")}.jpg" }.isEmpty()) {
+                                if(File(this@SplashActivity.applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "${t.result?.documents?.get(i)?.id}${t.result?.documents?.get(i)?.getString("hash")}.jpg" }.isEmpty()) {
                                     Log.d("dex", "${t.result?.documents?.get(i)?.getString("name")} FILTERED")
                                     val storage = FirebaseStorage.getInstance().reference
                                     storage.child("profile/${t.result?.documents?.get(i)?.id}.jpeg")
