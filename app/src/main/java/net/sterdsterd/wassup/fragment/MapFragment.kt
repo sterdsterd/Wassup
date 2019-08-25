@@ -49,7 +49,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     val LOCATION_PERMISSION_REQUEST_CODE = 1000
-    lateinit var locationSource: FusedLocationSource
+    var locationSource: FusedLocationSource? = null
     lateinit var progress: Progress
     val track = mutableListOf<LatLng>()
 
@@ -58,15 +58,21 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mapFragment = activity?.supportFragmentManager?.findFragmentById(R.id.map_fragment) as com.naver.maps.map.MapFragment?
-            ?: com.naver.maps.map.MapFragment.newInstance(NaverMapOptions().locationButtonEnabled(true)).also {
-                activity?.supportFragmentManager?.beginTransaction()?.add(R.id.map_fragment, it)?.commit()
-            }
-        mapFragment.getMapAsync(this)
-
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
 
 
+        mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as com.naver.maps.map.MapFragment?
+            ?: com.naver.maps.map.MapFragment.newInstance(NaverMapOptions().locationButtonEnabled(true)).also {
+                childFragmentManager.beginTransaction().add(R.id.map_fragment, it).commit()
+            }
+        mapFragment.getMapAsync(this)
+
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        locationSource = null
     }
 
     private val markerList = mutableListOf<Pair<Marker, CircleOverlay>>()
@@ -109,12 +115,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     it.coords = track
                     it.width = resources.getDimensionPixelSize(R.dimen.path_overlay_width)
                     it.outlineWidth = 0
-                    it.color =
-                        ResourcesCompat.getColor(resources, R.color.colorPrimary, activity?.theme)
-                    it.outlineColor = Color.WHITE
-                    it.passedColor =
-                        ResourcesCompat.getColor(resources, R.color.colorPrimary, activity?.theme)
-                    it.passedOutlineColor = Color.WHITE
+                    it.color = ResourcesCompat.getColor(resources, R.color.colorPrimary, activity?.theme)
+                    it.outlineColor = ResourcesCompat.getColor(resources, R.color.colorAccent, activity?.theme)
+                    it.passedColor = ResourcesCompat.getColor(resources, R.color.colorPrimary, activity?.theme)
+                    it.passedOutlineColor = ResourcesCompat.getColor(resources, R.color.colorAccent, activity?.theme)
                     it.progress = 1.0
                     it.map = p0
                 }
