@@ -27,7 +27,9 @@ import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import androidx.core.content.FileProvider
+import androidx.core.content.res.ResourcesCompat
 import com.naver.maps.map.*
+import com.naver.maps.map.overlay.PathOverlay
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.Exception
@@ -49,6 +51,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     val LOCATION_PERMISSION_REQUEST_CODE = 1000
     lateinit var locationSource: FusedLocationSource
     lateinit var progress: Progress
+    val track = mutableListOf<LatLng>()
 
     lateinit var mapFragment: com.naver.maps.map.MapFragment
 
@@ -62,6 +65,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+
 
     }
 
@@ -92,6 +96,28 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 }
 
                 markerList.add(Pair(marker, circleOverlay))
+
+                if (ContextCompat.checkSelfPermission(activity!!.applicationContext, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
+                    LocationServices.getFusedLocationProviderClient(activity!!.applicationContext).lastLocation.addOnSuccessListener { it1 ->
+                        track.add(LatLng(it1.latitude, it1.longitude))
+                    }
+                }
+            }
+
+            if (track.size >= 2) {
+                val pathOverlay = PathOverlay().also {
+                    it.coords = track
+                    it.width = resources.getDimensionPixelSize(R.dimen.path_overlay_width)
+                    it.outlineWidth = 0
+                    it.color =
+                        ResourcesCompat.getColor(resources, R.color.colorPrimary, activity?.theme)
+                    it.outlineColor = Color.WHITE
+                    it.passedColor =
+                        ResourcesCompat.getColor(resources, R.color.colorPrimary, activity?.theme)
+                    it.passedOutlineColor = Color.WHITE
+                    it.progress = 1.0
+                    it.map = p0
+                }
             }
         }
     }
