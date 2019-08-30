@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-            android:id="@+id/nav_attandance"
-            android:icon="@drawable/ic_attandance"
-            android:title="@string/attandance"/>
+            android:id="@+id/nav_attendance"
+            android:icon="@drawable/ic_attendance"
+            android:title="@string/attendance"/>
 
     <item
             android:id="@+id/nav_edit"

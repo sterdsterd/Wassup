@@ -5,31 +5,22 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
-import android.util.TypedValue
-import android.widget.LinearLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.marginBottom
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
-import net.sterdsterd.wassup.fragment.AttandanceFragment
+import net.sterdsterd.wassup.fragment.AttendanceFragment
 import net.sterdsterd.wassup.fragment.EditFragment
 import net.sterdsterd.wassup.fragment.MapFragment
 import net.sterdsterd.wassup.MemberData
@@ -55,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 appBarLayout.setExpanded(true)
                 collapsingToolBar.title = "$classStr ${resources.getString(R.string.attandance)}"
                 description.text = SimpleDateFormat("yyyy년 MM월 dd일").format(Calendar.getInstance().time)
-                supportFragmentManager.beginTransaction().replace(R.id.fragment, AttandanceFragment()).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.fragment, AttendanceFragment()).commit()
                 btnToolbar.text = ""
                 fab.show()
                 return@OnNavigationItemSelectedListener true

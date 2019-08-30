@@ -5,7 +5,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="stat_bus">셔틀 버스 탑승 중</string>
     <string name="settings">설정</string>
-    <string name="attandance">출석부</string>
+    <string name="attendance">출석부</string>
     <string name="edit">학생 관리</string>
     <string name="description_edit">현재 %1$d명의 아이들이 있어요</string>
     <string name="add">추가</string>

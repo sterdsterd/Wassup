@@ -6,21 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_attandance.*
+import kotlinx.android.synthetic.main.fragment_attendance.*
 import net.sterdsterd.wassup.R
 import net.sterdsterd.wassup.SharedData
 import net.sterdsterd.wassup.activity.DetailActivity
 
-class AttandanceFragment : Fragment() {
+class AttendanceFragment : Fragment() {
 
     companion object {
-        fun newInstance(): AttandanceFragment {
-            return AttandanceFragment()
+        fun newInstance(): AttendanceFragment {
+            return AttendanceFragment()
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_attandance, container, false)
+        return inflater.inflate(R.layout.fragment_attendance, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -28,13 +28,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_bus"
+                    android:id="@+id/icon"
                     android:tint="#fff"
                     android:layout_gravity="center"/>
         </FrameLayout>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="탑승"
+                android:id="@+id/taskName"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_gravity="center_vertical"
@@ -47,12 +48,14 @@
                 android:layout_height="22dp"
                 android:background="@drawable/shape_badge"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="12dp">
+                android:layout_margin="12dp"
+                android:id="@+id/badgeBg"
+                android:visibility="gone">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
-                    android:id="@+id/badgeBus"
+                    android:id="@+id/badgeText"
                     android:layout_gravity="center"
                     android:textStyle="bold"
                     android:text="0"/>
