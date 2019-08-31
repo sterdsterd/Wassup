@@ -50,7 +50,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     val LOCATION_PERMISSION_REQUEST_CODE = 1000
     var locationSource: FusedLocationSource? = null
-    lateinit var progress: Progress
     val track = mutableListOf<LatLng>()
 
     lateinit var mapFragment: com.naver.maps.map.MapFragment
@@ -127,7 +126,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(p0: NaverMap) {
+        zoomcontrol.map = p0
         locationbuttonview.map = p0
+
+        p0.uiSettings.isZoomControlEnabled = false
+        p0.uiSettings.isLocationButtonEnabled = false
 
         p0.locationSource = locationSource
         p0.locationTrackingMode = LocationTrackingMode.NoFollow

@@ -71,62 +71,6 @@ class SplashActivity : AppCompatActivity() {
                 }
                 else {
                     val firestore = FirebaseFirestore.getInstance()
-                    firestore.collection("class").document(pref.getString("class", "Null")).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
-                        if(t.isComplete) {
-                            val v = t.result?.documents?.size as Int
-                            var cnt = 0
-                            for (i in 0 until v) {
-                                Log.d("dex", "${t.result?.documents?.get(i)?.getString("name")} LOADED")
-                                SharedData.studentList.add(
-                                    MemberData(
-                                        t.result?.documents?.get(i)?.id!!,
-                                        t.result?.documents?.get(i)?.getString("name")!!,
-                                        t.result?.documents?.get(i)?.getString("parentPhone")!!,
-                                        t.result?.documents?.get(i)?.getString("mac"),
-                                        t.result?.documents?.get(i)?.getString("hash")!!
-                                    )
-                                )
-
-                                if(File(this@SplashActivity.applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "${t.result?.documents?.get(i)?.id}${t.result?.documents?.get(i)?.getString("hash")}.jpg" }.isEmpty()) {
-                                    val storage = FirebaseStorage.getInstance().reference
-                                    storage.child("profile/${t.result?.documents?.get(i)?.id}.jpeg")
-                                        .downloadUrl.addOnSuccessListener {
-                                        Log.d("dex", "${t.result?.documents?.get(i)?.getString("name")} DOWNLOADED")
-                                        Glide.with(this@SplashActivity.applicationContext).asBitmap().load(it)
-                                            .into(object : CustomTarget<Bitmap>() {
-                                                override fun onResourceReady(
-                                                    resource: Bitmap,
-                                                    transition: Transition<in Bitmap>?
-                                                ) {
-                                                    saveImg(resource, t.result?.documents?.get(i)?.id + t.result?.documents?.get(i)?.getString("hash"))
-                                                    cnt++
-                                                    if (cnt == v) {
-                                                        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                                                        finish()
-                                                    }
-                                                }
-
-                                                override fun onLoadCleared(placeholder: Drawable?) {}
-                                            })
-                                    }.addOnFailureListener {
-                                        cnt++
-                                        if (cnt == v) {
-                                            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                                            finish()
-                                        }
-                                    }
-                                } else {
-                                    Log.d("dex", "${t.result?.documents?.get(i)?.getString("name")} ALREADY CACHED")
-                                    cnt++
-                                    if (cnt == v) {
-                                        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                                        finish()
-                                    }
-                                }
-                            }
-                        }
-                    }
-
                     val cal = Calendar.getInstance()
                     val nowDate = "${cal.get(Calendar.YEAR)}${cal.get(Calendar.MONTH) + 1}${cal.get(Calendar.DAY_OF_MONTH)}"
                     firestore.collection("class").document(pref.getString("class", "Null")).collection(nowDate).get().addOnCompleteListener {
@@ -135,6 +79,96 @@ class SplashActivity : AppCompatActivity() {
                             taskList.add(snap.id)
                         }
                         SharedData.attendanceSet.add(Attendance(nowDate, taskList))
+
+                        firestore.collection("class").document(pref.getString("class", "Null")).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
+                            if (t.isComplete) {
+                                val v = t.result?.documents?.size as Int
+                                var cnt = 0
+                                for (i in 0 until v) {
+                                    Log.d(
+                                        "dex",
+                                        "${t.result?.documents?.get(i)?.getString("name")} LOADED"
+                                    )
+                                    SharedData.studentList.add(
+                                        MemberData(
+                                            t.result?.documents?.get(i)?.id!!,
+                                            t.result?.documents?.get(i)?.getString("name")!!,
+                                            t.result?.documents?.get(i)?.getString("parentPhone")!!,
+                                            t.result?.documents?.get(i)?.getString("mac"),
+                                            t.result?.documents?.get(i)?.getString("hash")!!
+                                        )
+                                    )
+
+                                    if (File(this@SplashActivity.applicationContext?.externalCacheDir.toString()).listFiles().filter {
+                                            it.name == "${t.result?.documents?.get(
+                                                i
+                                            )?.id}${t.result?.documents?.get(i)?.getString("hash")}.jpg"
+                                        }.isEmpty()) {
+                                        val storage = FirebaseStorage.getInstance().reference
+                                        storage.child("profile/${t.result?.documents?.get(i)?.id}.jpeg")
+                                            .downloadUrl.addOnSuccessListener {
+                                            Log.d(
+                                                "dex",
+                                                "${t.result?.documents?.get(i)?.getString("name")} DOWNLOADED"
+                                            )
+                                            Glide.with(this@SplashActivity.applicationContext)
+                                                .asBitmap().load(it)
+                                                .into(object : CustomTarget<Bitmap>() {
+                                                    override fun onResourceReady(
+                                                        resource: Bitmap,
+                                                        transition: Transition<in Bitmap>?
+                                                    ) {
+                                                        saveImg(
+                                                            resource,
+                                                            t.result?.documents?.get(i)?.id + t.result?.documents?.get(
+                                                                i
+                                                            )?.getString("hash")
+                                                        )
+                                                        cnt++
+                                                        if (cnt == v) {
+                                                            startActivity(
+                                                                Intent(
+                                                                    this@SplashActivity,
+                                                                    MainActivity::class.java
+                                                                )
+                                                            )
+                                                            finish()
+                                                        }
+                                                    }
+
+                                                    override fun onLoadCleared(placeholder: Drawable?) {}
+                                                })
+                                        }.addOnFailureListener {
+                                            cnt++
+                                            if (cnt == v) {
+                                                startActivity(
+                                                    Intent(
+                                                        this@SplashActivity,
+                                                        MainActivity::class.java
+                                                    )
+                                                )
+                                                finish()
+                                            }
+                                        }
+                                    } else {
+                                        Log.d(
+                                            "dex",
+                                            "${t.result?.documents?.get(i)?.getString("name")} ALREADY CACHED"
+                                        )
+                                        cnt++
+                                        if (cnt == v) {
+                                            startActivity(
+                                                Intent(
+                                                    this@SplashActivity,
+                                                    MainActivity::class.java
+                                                )
+                                            )
+                                            finish()
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
@@ -17,17 +17,28 @@
     <FrameLayout
             android:id="@+id/map_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="?actionBarSize" />
+            android:layout_height="match_parent" />
 
     <com.naver.maps.map.widget.LocationButtonView
             android:id="@+id/locationbuttonview"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="?actionBarSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="4dp"
             android:layout_gravity="bottom|end"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true">
     </com.naver.maps.map.widget.LocationButtonView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <com.naver.maps.map.widget.ZoomControlView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/zoomcontrol"
+            android:layout_above="@id/locationbuttonview"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="6dp">
+    </com.naver.maps.map.widget.ZoomControlView>
+
+</RelativeLayout>
