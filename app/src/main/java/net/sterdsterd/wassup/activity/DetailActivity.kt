@@ -1,5 +1,6 @@
 package net.sterdsterd.wassup.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +28,14 @@ class DetailActivity : AppCompatActivity() {
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
-        collapsingToolBar.title = intent.getStringExtra("taskName")
+        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val classStr = pref.getString("class", "Null")
+
+        val taskName = intent.getStringExtra("taskName")
+        val date = intent.getStringExtra("date")
+
+
+        collapsingToolBar.title = taskName
         description.text = "현재 탑승 인원 ${SharedData.studentList.filter { it.isBus }.size}명"
         val firestore = FirebaseFirestore.getInstance()
 
@@ -73,7 +81,7 @@ class DetailActivity : AppCompatActivity() {
                             val mac = it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue
                             val info = mapOf(mac to Timestamp(System.currentTimeMillis()))
                             Log.e("Beacon", info.toString())
-                            firestore.collection("list").document("bus").set(info, SetOptions.merge())
+                            firestore.collection("class").document(classStr).collection(date).document(taskName).set(info, SetOptions.merge())
                             SharedData.studentList.find { it0 -> it0.mac == mac }?.isBus = true
                         }
                     }

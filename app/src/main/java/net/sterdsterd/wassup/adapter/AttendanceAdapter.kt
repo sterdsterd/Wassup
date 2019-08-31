@@ -14,7 +14,7 @@ import net.sterdsterd.wassup.activity.DetailActivity
 import java.util.*
 
 
-class AttendanceAdapter(val items : MutableList<String>) : RecyclerView.Adapter<AttendanceAdapter.MainViewHolder>() {
+class AttendanceAdapter(val date: String, val items : MutableList<String>) : RecyclerView.Adapter<AttendanceAdapter.MainViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int) = MainViewHolder(parent)
 
@@ -30,6 +30,7 @@ class AttendanceAdapter(val items : MutableList<String>) : RecyclerView.Adapter<
         holder.card.setOnClickListener { v ->
             val intent = Intent(v.context, DetailActivity::class.java)
             intent.putExtra("taskName", items[position])
+            intent.putExtra("date", date)
             v.context.startActivity(intent)
         }
     }

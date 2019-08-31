@@ -45,7 +45,7 @@ class AttendanceFragment : Fragment() {
             tvEmpty.text = if(date == SimpleDateFormat("yyyyMd").format(Calendar.getInstance().time)) "아래의 '+' 버튼을 눌러 작업을 추가해보세요"
             else "추가된 작업이 없어요"
         }
-        attendanceList.adapter = if(list.isNullOrEmpty()) AttendanceAdapter(mutableListOf()) else AttendanceAdapter(list)
+        attendanceList.adapter = if(list.isNullOrEmpty()) AttendanceAdapter(date, mutableListOf()) else AttendanceAdapter(date, list)
         attendanceList.adapter?.notifyDataSetChanged()
         Log.d("dex", list.toString())
         Log.d("dex", date)
