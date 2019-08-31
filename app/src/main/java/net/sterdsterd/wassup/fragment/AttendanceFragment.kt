@@ -48,6 +48,7 @@ class AttendanceFragment : Fragment() {
         attendanceList.adapter = if(list.isNullOrEmpty()) AttendanceAdapter(mutableListOf()) else AttendanceAdapter(list)
         attendanceList.adapter?.notifyDataSetChanged()
         Log.d("dex", list.toString())
+        Log.d("dex", date)
     }
 
     fun refresh() {

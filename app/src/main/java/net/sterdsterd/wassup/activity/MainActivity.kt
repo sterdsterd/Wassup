@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +36,7 @@ import com.minew.beacon.*
 import com.naver.maps.geometry.LatLng
 import io.github.pierry.progress.Progress
 import kotlinx.android.synthetic.main.activity_main.*
+import net.sterdsterd.wassup.Attendance
 import net.sterdsterd.wassup.SharedData
 import java.text.SimpleDateFormat
 import java.util.*
@@ -55,13 +57,28 @@ class MainActivity : AppCompatActivity() {
                 btnToolbar.setOnClickListener {
 
                     val listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
+                        val progress = Progress(this)
+                        progress.setBackgroundColor(Color.parseColor("#323445"))
+                            .setMessage("Loading")
+                            .show()
                         description.text = SimpleDateFormat("${y}년 ${m + 1}월 ${d}일").format(Calendar.getInstance().time)
                         if (Calendar.getInstance().get(Calendar.YEAR) == y
                             && Calendar.getInstance().get(Calendar.MONTH) == m
                             && Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == d) fab.show()
                         else fab.hide()
 
-                        (supportFragmentManager.findFragmentById(R.id.fragment) as AttendanceFragment).setAdapter("$y${m + 1}$d", SharedData.attendanceSet.firstOrNull { it.date == "$y${m + 1}$d" }?.taskList)
+                        val firestore = FirebaseFirestore.getInstance()
+                        firestore.collection("class").document(classStr).collection("$y${m + 1}$d").get().addOnCompleteListener {
+                            val taskList = mutableListOf<String>()
+                            it.result?.forEach { snap ->
+                                taskList.add(snap.id)
+                            }
+                            SharedData.attendanceSet.add(Attendance("$y${m + 1}$d", taskList))
+                            (supportFragmentManager.findFragmentById(R.id.fragment) as AttendanceFragment).setAdapter("$y${m + 1}$d", SharedData.attendanceSet.firstOrNull { it.date == "$y${m + 1}$d" }?.taskList)
+                            progress.dismiss()
+                        }
+
+                        Log.d("dex", "$y${m + 1}$d")
                     }
 
                     if (Build.VERSION.SDK_INT >= 24) {
