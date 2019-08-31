@@ -44,7 +44,7 @@ class EditAdapter(val activity: MainActivity, val items : MutableList<MemberData
 
         //holder.imgProfile.setImageBitmap(items[position].profile)
         Log.d("dex", "${items[position].id}${items[position].hash}.jpg")
-        val file = File(activity.applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "${items[position].id}${items[position].hash}.jpg" }[0]
+        val file = File(activity.applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "${items[position].id}${items[position].hash}.jpg" }.firstOrNull()
         Glide.with(activity)
             .asBitmap()
             .load(file)

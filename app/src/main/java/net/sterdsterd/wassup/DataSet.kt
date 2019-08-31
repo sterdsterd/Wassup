@@ -20,8 +20,14 @@ data class MemberData(
     var isBus: Boolean = false
 )
 
+data class Attendance(
+    val date: String,
+    val taskList: MutableList<String>
+)
+
 class SharedData {
     companion object {
         val studentList = mutableListOf<MemberData>()
+        val attendanceSet = mutableListOf<Attendance>()
     }
 }

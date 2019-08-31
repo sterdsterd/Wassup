@@ -1,11 +1,15 @@
 package net.sterdsterd.wassup.activity
 
+import android.annotation.TargetApi
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -42,12 +46,30 @@ class MainActivity : AppCompatActivity() {
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.nav_attandance -> {
+            R.id.nav_attendance -> {
                 appBarLayout.setExpanded(true)
-                collapsingToolBar.title = "$classStr ${resources.getString(R.string.attandance)}"
-                description.text = SimpleDateFormat("yyyy년 MM월 dd일").format(Calendar.getInstance().time)
+                collapsingToolBar.title = "$classStr ${resources.getString(R.string.attendance)}"
+                description.text = SimpleDateFormat("yyyy년 M월 d일").format(Calendar.getInstance().time)
                 supportFragmentManager.beginTransaction().replace(R.id.fragment, AttendanceFragment()).commit()
-                btnToolbar.text = ""
+                btnToolbar.text = "날짜"
+                btnToolbar.setOnClickListener {
+
+                    val listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
+                        description.text = SimpleDateFormat("${y}년 ${m + 1}월 ${d}일").format(Calendar.getInstance().time)
+                        if (Calendar.getInstance().get(Calendar.YEAR) == y
+                            && Calendar.getInstance().get(Calendar.MONTH) == m
+                            && Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == d) fab.show()
+                        else fab.hide()
+
+                        (supportFragmentManager.findFragmentById(R.id.fragment) as AttendanceFragment).setAdapter("$y${m + 1}$d", SharedData.attendanceSet.firstOrNull { it.date == "$y${m + 1}$d" }?.taskList)
+                    }
+
+                    if (Build.VERSION.SDK_INT >= 24) {
+                        val cal = Calendar.getInstance(TimeZone.getDefault())
+                        DatePickerDialog(this, listener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
+                    }
+
+                }
                 fab.show()
                 return@OnNavigationItemSelectedListener true
             }
@@ -78,8 +100,8 @@ class MainActivity : AppCompatActivity() {
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode){
-            1 -> update(true)
-            //2 -> update(false)
+            1 -> update()
+            2 -> refresh()
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
@@ -127,7 +149,7 @@ class MainActivity : AppCompatActivity() {
         FirebaseMessaging.getInstance().subscribeToTopic("all")
 
         fab.setOnClickListener {
-            startActivity(Intent(this, AddActivity::class.java))
+            startActivityForResult(Intent(this, AddActivity::class.java), 2)
         }
 
         mMinewBeaconManager = MinewBeaconManager.getInstance(this)
@@ -173,7 +195,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun toolBarHeight() : Int {
+    private fun toolBarHeight() : Int {
         val attrs = intArrayOf(R.attr.actionBarSize)
         val ta = this.obtainStyledAttributes(attrs)
         val toolBarHeight = ta.getDimensionPixelSize(0, -1)
@@ -181,7 +203,11 @@ class MainActivity : AppCompatActivity() {
         return toolBarHeight
     }
 
-    fun update(con: Boolean) {
+    private fun refresh() {
+        (supportFragmentManager.findFragmentById(R.id.fragment) as AttendanceFragment).refresh()
+    }
+
+    private fun update() {
         SharedData.studentList.clear()
         val firestore = FirebaseFirestore.getInstance()
         val progress = Progress(this)
@@ -216,7 +242,7 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
                 progress.dismiss()
-                if(con) supportFragmentManager.beginTransaction().replace(R.id.fragment, EditFragment()).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.fragment, EditFragment()).commit()
             }
         }
     }

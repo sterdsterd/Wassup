@@ -32,11 +32,13 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import net.sterdsterd.wassup.Attendance
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 import java.lang.Exception
+import java.util.*
 
 
 class SplashActivity : AppCompatActivity() {
@@ -85,14 +87,7 @@ class SplashActivity : AppCompatActivity() {
                                     )
                                 )
 
-                                File(this@SplashActivity.applicationContext?.externalCacheDir.toString()).listFiles().forEach {
-                                    Log.d("dex", "File : ${it.name}")
-                                }
-
-                                Log.d("dex", "File : ${File(this@SplashActivity.applicationContext?.externalCacheDir.toString()).listFiles().size}")
-
                                 if(File(this@SplashActivity.applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "${t.result?.documents?.get(i)?.id}${t.result?.documents?.get(i)?.getString("hash")}.jpg" }.isEmpty()) {
-                                    Log.d("dex", "${t.result?.documents?.get(i)?.getString("name")} FILTERED")
                                     val storage = FirebaseStorage.getInstance().reference
                                     storage.child("profile/${t.result?.documents?.get(i)?.id}.jpeg")
                                         .downloadUrl.addOnSuccessListener {
@@ -113,6 +108,12 @@ class SplashActivity : AppCompatActivity() {
 
                                                 override fun onLoadCleared(placeholder: Drawable?) {}
                                             })
+                                    }.addOnFailureListener {
+                                        cnt++
+                                        if (cnt == v) {
+                                            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                                            finish()
+                                        }
                                     }
                                 } else {
                                     Log.d("dex", "${t.result?.documents?.get(i)?.getString("name")} ALREADY CACHED")
@@ -124,6 +125,16 @@ class SplashActivity : AppCompatActivity() {
                                 }
                             }
                         }
+                    }
+
+                    val cal = Calendar.getInstance()
+                    val nowDate = "${cal.get(Calendar.YEAR)}${cal.get(Calendar.MONTH) + 1}${cal.get(Calendar.DAY_OF_MONTH)}"
+                    firestore.collection("class").document(pref.getString("class", "Null")).collection(nowDate).get().addOnCompleteListener {
+                        val taskList = mutableListOf<String>()
+                        it.result?.forEach { snap ->
+                            taskList.add(snap.id)
+                        }
+                        SharedData.attendanceSet.add(Attendance(nowDate, taskList))
                     }
                 }
             }

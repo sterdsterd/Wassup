@@ -36,9 +36,9 @@ class EditFragment : Fragment() {
         val pref = this.activity?.getSharedPreferences("User", Context.MODE_PRIVATE)
         classStr = pref!!.getString("class", "Null")
 
-        editList?.layoutManager = LinearLayoutManager(activity)
-        editList?.adapter = EditAdapter(activity as MainActivity, SharedData.studentList)
-        editList?.adapter?.notifyDataSetChanged()
+        editList.layoutManager = LinearLayoutManager(view.context)
+        editList.adapter = EditAdapter(activity as MainActivity, SharedData.studentList)
+        editList.adapter?.notifyDataSetChanged()
     }
 
     fun add() {
@@ -46,7 +46,8 @@ class EditFragment : Fragment() {
         val user = mapOf(
             "name" to "",
             "studentPhone" to "",
-            "parentPhone" to ""
+            "parentPhone" to "",
+            "hash" to "1"
         )
         firestore.collection("class").document(classStr).collection("memberList").add(user).addOnCompleteListener { t ->
             if(t.isComplete) {

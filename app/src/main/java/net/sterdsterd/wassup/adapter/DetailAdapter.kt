@@ -90,7 +90,7 @@ class DetailAdapter(val activity: DetailActivity, val items : MutableList<Member
         }
 
 
-        val file = File(activity.applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "${items[position].id}${items[position].hash}.jpg" }[0]
+        val file = File(activity.applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "${items[position].id}${items[position].hash}.jpg" }.firstOrNull()
         Glide.with(activity)
             .asBitmap()
             .load(file)

@@ -61,7 +61,7 @@ class EditActivity : AppCompatActivity() {
         }
 
 
-        val file = File(applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "$id${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash}.jpg" }[0]
+        val file = File(applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "$id${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash}.jpg" }.firstOrNull()
         Glide.with(this)
             .asBitmap()
             .load(file)
@@ -126,7 +126,7 @@ class EditActivity : AppCompatActivity() {
                                     progress.setMessage("Applying Image")
                                     Glide.with(this@EditActivity)
                                         .asBitmap()
-                                        .load(File(applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "$id${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash}.jpg" }[0])
+                                        .load(File(applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "$id${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash}.jpg" }.firstOrNull())
                                         .error(R.drawable.ic_profile)
                                         .apply(RequestOptions.circleCropTransform())
                                         .into(profile)

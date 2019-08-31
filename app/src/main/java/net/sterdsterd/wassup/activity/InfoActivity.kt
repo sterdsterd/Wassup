@@ -35,13 +35,13 @@ class InfoActivity : AppCompatActivity() {
             .show()
 
         val id = intent.extras.getString("id")
-        val data = SharedData.studentList.filter { it0 -> it0.id == id }[0]
+        val data = SharedData.studentList.filter { it0 -> it0.id == id }.firstOrNull()
 
-        collapsingToolBar.title = data.name
+        collapsingToolBar.title = data?.name
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
-        val file = File(applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "$id${data.hash}.jpg" }[0]
+        val file = File(applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "$id${data?.hash}.jpg" }.firstOrNull()
         Glide.with(this)
             .asBitmap()
             .load(file)
