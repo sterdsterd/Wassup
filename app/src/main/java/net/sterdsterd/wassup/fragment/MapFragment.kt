@@ -166,6 +166,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     fun share() {
+        val progress = Progress(activity)
+        progress.setBackgroundColor(Color.parseColor("#323445")).setMessage("Taking Snapshot").show()
         mapFragment.getMapAsync { p0 ->
             p0.takeSnapshot {
                 try {
@@ -186,6 +188,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
                         startActivity(Intent.createChooser(shareIntent, "공유할 앱을 선택해주세요"))
                     }
+                    progress.dismiss()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
