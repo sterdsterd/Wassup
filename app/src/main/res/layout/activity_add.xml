@@ -6,7 +6,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.MainActivity"
+        tools:context=".activity.AddActivity"
         android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -80,7 +80,7 @@
                     android:layout_marginStart="27dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:id="@+id/selectImg"
+                    android:id="@+id/selectIcon"
                     android:foreground="?attr/selectableItemBackground"
                     app:cardCornerRadius="12dp"
                     app:cardBackgroundColor="#323445"
@@ -96,7 +96,8 @@
                         <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/profile"
+                                android:id="@+id/icon"
+                                android:tint="#fff"
                                 android:layout_gravity="center"
                                 android:src="@drawable/ic_add"
                                 android:scaleType="centerCrop"/>

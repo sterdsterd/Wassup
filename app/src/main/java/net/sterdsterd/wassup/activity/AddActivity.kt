@@ -1,7 +1,10 @@
 package net.sterdsterd.wassup.activity
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat
@@ -31,10 +34,19 @@ class AddActivity : AppCompatActivity() {
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
         add.setOnClickListener {
-            SharedData.attendanceSet.filter { it.date == nowDate }.first().taskList.add(etName.text.toString())
+            SharedData.attendanceSet.first { it.date == nowDate }.taskList.add(etName.text.toString())
             firestore.document(etName.text.toString()).set(mapOf("id" to etName.text.toString()))
             finish()
         }
+
+        selectIcon.setOnClickListener {
+            startActivityForResult(Intent(this, IconActivity::class.java), 1)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        icon.setImageResource(data?.getIntExtra("icon", R.drawable.ic_add)!!)
     }
 
 }

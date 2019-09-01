@@ -59,4 +59,6 @@
     <string name="select_icon">아이콘 선택</string>
     <string name="add_event">이벤트 추가</string>
     <string name="myinfo">내 정보</string>
+    <string name="title_activity_icon">IconActivity</string>
+    <string name="desc_select_icon">아이콘을 선택해주세요</string>
 </resources>
