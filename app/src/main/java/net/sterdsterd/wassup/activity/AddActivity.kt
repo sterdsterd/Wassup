@@ -47,8 +47,10 @@ class AddActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        icon.setImageResource(data?.getIntExtra("res", R.drawable.ic_add)!!)
-        selectedIcon = data.getStringExtra("name")
+        if (requestCode == 1 && resultCode == 1) {
+            icon.setImageResource(data?.getIntExtra("res", R.drawable.ic_add)!!)
+            selectedIcon = data.getStringExtra("name")
+        }
     }
 
 }
