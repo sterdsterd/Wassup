@@ -74,9 +74,9 @@ class SplashActivity : AppCompatActivity() {
                     val cal = Calendar.getInstance()
                     val nowDate = "${cal.get(Calendar.YEAR)}${cal.get(Calendar.MONTH) + 1}${cal.get(Calendar.DAY_OF_MONTH)}"
                     firestore.collection("class").document(pref.getString("class", "Null")).collection(nowDate).get().addOnCompleteListener {
-                        val taskList = mutableListOf<String>()
+                        val taskList = mutableListOf<Pair<String, String>>()
                         it.result?.forEach { snap ->
-                            taskList.add(snap.id)
+                            taskList.add(Pair(snap.id, snap.getString("icon")!!))
                         }
                         SharedData.attendanceSet.add(Attendance(nowDate, taskList))
                         SharedData.studentList.clear()

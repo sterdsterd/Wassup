@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_icon.view.*
 import net.sterdsterd.wassup.Attendance
+import net.sterdsterd.wassup.IconSet
 import net.sterdsterd.wassup.activity.EditActivity
 import net.sterdsterd.wassup.R
 import net.sterdsterd.wassup.activity.DetailActivity
@@ -14,7 +15,7 @@ import net.sterdsterd.wassup.activity.IconActivity
 import java.util.*
 
 
-class IconAdapter(val activity: IconActivity, val items: MutableList<Int>) : RecyclerView.Adapter<IconAdapter.MainViewHolder>() {
+class IconAdapter(val activity: IconActivity, val items: MutableList<IconSet>) : RecyclerView.Adapter<IconAdapter.MainViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int) = MainViewHolder(parent)
 
@@ -25,10 +26,11 @@ class IconAdapter(val activity: IconActivity, val items: MutableList<Int>) : Rec
     override fun getItemViewType(position: Int) = position
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.icon.setImageResource(items[position])
+        holder.icon.setImageResource(items[position].res)
 
         holder.bg.setOnClickListener {
-            activity.mIntent.putExtra("icon", items[position])
+            activity.mIntent.putExtra("res", items[position].res)
+            activity.mIntent.putExtra("name", items[position].name)
             activity.setResult(1, activity.mIntent)
             activity.finish()
         }

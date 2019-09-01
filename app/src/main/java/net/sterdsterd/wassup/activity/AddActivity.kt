@@ -20,6 +20,7 @@ import java.util.*
 
 class AddActivity : AppCompatActivity() {
 
+    var selectedIcon = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
@@ -34,8 +35,8 @@ class AddActivity : AppCompatActivity() {
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
         add.setOnClickListener {
-            SharedData.attendanceSet.first { it.date == nowDate }.taskList.add(etName.text.toString())
-            firestore.document(etName.text.toString()).set(mapOf("id" to etName.text.toString()))
+            SharedData.attendanceSet.first { it.date == nowDate }.taskList.add(Pair(etName.text.toString(), "add"))
+            firestore.document(etName.text.toString()).set(mapOf("id" to etName.text.toString(), "icon" to selectedIcon))
             finish()
         }
 
@@ -46,7 +47,8 @@ class AddActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        icon.setImageResource(data?.getIntExtra("icon", R.drawable.ic_add)!!)
+        icon.setImageResource(data?.getIntExtra("res", R.drawable.ic_add)!!)
+        selectedIcon = data.getStringExtra("name")
     }
 
 }

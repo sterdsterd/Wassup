@@ -22,7 +22,12 @@ data class MemberData(
 
 data class Attendance(
     val date: String,
-    val taskList: MutableList<String>
+    val taskList: MutableList<Pair<String, String>> // Pair(taskName, icon)
+)
+
+data class IconSet(
+    val name: String,
+    val res: Int
 )
 
 class SharedData {

@@ -12,6 +12,7 @@ import net.sterdsterd.wassup.R
 
 import kotlinx.android.synthetic.main.activity_icon.*
 import kotlinx.android.synthetic.main.activity_icon.collapsingToolBar
+import net.sterdsterd.wassup.IconSet
 import net.sterdsterd.wassup.adapter.IconAdapter
 
 class IconActivity : AppCompatActivity() {
@@ -25,15 +26,15 @@ class IconActivity : AppCompatActivity() {
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
         val iconList = mutableListOf(
-            R.drawable.ic_flower,
-            R.drawable.ic_moon,
-            R.drawable.ic_school,
-            R.drawable.ic_basketball,
-            R.drawable.ic_football,
-            R.drawable.ic_bday,
-            R.drawable.ic_swim,
-            R.drawable.ic_beach,
-            R.drawable.ic_dining
+            IconSet("flower", R.drawable.ic_flower),
+            IconSet("moon", R.drawable.ic_moon),
+            IconSet("school", R.drawable.ic_school),
+            IconSet("basketball", R.drawable.ic_basketball),
+            IconSet("football", R.drawable.ic_football),
+            IconSet("bday", R.drawable.ic_bday),
+            IconSet("swim", R.drawable.ic_swim),
+            IconSet("beach", R.drawable.ic_beach),
+            IconSet("dining", R.drawable.ic_dining)
         )
 
         rview.layoutManager = GridLayoutManager(this, 5)
