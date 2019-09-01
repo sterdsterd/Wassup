@@ -10,6 +10,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -88,6 +89,7 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 fab.show()
+                btnShare.visibility = View.GONE
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_edit -> {
@@ -100,6 +102,7 @@ class MainActivity : AppCompatActivity() {
                     (supportFragmentManager.findFragmentById(R.id.fragment) as EditFragment).add()
                 }
                 fab.hide()
+                btnShare.visibility = View.GONE
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_map -> {
@@ -109,6 +112,10 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.fragment, MapFragment()).commit()
                 btnToolbar.text = ""
                 fab.hide()
+                btnShare.visibility = View.VISIBLE
+                btnShare.setOnClickListener {
+                    (supportFragmentManager.findFragmentById(R.id.fragment) as MapFragment).share()
+                }
                 return@OnNavigationItemSelectedListener true
             }
         }

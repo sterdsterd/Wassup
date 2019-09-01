@@ -41,6 +41,17 @@
                     android:gravity="top"
                     app:layout_collapseMode="pin"
                     android:id="@+id/toolBar">
+                    <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_share"
+                            android:tint="#fff"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="16dp"
+                            android:id="@+id/btnShare"
+                            android:layout_gravity="end"/>
             </androidx.appcompat.widget.Toolbar>
 
             <TextView

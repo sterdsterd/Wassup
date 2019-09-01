@@ -143,12 +143,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         locationSource?.isCompassEnabled = true
 
-        btnShare.setOnClickListener {
-            p0.takeSnapshot {
-                share(it)
-            }
-        }
-
         SharedData.studentList.forEach {
             val marker = Marker()
             marker.position = it.vec.first
@@ -171,33 +165,31 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-    private fun share(bitmap: Bitmap) {
+    fun share() {
+        mapFragment.getMapAsync { p0 ->
+            p0.takeSnapshot {
+                try {
+                    val file = File(activity?.applicationContext?.externalCacheDir, "maps")
+                    file.mkdirs()
+                    val fout = FileOutputStream("$file/asdf.png")
+                    it.compress(Bitmap.CompressFormat.PNG, 100, fout)
+                    fout.close()
 
-        try {
-            val file = File(activity?.applicationContext?.externalCacheDir, "maps")
-            file.mkdirs()
-            val fout = FileOutputStream("$file/asdf.png")
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fout)
-            fout.close()
+                    val newFile = File(file, "asdf.png")
+                    val contentUri = FileProvider.getUriForFile(this.requireContext(), "net.sterdsterd.wassup.FileProvider", newFile)
 
-            val newFile = File(file, "asdf.png")
-            val contentUri = FileProvider.getUriForFile(this.requireContext(), "net.sterdsterd.wassup.FileProvider", newFile)
-
-            if (contentUri != null) {
-                val shareIntent = Intent()
-                shareIntent.action = Intent.ACTION_SEND
-                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                shareIntent.type = "image/png"
-                shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
-                startActivity(Intent.createChooser(shareIntent, "공유할 앱을 선택해주세요"))
+                    if (contentUri != null) {
+                        val shareIntent = Intent()
+                        shareIntent.action = Intent.ACTION_SEND
+                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        shareIntent.type = "image/png"
+                        shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
+                        startActivity(Intent.createChooser(shareIntent, "공유할 앱을 선택해주세요"))
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
-
     }
-    /*
-    fun update() {
-        findList?.adapter?.notifyDataSetChanged()
-    }*/
 }
