@@ -61,7 +61,7 @@ class EditActivity : AppCompatActivity() {
         }
 
 
-        val file = File(applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "$id${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash}.jpg" }.firstOrNull()
+        val file = File(applicationContext?.externalCacheDir.toString()).listFiles().firstOrNull { it.name == "$id${SharedData.studentList.firstOrNull { it0 -> it0.id == id }?.hash}.jpg" }
         Glide.with(this)
             .asBitmap()
             .load(file)

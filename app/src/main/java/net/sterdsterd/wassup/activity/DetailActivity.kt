@@ -1,6 +1,7 @@
 package net.sterdsterd.wassup.activity
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +45,11 @@ class DetailActivity : AppCompatActivity() {
         findList?.adapter = DetailAdapter(this, SharedData.studentList)
         findList?.adapter?.notifyDataSetChanged()
 
+        fab.setOnClickListener {
+            val intent = Intent(this, EditActivity::class.java)
+            intent.putExtra("taskName", taskName)
+            startActivity(intent)
+        }
         var isChecked = false
         switchActivate.setOnCheckedChangeListener { _, b -> isChecked = b }
 

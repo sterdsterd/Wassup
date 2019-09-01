@@ -43,6 +43,8 @@ class LoginActivity : AppCompatActivity() {
                         editor.putString("role", it.result!!.get("role").toString())
                         if (it.result!!.get("role").toString() == "class")
                             editor.putString("class", it.result!!.get("class").toString())
+                        editor.putString("name", it.result!!.get("name").toString())
+                        editor.putString("mobile", it.result!!.get("mobile").toString())
                         editor.apply()
                         startActivity(Intent(this, SplashActivity::class.java))
                         finish()

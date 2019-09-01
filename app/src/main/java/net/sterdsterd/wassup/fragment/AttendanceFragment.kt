@@ -52,7 +52,8 @@ class AttendanceFragment : Fragment() {
     }
 
     fun refresh() {
-        attendanceList.adapter?.notifyItemInserted(SharedData.attendanceSet.size)
+        attendanceList.adapter?.notifyDataSetChanged()
+        //attendanceList.adapter?.notifyItemInserted(SharedData.attendanceSet.size)
     }
 
 }

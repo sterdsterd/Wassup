@@ -39,6 +39,7 @@ import io.github.pierry.progress.Progress
 import kotlinx.android.synthetic.main.activity_main.*
 import net.sterdsterd.wassup.Attendance
 import net.sterdsterd.wassup.SharedData
+import net.sterdsterd.wassup.fragment.InfoFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -116,6 +117,16 @@ class MainActivity : AppCompatActivity() {
                 btnShare.setOnClickListener {
                     (supportFragmentManager.findFragmentById(R.id.fragment) as MapFragment).share()
                 }
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_info -> {
+                appBarLayout.setExpanded(true)
+                collapsingToolBar.title = resources.getString(R.string.myinfo)
+                description.text = "내 정보를 확인할 수 있어요"
+                supportFragmentManager.beginTransaction().replace(R.id.fragment, InfoFragment()).commit()
+                btnToolbar.text = ""
+                fab.hide()
+                btnShare.visibility = View.GONE
                 return@OnNavigationItemSelectedListener true
             }
         }

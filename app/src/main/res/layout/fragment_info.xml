@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fillViewport="true">
+    <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@drawable/gradient_contents">
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="27dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="27dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:id="@+id/selectImg"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="#323445"
+                app:cardElevation="10dp">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="16dp">
+                <TextView
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="니 아이디"
+                        android:textColor="#7FFFFFFF"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="4dp"/>
+
+                <TextView
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="#fff"
+                        android:id="@+id/tvId"
+                        android:textStyle="bold"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#777"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"/>
+
+                <TextView
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="니 이름"
+                        android:textColor="#7FFFFFFF"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="4dp"/>
+
+                <TextView
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="#fff"
+                        android:id="@+id/tvName"
+                        android:textStyle="bold"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#777"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"/>
+
+                <TextView
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="니 반"
+                        android:textColor="#7FFFFFFF"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="4dp"/>
+
+                <TextView
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="#fff"
+                        android:id="@+id/tvClass"
+                        android:textStyle="bold"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#777"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"/>
+
+                <TextView
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="니 폰 번호"
+                        android:textColor="#7FFFFFFF"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="4dp"/>
+
+                <TextView
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="#fff"
+                        android:id="@+id/tvMobile"
+                        android:textStyle="bold"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#777"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"/>
+
+                <TextView
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="니 신분"
+                        android:textColor="#7FFFFFFF"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="4dp"/>
+
+                <TextView
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="#fff"
+                        android:id="@+id/tvRole"
+                        android:textStyle="bold"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
