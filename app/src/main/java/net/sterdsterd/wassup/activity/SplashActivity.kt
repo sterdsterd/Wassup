@@ -79,7 +79,7 @@ class SplashActivity : AppCompatActivity() {
                             taskList.add(snap.id)
                         }
                         SharedData.attendanceSet.add(Attendance(nowDate, taskList))
-
+                        SharedData.studentList.clear()
                         firestore.collection("class").document(pref.getString("class", "Null")).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
                             if (t.isComplete) {
                                 val v = t.result?.documents?.size as Int
