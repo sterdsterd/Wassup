@@ -26,6 +26,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
+        setSupportActionBar(toolBar)
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
@@ -37,6 +38,7 @@ class DetailActivity : AppCompatActivity() {
 
 
         collapsingToolBar.title = taskName
+        supportActionBar?.title = taskName
         description.text = "현재 탑승 인원 ${SharedData.studentList.filter { it.isBus }.size}명"
         val firestore = FirebaseFirestore.getInstance()
 

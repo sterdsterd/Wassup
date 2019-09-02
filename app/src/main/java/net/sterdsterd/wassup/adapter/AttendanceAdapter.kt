@@ -30,7 +30,7 @@ class AttendanceAdapter(val activity: MainActivity, val date: String, val items 
         holder.taskName.text = items[position].first
         holder.card.setOnClickListener { v ->
             val intent = Intent(v.context, DetailActivity::class.java)
-            intent.putExtra("taskName", items[position])
+            intent.putExtra("taskName", items[position].first)
             intent.putExtra("date", date)
             v.context.startActivity(intent)
         }
