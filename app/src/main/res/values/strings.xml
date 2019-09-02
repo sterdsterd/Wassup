@@ -61,4 +61,7 @@
     <string name="myinfo">내 정보</string>
     <string name="title_activity_icon">IconActivity</string>
     <string name="desc_select_icon">아이콘을 선택해주세요</string>
+    <string name="target">대상 선택</string>
+    <string name="title_activity_filter">FilterActivity</string>
+    <string name="select">선택</string>
 </resources>

@@ -24,13 +24,17 @@
             android:theme="@style/AppTheme"
             tools:replace="android:label, android:theme">
         <activity
+                android:name=".activity.FilterActivity"
+                android:label="@string/title_activity_filter"
+                android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
                 android:name=".activity.IconActivity"
                 android:label="@string/title_activity_icon"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".activity.AddActivity"
                 android:label="@string/title_activity_add"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
                 android:name="com.naver.maps.map.CLIENT_ID"
@@ -39,11 +43,11 @@
         <activity
                 android:name=".activity.DetailActivity"
                 android:label="@string/title_activity_detail"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".activity.BusActivity"
                 android:label="@string/title_activity_bus"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".activity.SplashActivity"
                 android:theme="@style/Splash">
@@ -56,33 +60,33 @@
         <activity
                 android:name=".activity.RegisterBeaconActivity"
                 android:label="@string/title_activity_register_beacon"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".activity.ForgotActivity"
                 android:label="@string/title_activity_forgot"
                 android:theme="@style/AppTheme.NoActionBar"
-                android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+                android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
                 android:name=".activity.RegisterActivity"
                 android:label="@string/title_activity_register"
                 android:theme="@style/AppTheme.NoActionBar"
-                android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+                android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
                 android:name=".activity.LoginActivity"
                 android:label="@string/title_activity_login"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".activity.EditActivity"
                 android:label="@string/title_activity_edit"
                 android:theme="@style/AppTheme.NoActionBar"
-                android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+                android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
                 android:name=".activity.InfoActivity"
                 android:label="@string/title_activity_info"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".activity.MainActivity"
-                android:label="@string/app_name"></activity>
+                android:label="@string/app_name" />
 
         <service android:name=".PushSvc">
             <intent-filter>

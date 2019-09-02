@@ -34,6 +34,10 @@ class AddActivity : AppCompatActivity() {
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
+        SharedData.studentList.forEach {
+            it.isChecked = true
+        }
+
         add.setOnClickListener {
             SharedData.attendanceSet.first { it.date == nowDate }.taskList.add(Pair(etName.text.toString(), "add"))
             firestore.document(etName.text.toString()).set(mapOf("id" to etName.text.toString(), "icon" to selectedIcon))
@@ -43,6 +47,10 @@ class AddActivity : AppCompatActivity() {
         selectIcon.setOnClickListener {
             startActivityForResult(Intent(this, IconActivity::class.java), 1)
         }
+
+        filter.setOnClickListener {
+            startActivityForResult(Intent(this, FilterActivity::class.java), 2)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -50,6 +58,8 @@ class AddActivity : AppCompatActivity() {
         if (requestCode == 1 && resultCode == 1) {
             icon.setImageResource(data?.getIntExtra("res", R.drawable.ic_add)!!)
             selectedIcon = data.getStringExtra("name")
+        } else {
+
         }
     }
 

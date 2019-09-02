@@ -9,7 +9,7 @@ import java.util.*
 
 data class MemberData(
     val id: String,
-    val name: String,
+    var name: String,
     val phone: String = "Null",
     val mac: String?,
     var hash: String,
@@ -17,7 +17,8 @@ data class MemberData(
     var vec: Pair<LatLng, Date> = Pair(LatLng(0.0, 0.0), Date()),
     var isDetected: Boolean = false,
     var undetected: Int = 0,
-    var isBus: Boolean = false
+    var isBus: Boolean = false,
+    var isChecked: Boolean = true
 )
 
 data class Attendance(
@@ -30,9 +31,14 @@ data class IconSet(
     val res: Int
 )
 
+data class FilterSet(
+    val key: MemberData,
+    var stat: Boolean
+)
+
 class SharedData {
     companion object {
-        val studentList = mutableListOf<MemberData>()
+        var studentList = mutableListOf<MemberData>()
         val attendanceSet = mutableListOf<Attendance>()
     }
 }
