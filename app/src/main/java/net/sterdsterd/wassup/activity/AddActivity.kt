@@ -9,6 +9,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import net.sterdsterd.wassup.R
 
 import kotlinx.android.synthetic.main.activity_add.*
@@ -39,8 +40,15 @@ class AddActivity : AppCompatActivity() {
         }
 
         add.setOnClickListener {
-            SharedData.attendanceSet.first { it.date == nowDate }.taskList.add(Pair(etName.text.toString(), "add"))
+            SharedData.attendanceSet.first { it.date == nowDate }.taskList.add(Pair(etName.text.toString(), selectedIcon))
             firestore.document(etName.text.toString()).set(mapOf("id" to etName.text.toString(), "icon" to selectedIcon))
+            SharedData.studentList.forEach {
+                if(it.isChecked) {
+                    firestore.document(etName.text.toString()).collection("info").document("filter")
+                        .set(mapOf(it.id to ""), SetOptions.merge())
+
+                }
+            }
             finish()
         }
 
@@ -49,7 +57,7 @@ class AddActivity : AppCompatActivity() {
         }
 
         filter.setOnClickListener {
-            startActivityForResult(Intent(this, FilterActivity::class.java), 2)
+            startActivity(Intent(this, FilterActivity::class.java))
         }
     }
 
@@ -58,8 +66,6 @@ class AddActivity : AppCompatActivity() {
         if (requestCode == 1 && resultCode == 1) {
             icon.setImageResource(data?.getIntExtra("res", R.drawable.ic_add)!!)
             selectedIcon = data.getStringExtra("name")
-        } else {
-
         }
     }
 
