@@ -71,9 +71,9 @@ class MainActivity : AppCompatActivity() {
 
                         val firestore = FirebaseFirestore.getInstance()
                         firestore.collection("class").document(classStr).collection("$y${m + 1}$d").get().addOnCompleteListener {
-                            val taskList = mutableListOf<Pair<String, String>>()
+                            val taskList = mutableListOf<Triple<String, String, String>>()
                             it.result?.forEach { snap ->
-                                taskList.add(Pair(snap.id, snap.getString("icon")!!))
+                                taskList.add(Triple(snap.id, snap.getString("id")!!, snap.getString("icon")!!))
                             }
                             SharedData.attendanceSet.add(Attendance("$y${m + 1}$d", taskList))
                             (supportFragmentManager.findFragmentById(R.id.fragment) as AttendanceFragment).setAdapter("$y${m + 1}$d", SharedData.attendanceSet.firstOrNull { it.date == "$y${m + 1}$d" }?.taskList)

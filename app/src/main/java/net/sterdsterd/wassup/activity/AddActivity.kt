@@ -36,21 +36,23 @@ class AddActivity : AppCompatActivity() {
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
         add.setOnClickListener {
-            SharedData.attendanceSet.first { it.date == nowDate }.taskList.add(Pair(etName.text.toString(), selectedIcon))
-            firestore.document(etName.text.toString()).set(mapOf("id" to etName.text.toString(), "icon" to selectedIcon))
-            val map = mutableMapOf<String, Boolean>()
-            SharedData.studentList.forEach {
-                if(it.isChecked) {
-                    map[it.id] = true
-                }
-            }
-            firestore.document(etName.text.toString()).collection("info").document("filter")
-                .set(map, SetOptions.merge()).addOnSuccessListener {
-                    SharedData.studentList.forEach {
-                        it.isChecked = true
-                        finish()
+            firestore.add(mapOf("id" to etName.text.toString(), "icon" to selectedIcon)).addOnCompleteListener { ta ->
+                SharedData.attendanceSet.first { it.date == nowDate }.taskList.add(Triple(ta.result?.id!!, etName.text.toString(), selectedIcon))
+                val map = mutableMapOf<String, Boolean>()
+                SharedData.studentList.forEach {
+                    if(it.isChecked) {
+                        map[it.id] = true
                     }
                 }
+                firestore.document(ta.result?.id!!).collection("info").document("filter")
+                    .set(map, SetOptions.merge()).addOnSuccessListener {
+                        SharedData.studentList.forEach {
+                            it.isChecked = true
+                            finish()
+                        }
+                    }
+            }
+
         }
 
         selectIcon.setOnClickListener {

@@ -19,7 +19,7 @@ import net.sterdsterd.wassup.activity.MainActivity
 import java.util.*
 
 
-class AttendanceAdapter(val activity: MainActivity, val date: String, val items : MutableList<Pair<String, String>>) : RecyclerView.Adapter<AttendanceAdapter.MainViewHolder>() {
+class AttendanceAdapter(val activity: MainActivity, val date: String, val items : MutableList<Triple<String, String, String>>) : RecyclerView.Adapter<AttendanceAdapter.MainViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int) = MainViewHolder(parent)
 
@@ -49,15 +49,16 @@ class AttendanceAdapter(val activity: MainActivity, val date: String, val items 
                     filteredList.add(md.id)
             }
         }
-        holder.taskName.text = items[position].first
+        holder.taskName.text = items[position].second
         holder.card.setOnClickListener { v ->
             val intent = Intent(v.context, DetailActivity::class.java)
-            intent.putExtra("taskName", items[position].first)
+            intent.putExtra("taskName", items[position].second)
+            intent.putExtra("id", items[position].first)
             intent.putExtra("date", date)
             intent.putExtra("filtered", filteredList.toTypedArray())
             v.context.startActivity(intent)
         }
-        holder.icon.setImageResource(activity.resources.getIdentifier("ic_${items[position].second}", "drawable", activity.packageName))
+        holder.icon.setImageResource(activity.resources.getIdentifier("ic_${items[position].third}", "drawable", activity.packageName))
     }
 
     inner class MainViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(

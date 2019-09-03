@@ -23,7 +23,7 @@ data class MemberData(
 
 data class Attendance(
     val date: String,
-    val taskList: MutableList<Pair<String, String>> // Pair(taskName, icon)
+    val taskList: MutableList<Triple<String, String, String>> // Pair(id, taskName, icon)
 )
 
 data class IconSet(
