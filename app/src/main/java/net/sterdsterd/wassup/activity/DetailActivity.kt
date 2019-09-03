@@ -58,7 +58,7 @@ class DetailActivity : AppCompatActivity() {
         findList?.adapter?.notifyDataSetChanged()
 
         fab.setOnClickListener {
-            val intent = Intent(this, EditActivity::class.java)
+            val intent = Intent(this, AddActivity::class.java)
             intent.putExtra("taskName", taskName)
             startActivity(intent)
         }
