@@ -35,21 +35,22 @@ class AddActivity : AppCompatActivity() {
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
-        SharedData.studentList.forEach {
-            it.isChecked = true
-        }
-
         add.setOnClickListener {
             SharedData.attendanceSet.first { it.date == nowDate }.taskList.add(Pair(etName.text.toString(), selectedIcon))
             firestore.document(etName.text.toString()).set(mapOf("id" to etName.text.toString(), "icon" to selectedIcon))
+            val map = mutableMapOf<String, Boolean>()
             SharedData.studentList.forEach {
                 if(it.isChecked) {
-                    firestore.document(etName.text.toString()).collection("info").document("filter")
-                        .set(mapOf(it.id to ""), SetOptions.merge())
-
+                    map[it.id] = true
                 }
             }
-            finish()
+            firestore.document(etName.text.toString()).collection("info").document("filter")
+                .set(map, SetOptions.merge()).addOnSuccessListener {
+                    SharedData.studentList.forEach {
+                        it.isChecked = true
+                        finish()
+                    }
+                }
         }
 
         selectIcon.setOnClickListener {

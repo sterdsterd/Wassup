@@ -49,6 +49,17 @@ class FilterAdapter(val activity: FilterActivity, val items : MutableList<Member
         holder.item.setOnClickListener {
             holder.chkbox.isChecked = !holder.chkbox.isChecked
             items[position].isChecked = holder.chkbox.isChecked
+            SharedData.studentList.forEach {
+                Log.d("dext", "${it.name} -> ${it.isChecked}")
+            }
+            Log.d("dext", "-----------------------------")
+        }
+
+        holder.chkbox.setOnClickListener {
+            items[position].isChecked = holder.chkbox.isChecked
+            SharedData.studentList.forEach {
+                Log.d("dext", "${it.name} -> ${it.isChecked}")
+            }
         }
 
     }

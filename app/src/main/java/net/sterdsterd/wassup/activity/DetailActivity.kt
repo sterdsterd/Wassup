@@ -15,6 +15,7 @@ import net.sterdsterd.wassup.R
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_detail.collapsingToolBar
 import kotlinx.android.synthetic.main.activity_detail.findList
+import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.SharedData
 import net.sterdsterd.wassup.adapter.DetailAdapter
 import java.sql.Timestamp
@@ -35,7 +36,16 @@ class DetailActivity : AppCompatActivity() {
 
         val taskName = intent.getStringExtra("taskName")
         val date = intent.getStringExtra("date")
+        val filteredArray = intent.getStringArrayExtra("filtered").toList()
 
+        val listcpy = mutableListOf<MemberData>()
+
+        SharedData.studentList.forEach {
+            if (filteredArray.contains(it.id)) listcpy.add(it)
+        }
+        listcpy.forEach {
+            Log.d("dext", "${it.name} -> ${it.isChecked}")
+        }
 
         collapsingToolBar.title = taskName
         supportActionBar?.title = taskName
@@ -44,7 +54,7 @@ class DetailActivity : AppCompatActivity() {
 
         val count = ((this.resources?.displayMetrics!!.widthPixels / this.resources?.displayMetrics!!.density) - 54) / 92 - 0.3
         findList?.layoutManager = GridLayoutManager(this, count.roundToInt())
-        findList?.adapter = DetailAdapter(this, SharedData.studentList)
+        findList?.adapter = DetailAdapter(this, listcpy)
         findList?.adapter?.notifyDataSetChanged()
 
         fab.setOnClickListener {
