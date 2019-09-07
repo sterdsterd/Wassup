@@ -19,6 +19,7 @@ import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.SharedData
 import net.sterdsterd.wassup.adapter.DetailAdapter
 import java.sql.Timestamp
+import java.util.*
 import kotlin.math.roundToInt
 
 class DetailActivity : AppCompatActivity() {
@@ -58,6 +59,9 @@ class DetailActivity : AppCompatActivity() {
         findList?.adapter = DetailAdapter(this, listcpy)
         findList?.adapter?.notifyDataSetChanged()
 
+        val cal = Calendar.getInstance()
+        val nowDate = "${cal.get(Calendar.YEAR)}${cal.get(Calendar.MONTH) + 1}${cal.get(Calendar.DAY_OF_MONTH)}"
+        if (date != nowDate) fab.hide()
         fab.setOnClickListener {
             val intent = Intent(this, AddActivity::class.java)
             intent.putExtra("taskName", taskName)
