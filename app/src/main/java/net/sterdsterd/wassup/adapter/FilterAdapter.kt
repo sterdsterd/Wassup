@@ -12,7 +12,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.item_filter.view.*
-import net.sterdsterd.wassup.FilterSet
 import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
 import net.sterdsterd.wassup.SharedData

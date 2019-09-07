@@ -35,11 +35,11 @@ class AttendanceFragment : Fragment() {
 
         attendanceList.layoutManager = LinearLayoutManager(view.context)
         val nowDate = SimpleDateFormat("yyyyMd").format(Calendar.getInstance().time)
-        setAdapter(nowDate, SharedData.attendanceSet.first { it.date == nowDate }.taskList)
+        setAdapter(nowDate, SharedData.attendanceSet.firstOrNull { it.date == nowDate }?.taskList)
     }//no chi won babu
 
     fun setAdapter(date: String, list: MutableList<Triple<String, String, String>>?) {
-        if (list?.size!! > 0)
+        if (!list.isNullOrEmpty())
             tvEmpty.visibility = View.GONE
         else {
             tvEmpty.visibility = View.VISIBLE

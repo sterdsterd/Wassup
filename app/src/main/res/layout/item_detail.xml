@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvStat"
                 android:textSize="14sp"
+                android:textAlignment="center"
                 android:layout_gravity="center_horizontal"
                 android:textColor="#B3FFFFFF"/>
     </LinearLayout>

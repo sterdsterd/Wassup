@@ -35,6 +35,7 @@ class DetailActivity : AppCompatActivity() {
         val classStr = pref.getString("class", "Null")
 
         val taskName = intent.getStringExtra("taskName")
+        val id = intent.getStringExtra("id")
         val date = intent.getStringExtra("date")
         val filteredArray = intent.getStringArrayExtra("filtered").toList()
 
@@ -60,6 +61,7 @@ class DetailActivity : AppCompatActivity() {
         fab.setOnClickListener {
             val intent = Intent(this, AddActivity::class.java)
             intent.putExtra("taskName", taskName)
+            intent.putExtra("id", id)
             startActivity(intent)
         }
         var isChecked = false

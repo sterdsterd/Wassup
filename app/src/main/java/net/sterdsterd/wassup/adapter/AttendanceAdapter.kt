@@ -54,9 +54,10 @@ class AttendanceAdapter(val activity: MainActivity, val date: String, val items 
             val intent = Intent(v.context, DetailActivity::class.java)
             intent.putExtra("taskName", items[position].second)
             intent.putExtra("id", items[position].first)
+            intent.putExtra("icon", items[position].third)
             intent.putExtra("date", date)
             intent.putExtra("filtered", filteredList.toTypedArray())
-            v.context.startActivity(intent)
+            activity.startActivityForResult(intent, 2)
         }
         holder.icon.setImageResource(activity.resources.getIdentifier("ic_${items[position].third}", "drawable", activity.packageName))
     }

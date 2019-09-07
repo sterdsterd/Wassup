@@ -31,11 +31,6 @@ data class IconSet(
     val res: Int
 )
 
-data class FilterSet(
-    val key: MemberData,
-    var stat: Boolean
-)
-
 class SharedData {
     companion object {
         var studentList = mutableListOf<MemberData>()
