@@ -9,6 +9,8 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -22,6 +24,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
@@ -40,6 +43,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import net.sterdsterd.wassup.Attendance
 import net.sterdsterd.wassup.SharedData
 import net.sterdsterd.wassup.fragment.InfoFragment
+import net.sterdsterd.wassup.service.BeaconService
+import net.sterdsterd.wassup.service.PushService
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -188,36 +193,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         mMinewBeaconManager = MinewBeaconManager.getInstance(this)
-        try {
-            mMinewBeaconManager.startScan()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
 
         mMinewBeaconManager.setDeviceManagerDelegateListener(object : MinewBeaconManagerListener {
             override fun onRangeBeacons(minewBeacons: List<MinewBeacon>) {
                 runOnUiThread {
-                    for (i in 0 until SharedData.studentList.size) {
-                        var rssiSeq = listOf<MinewBeacon>()
-                        if(SharedData.studentList.isNotEmpty()) rssiSeq = minewBeacons.filter { it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue == SharedData.studentList[i].mac }
-                        if(rssiSeq.isNotEmpty()) {
-                            SharedData.studentList[i].rssi = rssiSeq[0].getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue
-                            var locationProviderClient = getFusedLocationProviderClient(this@MainActivity)
-                            if (ContextCompat.checkSelfPermission( this@MainActivity, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
-                                locationProviderClient.lastLocation.addOnSuccessListener {
-                                    SharedData.studentList[i].vec = Pair(LatLng(it.latitude, it.longitude), Calendar.getInstance().time)
-                                }
-                            }
-                            SharedData.studentList[i].isDetected = true
-                            SharedData.studentList[i].undetected = 0
-                        } else {
-                            SharedData.studentList[i].undetected++
-                            if (SharedData.studentList[i].undetected > 5)
-                                SharedData.studentList[i].isDetected = false
-                        }
-                    }
-
-                    if (nav_view.selectedItemId == R.id.nav_map) (supportFragmentManager.findFragmentById(R.id.fragment) as MapFragment).update()
+                    if (nav_view.selectedItemId == net.sterdsterd.wassup.R.id.nav_map) (supportFragmentManager.findFragmentById(
+                        net.sterdsterd.wassup.R.id.fragment) as MapFragment).update()
                 }
             }
 
@@ -227,6 +208,15 @@ class MainActivity : AppCompatActivity() {
 
             override fun onUpdateState(state: BluetoothState) { }
         })
+
+
+        start.setOnClickListener {
+            startService(Intent(this, BeaconService::class.java))
+        }
+
+        end.setOnClickListener {
+            stopService(Intent(this, BeaconService::class.java))
+        }
 
     }
 

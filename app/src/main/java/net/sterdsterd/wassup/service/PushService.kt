@@ -1,4 +1,4 @@
-package net.sterdsterd.wassup
+package net.sterdsterd.wassup.service
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -16,7 +16,7 @@ import androidx.core.app.NotificationCompat
 import net.sterdsterd.wassup.activity.MainActivity
 
 
-class PushSvc : FirebaseMessagingService() {
+class PushService : FirebaseMessagingService() {
     private val TAG = "FirebaseService"
 
     /**
