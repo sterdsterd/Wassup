@@ -39,7 +39,6 @@ import com.google.firebase.storage.FirebaseStorage
 import com.marcoscg.dialogsheet.DialogSheet
 import com.minew.beacon.*
 import com.naver.maps.geometry.LatLng
-import io.github.pierry.progress.Progress
 import kotlinx.android.synthetic.main.activity_main.*
 import net.sterdsterd.wassup.Attendance
 import net.sterdsterd.wassup.SharedData
@@ -65,10 +64,13 @@ class MainActivity : AppCompatActivity() {
                 btnToolbar.setOnClickListener {
 
                     val listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
-                        val progress = Progress(this)
-                        progress.setBackgroundColor(Color.parseColor("#323445"))
-                            .setMessage("Loading")
-                            .show()
+                        val progress: DialogSheet = DialogSheet(this@MainActivity)
+                            .setColoredNavigationBar(true)
+                            .setCancelable(false)
+                            .setRoundedCorners(true)
+                            .setBackgroundColor(Color.parseColor("#323445"))
+                            .setView(R.layout.bottom_sheet_progress)
+                        progress.show()
                         description.text = SimpleDateFormat("${y}년 ${m + 1}월 ${d}일").format(Calendar.getInstance().time)
                         if (Calendar.getInstance().get(Calendar.YEAR) == y
                             && Calendar.getInstance().get(Calendar.MONTH) == m
@@ -221,16 +223,6 @@ class MainActivity : AppCompatActivity() {
             stopService(Intent(this, BeaconService::class.java))
         }
 
-        test.setOnClickListener {
-            val dialogSheet: DialogSheet = DialogSheet(it.context)
-                .setColoredNavigationBar(true)
-                .setCancelable(true)
-                .setRoundedCorners(true)
-                .setBackgroundColor(Color.parseColor("#323445"))
-                .setView(R.layout.bottom_sheet_progress)
-            dialogSheet.show()
-        }
-
     }
 
     private fun toolBarHeight() : Int {
@@ -248,10 +240,13 @@ class MainActivity : AppCompatActivity() {
     private fun update() {
         SharedData.studentList.clear()
         val firestore = FirebaseFirestore.getInstance()
-        val progress = Progress(this)
-        progress.setBackgroundColor(Color.parseColor("#323445"))
-            .setMessage("Loading")
-            .show()
+        val progress: DialogSheet = DialogSheet(this@MainActivity)
+            .setColoredNavigationBar(true)
+            .setCancelable(true)
+            .setRoundedCorners(true)
+            .setBackgroundColor(Color.parseColor("#323445"))
+            .setView(R.layout.bottom_sheet_progress)
+        progress.show()
         firestore.collection("class").document(classStr).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
             if(t.isComplete) {
                 val v = t.result?.documents?.size as Int

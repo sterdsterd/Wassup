@@ -86,12 +86,6 @@
                 android:text="END"
                 android:layout_margin="8dp"
                 android:id="@+id/end" />
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TEST"
-                android:layout_margin="8dp"
-                android:id="@+id/test" />
     </LinearLayout>
 
     <FrameLayout
