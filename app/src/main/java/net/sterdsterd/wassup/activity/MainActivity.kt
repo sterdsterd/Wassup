@@ -36,6 +36,7 @@ import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
 import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
+import com.marcoscg.dialogsheet.DialogSheet
 import com.minew.beacon.*
 import com.naver.maps.geometry.LatLng
 import io.github.pierry.progress.Progress
@@ -218,6 +219,16 @@ class MainActivity : AppCompatActivity() {
 
         end.setOnClickListener {
             stopService(Intent(this, BeaconService::class.java))
+        }
+
+        test.setOnClickListener {
+            val dialogSheet: DialogSheet = DialogSheet(it.context)
+                .setColoredNavigationBar(true)
+                .setCancelable(true)
+                .setRoundedCorners(true)
+                .setBackgroundColor(Color.parseColor("#323445"))
+                .setView(R.layout.bottom_sheet_progress)
+            dialogSheet.show()
         }
 
     }
