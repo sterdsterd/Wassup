@@ -129,7 +129,10 @@ class MainActivity : AppCompatActivity() {
                 collapsingToolBar.title = resources.getString(R.string.myinfo)
                 description.text = "내 정보를 확인할 수 있어요"
                 supportFragmentManager.beginTransaction().replace(R.id.fragment, InfoFragment()).commit()
-                btnToolbar.text = ""
+                btnToolbar.text = "수정"
+                btnToolbar.setOnClickListener {
+                    startActivity(Intent(this, MyInfoActivity::class.java))
+                }
                 fab.hide()
                 btnShare.visibility = View.GONE
                 return@OnNavigationItemSelectedListener true
@@ -197,8 +200,7 @@ class MainActivity : AppCompatActivity() {
         mMinewBeaconManager.setDeviceManagerDelegateListener(object : MinewBeaconManagerListener {
             override fun onRangeBeacons(minewBeacons: List<MinewBeacon>) {
                 runOnUiThread {
-                    if (nav_view.selectedItemId == net.sterdsterd.wassup.R.id.nav_map) (supportFragmentManager.findFragmentById(
-                        net.sterdsterd.wassup.R.id.fragment) as MapFragment).update()
+                    if (nav_view.selectedItemId == R.id.nav_map) (supportFragmentManager.findFragmentById(R.id.fragment) as MapFragment).update()
                 }
             }
 

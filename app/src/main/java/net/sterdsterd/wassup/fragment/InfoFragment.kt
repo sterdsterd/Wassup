@@ -46,10 +46,24 @@ class InfoFragment : Fragment() {
         tvClass.text = classStr
 
         logout.setOnClickListener {
-            val pref = activity?.getSharedPreferences("User", Context.MODE_PRIVATE)
-            pref?.edit()?.clear()?.commit()
-            startActivity(Intent(activity, SplashActivity::class.java))
-            activity?.finish()
+            val dialogSheet: DialogSheet = DialogSheet(it.context)
+                .setTitle("진짜 로그아웃 하실래요?")
+                .setMessage("다시 로그인하셔야 해요")
+                .setColoredNavigationBar(true)
+                .setCancelable(true)
+                .setPositiveButton("네, 할래요") {
+                    val pref = activity?.getSharedPreferences("User", Context.MODE_PRIVATE)
+                    pref?.edit()?.clear()?.commit()
+                    startActivity(Intent(activity, SplashActivity::class.java))
+                    activity?.finish()
+                }
+                .setNegativeButton("아니요, 안 할래요") {
+
+                }
+                .setRoundedCorners(true)
+                .setBackgroundColor(Color.parseColor("#323445"))
+                //.setButtonsColorRes(R.color.colorPrimary)
+            dialogSheet.show()
         }
     }
 
