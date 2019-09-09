@@ -14,14 +14,15 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import gun0912.tedbottompicker.TedBottomPicker
-import io.github.pierry.progress.Progress
 import kotlinx.android.synthetic.main.activity_edit.*
 
 import net.sterdsterd.wassup.R
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.TextView
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.marcoscg.dialogsheet.DialogSheet
 import net.sterdsterd.wassup.SharedData
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -39,10 +40,13 @@ class EditActivity : AppCompatActivity() {
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
-        val progress = Progress(this)
-        progress.setBackgroundColor(Color.parseColor("#323445"))
-            .setMessage("Loading")
-            .show()
+        val progress: DialogSheet = DialogSheet(this@EditActivity)
+            .setColoredNavigationBar(true)
+            .setCancelable(false)
+            .setRoundedCorners(true)
+            .setBackgroundColor(Color.parseColor("#323445"))
+            .setView(R.layout.bottom_sheet_progress)
+        progress.show()
 
         val id = intent?.extras?.getString("id")
 
@@ -94,15 +98,22 @@ class EditActivity : AppCompatActivity() {
 
         selectImg.setOnClickListener {
             TedBottomPicker.with(this).show {
-                val progress = Progress(this)
-                progress.setBackgroundColor(Color.parseColor("#323445"))
-                    .setMessage("Compressing Image")
-                    .show()
+                val progress: DialogSheet = DialogSheet(this)
+                    .setColoredNavigationBar(true)
+                    .setCancelable(false)
+                    .setRoundedCorners(true)
+                    .setBackgroundColor(Color.parseColor("#323445"))
+                    .setView(R.layout.bottom_sheet_progress)
+                progress.show()
+
+                val title = progress.inflatedView.findViewById<TextView>(R.id.title)
+                title.text = "사진을 압축하고 있어요"
 
                 val byteArrayOutputStream = ByteArrayOutputStream()
                 MediaStore.Images.Media.getBitmap(this.contentResolver, it).compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream)
                 val data = byteArrayOutputStream.toByteArray()
-                progress.setMessage("Uploading Image")
+                progress.inflatedView.findViewById<TextView>(R.id.title)
+                title.text = "사진을 업로드 중이에요"
                 storage.child("profile/$id.jpeg").putBytes(data).addOnSuccessListener {
                     Log.d("dex", "BEFORE ${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash}")
                     SharedData.studentList.filter { it0 -> it0.id == id }[0].hash = "${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash.toInt() + 1}"
@@ -114,7 +125,7 @@ class EditActivity : AppCompatActivity() {
                     val storage = FirebaseStorage.getInstance().reference
                     storage.child("profile/$id.jpeg")
                         .downloadUrl.addOnSuccessListener { uri ->
-                        progress.setMessage("Caching Image")
+                        title.text = "사진을 불러오고 있어요"
                         Glide.with(this.applicationContext).asBitmap().load(uri)
                             .into(object : CustomTarget<Bitmap>() {
                                 override fun onResourceReady(
@@ -123,7 +134,7 @@ class EditActivity : AppCompatActivity() {
                                 ) {
                                     Log.d("dex", "$id${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash} CACHED")
                                     saveImg(resource, id + SharedData.studentList.filter { it0 -> it0.id == id }[0].hash)
-                                    progress.setMessage("Applying Image")
+                                    title.text = "사진을 적용 중이에요"
                                     Glide.with(this@EditActivity)
                                         .asBitmap()
                                         .load(File(applicationContext?.externalCacheDir.toString()).listFiles().filter { it.name == "$id${SharedData.studentList.filter { it0 -> it0.id == id }[0].hash}.jpg" }.firstOrNull())

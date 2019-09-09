@@ -36,9 +36,9 @@ import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
 import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
+import com.marcoscg.dialogsheet.DialogSheet
 import com.minew.beacon.*
 import com.naver.maps.geometry.LatLng
-import io.github.pierry.progress.Progress
 import kotlinx.android.synthetic.main.activity_main.*
 import net.sterdsterd.wassup.Attendance
 import net.sterdsterd.wassup.SharedData
@@ -64,10 +64,13 @@ class MainActivity : AppCompatActivity() {
                 btnToolbar.setOnClickListener {
 
                     val listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
-                        val progress = Progress(this)
-                        progress.setBackgroundColor(Color.parseColor("#323445"))
-                            .setMessage("Loading")
-                            .show()
+                        val progress: DialogSheet = DialogSheet(this@MainActivity)
+                            .setColoredNavigationBar(true)
+                            .setCancelable(false)
+                            .setRoundedCorners(true)
+                            .setBackgroundColor(Color.parseColor("#323445"))
+                            .setView(R.layout.bottom_sheet_progress)
+                        progress.show()
                         description.text = SimpleDateFormat("${y}년 ${m + 1}월 ${d}일").format(Calendar.getInstance().time)
                         if (Calendar.getInstance().get(Calendar.YEAR) == y
                             && Calendar.getInstance().get(Calendar.MONTH) == m
@@ -90,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
                     if (Build.VERSION.SDK_INT >= 24) {
                         val cal = Calendar.getInstance(TimeZone.getDefault())
-                        DatePickerDialog(this, listener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
+                        DatePickerDialog(this, R.style.DialogTheme, listener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
                     }
 
                 }
@@ -129,7 +132,10 @@ class MainActivity : AppCompatActivity() {
                 collapsingToolBar.title = resources.getString(R.string.myinfo)
                 description.text = "내 정보를 확인할 수 있어요"
                 supportFragmentManager.beginTransaction().replace(R.id.fragment, InfoFragment()).commit()
-                btnToolbar.text = ""
+                btnToolbar.text = "수정"
+                btnToolbar.setOnClickListener {
+                    startActivity(Intent(this, MyInfoActivity::class.java))
+                }
                 fab.hide()
                 btnShare.visibility = View.GONE
                 return@OnNavigationItemSelectedListener true
@@ -197,8 +203,7 @@ class MainActivity : AppCompatActivity() {
         mMinewBeaconManager.setDeviceManagerDelegateListener(object : MinewBeaconManagerListener {
             override fun onRangeBeacons(minewBeacons: List<MinewBeacon>) {
                 runOnUiThread {
-                    if (nav_view.selectedItemId == net.sterdsterd.wassup.R.id.nav_map) (supportFragmentManager.findFragmentById(
-                        net.sterdsterd.wassup.R.id.fragment) as MapFragment).update()
+                    if (nav_view.selectedItemId == R.id.nav_map) (supportFragmentManager.findFragmentById(R.id.fragment) as MapFragment).update()
                 }
             }
 
@@ -235,10 +240,13 @@ class MainActivity : AppCompatActivity() {
     private fun update() {
         SharedData.studentList.clear()
         val firestore = FirebaseFirestore.getInstance()
-        val progress = Progress(this)
-        progress.setBackgroundColor(Color.parseColor("#323445"))
-            .setMessage("Loading")
-            .show()
+        val progress: DialogSheet = DialogSheet(this@MainActivity)
+            .setColoredNavigationBar(true)
+            .setCancelable(true)
+            .setRoundedCorners(true)
+            .setBackgroundColor(Color.parseColor("#323445"))
+            .setView(R.layout.bottom_sheet_progress)
+        progress.show()
         firestore.collection("class").document(classStr).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
             if(t.isComplete) {
                 val v = t.result?.documents?.size as Int

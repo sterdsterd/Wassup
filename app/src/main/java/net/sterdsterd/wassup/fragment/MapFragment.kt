@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.fragment_map.*
 import com.naver.maps.map.overlay.CircleOverlay
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
-import io.github.pierry.progress.Progress
 import net.sterdsterd.wassup.R
 import net.sterdsterd.wassup.SharedData
 import java.text.SimpleDateFormat
@@ -26,8 +25,10 @@ import android.graphics.Canvas
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
+import android.widget.TextView
 import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
+import com.marcoscg.dialogsheet.DialogSheet
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.PathOverlay
 import java.io.File
@@ -166,8 +167,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     fun share() {
-        val progress = Progress(activity)
-        progress.setBackgroundColor(Color.parseColor("#323445")).setMessage("Taking Snapshot").show()
+        val progress: DialogSheet = DialogSheet(activity)
+            .setColoredNavigationBar(true)
+            .setCancelable(false)
+            .setRoundedCorners(true)
+            .setBackgroundColor(Color.parseColor("#323445"))
+            .setView(R.layout.bottom_sheet_progress)
+        progress.show()
+        progress.inflatedView.findViewById<TextView>(R.id.title).text = "지도 사진을 저장하고 있어요"
         mapFragment.getMapAsync { p0 ->
             p0.takeSnapshot {
                 try {

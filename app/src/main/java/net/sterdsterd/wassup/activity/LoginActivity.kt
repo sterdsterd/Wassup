@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import net.sterdsterd.wassup.R
 import android.text.Editable
 import androidx.core.content.ContextCompat
-import io.github.pierry.progress.Progress
+import com.marcoscg.dialogsheet.DialogSheet
 
 
 class LoginActivity : AppCompatActivity() {
@@ -31,10 +31,13 @@ class LoginActivity : AppCompatActivity() {
         }
 
         signin.setOnClickListener {
-            val progress = Progress(this)
-            progress.setBackgroundColor(Color.parseColor("#323445"))
-                .setMessage("Loading")
-                .show()
+            val progress: DialogSheet = DialogSheet(this)
+                .setColoredNavigationBar(true)
+                .setCancelable(false)
+                .setRoundedCorners(true)
+                .setBackgroundColor(Color.parseColor("#323445"))
+                .setView(R.layout.bottom_sheet_progress)
+            progress.show()
             firestore.collection("member").document(etId.text.toString()).get().addOnCompleteListener {
                 if (it.isSuccessful) {
                     progress.dismiss()

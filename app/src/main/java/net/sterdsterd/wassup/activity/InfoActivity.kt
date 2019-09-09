@@ -17,7 +17,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
-import io.github.pierry.progress.Progress
+import com.marcoscg.dialogsheet.DialogSheet
 import kotlinx.android.synthetic.main.activity_info.profile
 import net.sterdsterd.wassup.SharedData
 import java.io.File
@@ -29,10 +29,13 @@ class InfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
 
-        val progress = Progress(this)
-        progress.setBackgroundColor(Color.parseColor("#323445"))
-            .setMessage("Loading")
-            .show()
+        val progress: DialogSheet = DialogSheet(this)
+            .setColoredNavigationBar(true)
+            .setCancelable(false)
+            .setRoundedCorners(true)
+            .setBackgroundColor(Color.parseColor("#323445"))
+            .setView(R.layout.bottom_sheet_progress)
+        progress.show()
 
         val id = intent.extras.getString("id")
         val data = SharedData.studentList.filter { it0 -> it0.id == id }.firstOrNull()

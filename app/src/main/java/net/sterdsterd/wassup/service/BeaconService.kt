@@ -100,6 +100,7 @@ class BeaconService : Service() {
                         }
                     }
                     Log.d("dext", "$student")
+                    SharedData.studentList = student
                 }
             }
 

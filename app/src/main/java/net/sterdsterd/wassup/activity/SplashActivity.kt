@@ -33,6 +33,7 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import net.sterdsterd.wassup.Attendance
+import net.sterdsterd.wassup.service.BeaconService
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -89,6 +90,7 @@ class SplashActivity : AppCompatActivity() {
                                         "dex",
                                         "${t.result?.documents?.get(i)?.getString("name")} LOADED"
                                     )
+                                    /*
                                     SharedData.studentList.add(
                                         MemberData(
                                             t.result?.documents?.get(i)?.id!!,
@@ -97,7 +99,11 @@ class SplashActivity : AppCompatActivity() {
                                             t.result?.documents?.get(i)?.getString("mac"),
                                             t.result?.documents?.get(i)?.getString("hash")!!
                                         )
-                                    )
+                                    )*/
+
+                                    val intent = Intent(this@SplashActivity, BeaconService::class.java)
+                                    stopService(intent)
+                                    startService(intent)
 
                                     if (File(this@SplashActivity.applicationContext?.externalCacheDir.toString()).listFiles().filter {
                                             it.name == "${t.result?.documents?.get(

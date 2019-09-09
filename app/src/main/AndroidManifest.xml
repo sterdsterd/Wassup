@@ -23,10 +23,15 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:replace="android:label, android:theme">
+        <activity
+                android:name=".activity.MyInfoActivity"
+                android:label="@string/title_activity_my_info"
+                android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <service
                 android:name=".service.BeaconService"
                 android:enabled="true"
-                android:exported="true"></service>
+                android:exported="true" />
 
         <activity
                 android:name=".activity.FilterActivity"
