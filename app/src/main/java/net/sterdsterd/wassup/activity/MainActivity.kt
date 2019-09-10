@@ -214,14 +214,7 @@ class MainActivity : AppCompatActivity() {
             override fun onUpdateState(state: BluetoothState) { }
         })
 
-
-        start.setOnClickListener {
-            startService(Intent(this, BeaconService::class.java))
-        }
-
-        end.setOnClickListener {
-            stopService(Intent(this, BeaconService::class.java))
-        }
+        startService(Intent(this, BeaconService::class.java))
 
     }
 

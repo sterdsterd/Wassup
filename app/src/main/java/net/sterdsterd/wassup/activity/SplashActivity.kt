@@ -103,7 +103,6 @@ class SplashActivity : AppCompatActivity() {
 
                                     val intent = Intent(this@SplashActivity, BeaconService::class.java)
                                     stopService(intent)
-                                    startService(intent)
 
                                     if (File(this@SplashActivity.applicationContext?.externalCacheDir.toString()).listFiles().filter {
                                             it.name == "${t.result?.documents?.get(
