@@ -39,7 +39,7 @@ class AttendanceAdapter(val activity: MainActivity, val date: String, val items 
         val firestore = FirebaseFirestore.getInstance()
             .collection("class")
             .document(classStr)
-            .collection(nowDate)
+            .collection(date)
             .document(items[position].first)
             .collection("info")
             .document("filter")
