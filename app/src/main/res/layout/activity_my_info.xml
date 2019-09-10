@@ -88,7 +88,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="18dp"
                             android:layout_marginEnd="18dp"
-                            android:layout_marginTop="18dp">
+                            android:layout_marginTop="18dp"
+                            app:helperText="아이디는 변경할 수 없어요">
                         <EditText
                                 android:id="@+id/etId"
                                 android:layout_width="match_parent"
@@ -99,20 +100,32 @@
                                 android:textStyle="bold"
                                 android:singleLine="true"/>
                     </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="18dp"
+                                android:layout_marginStart="22dp"
+                                android:text="@string/new_pwd"
+                                android:textStyle="bold"
+                                android:textColor="#77ffffff"
+                                android:textSize="12sp"/>
                     <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="18dp"
-                            android:layout_marginEnd="18dp"
-                            android:layout_marginTop="18dp">
+                            app:passwordToggleEnabled="true"
+                            app:hintEnabled="false">
                         <EditText
                                 android:id="@+id/etPwd"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="@string/pwd"
+                                android:hint="바꾸지 않음"
+                                android:inputType="textPassword"
+                                android:layout_marginStart="18dp"
+                                android:layout_marginEnd="18dp"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
-                                android:singleLine="true"/>
+                                android:singleLine="true" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/text_input_layout"
