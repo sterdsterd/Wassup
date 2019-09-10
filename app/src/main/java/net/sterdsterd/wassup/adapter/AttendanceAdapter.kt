@@ -36,18 +36,25 @@ class AttendanceAdapter(val activity: MainActivity, val date: String, val items 
         val cal = Calendar.getInstance()
         val nowDate = "${cal.get(Calendar.YEAR)}${cal.get(Calendar.MONTH) + 1}${cal.get(Calendar.DAY_OF_MONTH)}"
         val filteredList = mutableListOf<String>()
+        val isCheckedList = mutableListOf<String>()
         val firestore = FirebaseFirestore.getInstance()
-            .collection("class")
-            .document(classStr)
-            .collection(date)
-            .document(items[position].first)
-            .collection("info")
-            .document("filter")
-        firestore.get().addOnCompleteListener { ta ->
+
+        firestore.collection("class").document(classStr).collection(date).document(items[position].first)
+            .collection("info").document("filter").get().addOnCompleteListener { ta ->
             SharedData.studentList.forEach { md ->
                 if (ta.result?.get(md.id).toString().toBoolean())
                     filteredList.add(md.id)
             }
+            Log.d("dext-fil", filteredList.toString())
+        }
+        firestore.collection("class").document(classStr).collection(date).document(items[position].first).get().addOnCompleteListener { ta ->
+            SharedData.studentList.forEach { md ->
+                if (ta.result?.get(md.id).toString() != "null") {
+                    isCheckedList.add(md.id)
+                    Log.d("dext-chk", "${md.id} -> ${ta.result?.get(md.id)}")
+                }
+            }
+            Log.d("dext-chk", isCheckedList.toString())
         }
         holder.taskName.text = items[position].second
         holder.card.setOnClickListener { v ->
@@ -57,6 +64,7 @@ class AttendanceAdapter(val activity: MainActivity, val date: String, val items 
             intent.putExtra("icon", items[position].third)
             intent.putExtra("date", date)
             intent.putExtra("filtered", filteredList.toTypedArray())
+            intent.putExtra("checked", isCheckedList.toTypedArray())
             activity.startActivityForResult(intent, 2)
         }
         holder.icon.setImageResource(activity.resources.getIdentifier("ic_${items[position].third}", "drawable", activity.packageName))

@@ -39,14 +39,13 @@ class DetailActivity : AppCompatActivity() {
         val id = intent.getStringExtra("id")
         val date = intent.getStringExtra("date")
         val filteredArray = intent.getStringArrayExtra("filtered").toList()
+        val checked = intent.getStringArrayExtra("checked").toList()
 
         val listcpy = mutableListOf<MemberData>()
 
         SharedData.studentList.forEach {
-            if (filteredArray.contains(it.id)) listcpy.add(it)
-        }
-        listcpy.forEach {
-            Log.d("dext", "${it.name} -> ${it.isChecked}")
+            val tmp = if (checked.contains(it.id)) it.copy(isBus = true) else it.copy(isBus = false)
+            if (filteredArray.contains(it.id)) listcpy.add(tmp)
         }
 
         collapsingToolBar.title = taskName
@@ -71,6 +70,7 @@ class DetailActivity : AppCompatActivity() {
         var isChecked = false
         switchActivate.setOnCheckedChangeListener { _, b -> isChecked = b }
 
+
         val mMinewBeaconManager = MinewBeaconManager.getInstance(this)
         try {
             mMinewBeaconManager.startScan()
@@ -80,19 +80,19 @@ class DetailActivity : AppCompatActivity() {
         mMinewBeaconManager.setDeviceManagerDelegateListener(object : MinewBeaconManagerListener {
             override fun onRangeBeacons(minewBeacons: List<MinewBeacon>) {
                 runOnUiThread {
-                    for (i in 0 until SharedData.studentList.size) {
+                    for (i in 0 until listcpy.size) {
                         var rssiSeq = listOf<MinewBeacon>()
-                        if(SharedData.studentList.isNotEmpty()) rssiSeq = minewBeacons.filter { it.getBeaconValue(
-                            BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue == SharedData.studentList[i].mac }
+                        if(listcpy.isNotEmpty()) rssiSeq = minewBeacons.filter { it.getBeaconValue(
+                            BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue == listcpy[i].mac }
                         if(rssiSeq.isNotEmpty()){
-                            SharedData.studentList[i].rssi = rssiSeq[0].getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue
-                            SharedData.studentList[i].isDetected = true
-                            SharedData.studentList[i].undetected = 0
+                            listcpy[i].rssi = rssiSeq[0].getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue
+                            listcpy[i].isDetected = true
+                            listcpy[i].undetected = 0
                         }
                         else {
-                            SharedData.studentList[i].undetected++
-                            if (SharedData.studentList[i].undetected > 5)
-                                SharedData.studentList[i].isDetected = false
+                            listcpy[i].undetected++
+                            if (listcpy[i].undetected > 5)
+                                listcpy[i].isDetected = false
                         }
                     }
                     findList?.adapter?.notifyDataSetChanged()
@@ -103,9 +103,9 @@ class DetailActivity : AppCompatActivity() {
                                     && it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue > -55
                         }.forEach {
                             val mac = it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue
-                            val info = mapOf(mac to Timestamp(System.currentTimeMillis()))
+                            val info = mapOf(SharedData.studentList.first { tr -> tr.mac == mac }.id to Timestamp(System.currentTimeMillis()))
                             Log.e("Beacon", info.toString())
-                            firestore.collection("class").document(classStr).collection(date).document(taskName).set(info, SetOptions.merge())
+                            firestore.collection("class").document(classStr).collection(date).document(id).set(info, SetOptions.merge())
                             SharedData.studentList.find { it0 -> it0.mac == mac }?.isBus = true
                         }
                     }
@@ -119,6 +119,7 @@ class DetailActivity : AppCompatActivity() {
 
             override fun onUpdateState(state: BluetoothState) { }
         })
+
     }
 
 }

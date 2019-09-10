@@ -74,7 +74,7 @@ class BeaconService : Service() {
         mMinewBeaconManager.setDeviceManagerDelegateListener(object : MinewBeaconManagerListener {
             override fun onRangeBeacons(minewBeacons: List<MinewBeacon>) {
 
-                Handler(Looper.getMainLooper()).post {
+                Thread {
                     for (i in 0 until student.size) {
                         var rssiSeq = listOf<MinewBeacon>()
                         if(student.isNotEmpty()) rssiSeq = minewBeacons.filter { it.getBeaconValue(
@@ -82,6 +82,7 @@ class BeaconService : Service() {
                         if(rssiSeq.isNotEmpty()) {
                             student[i].rssi = rssiSeq[0].getBeaconValue(
                                 BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue
+                            //TODO : FusedLocation in Service
                             /*
                             var locationProviderClient =
                                 LocationServices.getFusedLocationProviderClient(this)
@@ -101,7 +102,7 @@ class BeaconService : Service() {
                     }
                     Log.d("dext", "$student")
                     SharedData.studentList = student
-                }
+                }.start()
             }
 
             override fun onAppearBeacons(minewBeacons: List<MinewBeacon>) { }
