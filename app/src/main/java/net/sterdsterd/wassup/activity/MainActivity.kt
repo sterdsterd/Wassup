@@ -47,8 +47,7 @@ import net.sterdsterd.wassup.service.BeaconService
 import net.sterdsterd.wassup.service.PushService
 import java.text.SimpleDateFormat
 import java.util.*
-
-
+import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {
@@ -199,19 +198,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         mMinewBeaconManager = MinewBeaconManager.getInstance(this)
+        try {
+            mMinewBeaconManager.startScan()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
-        mMinewBeaconManager.setDeviceManagerDelegateListener(object : MinewBeaconManagerListener {
-            override fun onRangeBeacons(minewBeacons: List<MinewBeacon>) {
-                runOnUiThread {
-                    if (nav_view.selectedItemId == R.id.nav_map) (supportFragmentManager.findFragmentById(R.id.fragment) as MapFragment).update()
-                }
+        val mainHandler = Handler(Looper.getMainLooper())
+
+        mainHandler.post(object : Runnable {
+            override fun run() {
+                if (nav_view.selectedItemId == R.id.nav_map)
+                    (supportFragmentManager.findFragmentById(R.id.fragment) as MapFragment).update()
+                mainHandler.postDelayed(this, 1000)
             }
-
-            override fun onAppearBeacons(minewBeacons: List<MinewBeacon>) { }
-
-            override fun onDisappearBeacons(minewBeacons: List<MinewBeacon>) { }
-
-            override fun onUpdateState(state: BluetoothState) { }
         })
 
         startService(Intent(this, BeaconService::class.java))

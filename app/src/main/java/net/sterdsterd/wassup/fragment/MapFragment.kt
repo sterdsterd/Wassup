@@ -31,6 +31,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.marcoscg.dialogsheet.DialogSheet
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.PathOverlay
+import net.sterdsterd.wassup.activity.InfoActivity
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.Exception
@@ -78,6 +79,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private val markerList = mutableListOf<Pair<Marker, CircleOverlay>>()
 
     fun update() {
+        //TODO : Change Redundant Code to function
         mapFragment.getMapAsync { p0 ->
             markerList.forEach {
                 it.first.map = null
@@ -90,6 +92,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 marker.captionText = it.name
                 marker.subCaptionText = SimpleDateFormat("hh:mm:ss에 마지막으로 감지").format(it.vec.second)
                 marker.captionOffset = 35
+                marker.setOnClickListener { _ ->
+                    val intent = Intent(activity, InfoActivity::class.java)
+                    intent.putExtra("id", it.id)
+                    startActivity(intent)
+                    true
+                }
                 val circleOverlay = CircleOverlay(it.vec.first, 50.0)
                 if (it.undetected > 5) {
                     marker.map = p0

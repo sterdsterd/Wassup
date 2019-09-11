@@ -12,6 +12,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.location.Location
+import android.location.LocationManager
 import android.media.RingtoneManager
 import android.os.Handler
 import android.os.IBinder
@@ -22,7 +24,7 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
@@ -50,6 +52,8 @@ class BeaconService : Service() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+        var locationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         val student = mutableListOf<MemberData>()
 
@@ -82,16 +86,13 @@ class BeaconService : Service() {
                         if(rssiSeq.isNotEmpty()) {
                             student[i].rssi = rssiSeq[0].getBeaconValue(
                                 BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue
-                            //TODO : FusedLocation in Service
-                            /*
-                            var locationProviderClient =
-                                LocationServices.getFusedLocationProviderClient(this)
-                            if (ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
+
+                            if (ContextCompat.checkSelfPermission( this@BeaconService, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
                                 locationProviderClient.lastLocation.addOnSuccessListener {
                                     student[i].vec = Pair(LatLng(it.latitude, it.longitude), Calendar.getInstance().time)
                                 }
                             }
-                             */
+
                             student[i].isDetected = true
                             student[i].undetected = 0
                         } else {
@@ -112,6 +113,9 @@ class BeaconService : Service() {
             override fun onUpdateState(state: BluetoothState) { }
         })
     }
+
+
+
 
     private fun sendNotification(title: String, body: String) {
 
