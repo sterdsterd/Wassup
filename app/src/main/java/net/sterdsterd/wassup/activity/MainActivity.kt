@@ -244,19 +244,6 @@ class MainActivity : AppCompatActivity() {
             if(t.isComplete) {
                 val v = t.result?.documents?.size as Int
                 for (i in 0 until v) {
-                    val storage = FirebaseStorage.getInstance().reference
-                    var profile: Bitmap? = null
-                    storage.child("profile/${t.result?.documents?.get(i)?.id}.png").downloadUrl.addOnSuccessListener {
-                        Glide.with(this).asBitmap().load(it)
-                            .listener(object : RequestListener<Bitmap> {
-                                override fun onResourceReady(bitmap: Bitmap, o: Any, target: Target<Bitmap>, dataSource: DataSource, b: Boolean): Boolean {
-                                    profile = bitmap
-                                    return false
-                                }
-                                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean) = false
-                            }
-                            ).submit()
-                    }
                     SharedData.studentList.add(
                         MemberData(
                             t.result?.documents?.get(i)?.id!!,
