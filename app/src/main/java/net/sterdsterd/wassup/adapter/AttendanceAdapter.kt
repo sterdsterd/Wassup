@@ -55,6 +55,7 @@ class AttendanceAdapter(val activity: MainActivity, val date: String, val items 
                 }
             }
             Log.d("dext-chk", isCheckedList.toString())
+            holder.badgeText.text = isCheckedList.size.toString()
         }
         holder.taskName.text = items[position].second
         holder.card.setOnClickListener { v ->
@@ -75,5 +76,7 @@ class AttendanceAdapter(val activity: MainActivity, val date: String, val items 
         val taskName = itemView.taskName
         val card = itemView.card
         val icon = itemView.icon
+        val badgeBg = itemView.badgeBg
+        val badgeText = itemView.badgeText
     }
 }

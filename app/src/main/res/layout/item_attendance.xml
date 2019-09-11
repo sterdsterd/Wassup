@@ -49,8 +49,7 @@
                 android:background="@drawable/shape_badge"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="12dp"
-                android:id="@+id/badgeBg"
-                android:visibility="gone">
+                android:id="@+id/badgeBg">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

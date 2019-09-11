@@ -73,6 +73,7 @@ class MyInfoActivity : AppCompatActivity() {
                 val firestore = FirebaseFirestore.getInstance()
                 firestore.collection("member").document(etId.text.toString()).get().addOnCompleteListener {
                     if (it.isSuccessful) {
+                        //TODO : PHONE VERIFICATION
                         if (BCrypt.verifyer().verify(etPwd.text.toString().toCharArray(), it.result?.data?.get("pwd").toString()).verified) {
                             val map = mutableMapOf("name" to name,
                                 "mobile" to num,

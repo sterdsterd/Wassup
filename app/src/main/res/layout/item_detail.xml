@@ -28,6 +28,7 @@
                 android:src="@drawable/ic_bus"
                 android:visibility="invisible"
                 android:id="@+id/iconBus"
+                android:elevation="16dp"
                 android:layout_gravity="center_horizontal"/>
         <TextView
                 android:layout_width="wrap_content"
