@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.fragment, InfoFragment()).commit()
                 btnToolbar.text = "수정"
                 btnToolbar.setOnClickListener {
-                    startActivity(Intent(this, MyInfoActivity::class.java))
+                    startActivityForResult(Intent(this, MyInfoActivity::class.java), 3)
                 }
                 fab.hide()
                 btnShare.visibility = View.GONE
@@ -147,6 +147,7 @@ class MainActivity : AppCompatActivity() {
         when (requestCode){
             1 -> update()
             2 -> refresh()
+            3 -> (supportFragmentManager.findFragmentById(R.id.fragment) as InfoFragment).refresh()
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

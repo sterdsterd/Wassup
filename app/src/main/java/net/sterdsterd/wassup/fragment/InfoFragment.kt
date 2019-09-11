@@ -62,9 +62,18 @@ class InfoFragment : Fragment() {
                 }
                 .setRoundedCorners(true)
                 .setBackgroundColor(Color.parseColor("#323445"))
-                //.setButtonsColorRes(R.color.colorPrimary)
             dialogSheet.show()
         }
+    }
+
+    fun refresh() {
+        val pref = this.activity?.getSharedPreferences("User", Context.MODE_PRIVATE)
+        classStr = pref!!.getString("class", "Null")
+        tvId.text = pref!!.getString("id", "Null")
+        tvName.text = pref!!.getString("name", "Null")
+        tvMobile.text = pref!!.getString("mobile", "Null")
+        tvRole.text = if (pref!!.getString("role", "Null") == "class") "담임 교사" else "지도 교사"
+        tvClass.text = classStr
     }
 
 }

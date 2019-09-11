@@ -13,12 +13,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.marcoscg.dialogsheet.DialogSheet
 import net.sterdsterd.wassup.R
 
 import kotlinx.android.synthetic.main.activity_my_info.*
+import kotlinx.android.synthetic.main.activity_my_info.collapsingToolBar
+import kotlinx.android.synthetic.main.activity_my_info.etClass
 import kotlinx.android.synthetic.main.activity_my_info.etId
+import kotlinx.android.synthetic.main.activity_my_info.etName
+import kotlinx.android.synthetic.main.activity_my_info.etNum
 import kotlinx.android.synthetic.main.activity_my_info.etPwd
+import kotlinx.android.synthetic.main.activity_my_info.radioHr
+import kotlinx.android.synthetic.main.activity_register.*
 
 class MyInfoActivity : AppCompatActivity() {
 
@@ -38,10 +45,10 @@ class MyInfoActivity : AppCompatActivity() {
         radioHr.isChecked = true
 
         save.setOnClickListener {
-            val name = etName.text
-            val cl = etClass.text
-            val num = etNum.text
-            val pwd = etPwd.text
+            val name = etName.text.toString()
+            val cl = etClass.text.toString()
+            val num = etNum.text.toString()
+            val pwd = etPwd.text.toString()
 
             val confirmation: DialogSheet = DialogSheet(this@MyInfoActivity)
                 .setColoredNavigationBar(true)
@@ -67,18 +74,28 @@ class MyInfoActivity : AppCompatActivity() {
                 firestore.collection("member").document(etId.text.toString()).get().addOnCompleteListener {
                     if (it.isSuccessful) {
                         if (BCrypt.verifyer().verify(etPwd.text.toString().toCharArray(), it.result?.data?.get("pwd").toString()).verified) {
-                            //TODO : 정보 변경
-                            val correct: DialogSheet = DialogSheet(this@MyInfoActivity)
-                                .setColoredNavigationBar(true)
-                                .setCancelable(true)
-                                .setRoundedCorners(true)
-                                .setTitle("변경했어요")
-                                .setMessage("ㅇㅇ")
-                                .setPositiveButton("닫기") {
-                                    finish()
-                                }
-                                .setBackgroundColor(Color.parseColor("#323445"))
-                            correct.show()
+                            val map = mutableMapOf("name" to name,
+                                "mobile" to num,
+                                "class" to cl)
+                            if (pwd.isNotEmpty()) map["pwd"] = BCrypt.withDefaults().hashToString(12, pwd.toCharArray())
+                            val editor = pref.edit()
+                            editor.putString("name", name)
+                            editor.putString("mobile", num)
+                            editor.putString("class", cl)
+                            editor.apply()
+                            firestore.collection("member").document(etId.text.toString()).set(map, SetOptions.merge()).addOnSuccessListener {
+                                val correct: DialogSheet = DialogSheet(this@MyInfoActivity)
+                                    .setColoredNavigationBar(true)
+                                    .setCancelable(true)
+                                    .setRoundedCorners(true)
+                                    .setTitle("변경했어요")
+                                    .setMessage("ㅇㅇ")
+                                    .setPositiveButton("닫기") {
+                                        finish()
+                                    }
+                                    .setBackgroundColor(Color.parseColor("#323445"))
+                                correct.show()
+                            }
                         } else {
                             val wrong: DialogSheet = DialogSheet(this@MyInfoActivity)
                                 .setColoredNavigationBar(true)

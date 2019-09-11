@@ -149,7 +149,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="18dp"
                             android:layout_marginEnd="18dp"
-                            android:layout_marginTop="18dp">
+                            android:layout_marginTop="18dp"
+                            app:helperText="주의! 반 이름을 바꾸더라도 데이터는 이전되지 않습니다.">
 
                         <EditText
                                 android:id="@+id/etClass"
