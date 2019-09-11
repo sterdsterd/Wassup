@@ -68,4 +68,6 @@
     <string name="edit_my_info">내 정보 수정</string>
     <string name="logout">로그아웃</string>
     <string name="new_pwd">새 암호</string>
+    <string name="shuttle">셔틀 버스</string>
+    <string name="indv">개인</string>
 </resources>

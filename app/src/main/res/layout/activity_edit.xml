@@ -161,7 +161,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="18dp">
+                            android:layout_marginStart="18dp"
+                            android:layout_marginEnd="18dp"
+                            android:layout_marginTop="18dp">
 
                         <EditText
                                 android:id="@+id/etNumPa"
@@ -172,6 +174,39 @@
                                 android:textStyle="bold"
                                 android:singleLine="true"/>
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="등원 방법"
+                            android:textSize="12sp"
+                            android:textColor="#9C9CA7"
+                            android:textStyle="bold"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginStart="22dp"
+                            android:layout_marginEnd="22dp"
+                            android:layout_marginBottom="8dp"/>
+                    <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:id="@+id/radioGroup"
+                            android:layout_marginStart="18dp"
+                            android:layout_marginEnd="18dp"
+                            android:layout_marginBottom="18dp">
+                        <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/shuttle"
+                                android:id="@+id/radioShuttle"
+                                android:layout_weight="1.2"/>
+                        <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/indv"
+                                android:id="@+id/radioIndv"
+                                android:layout_weight="1"/>
+                    </RadioGroup>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

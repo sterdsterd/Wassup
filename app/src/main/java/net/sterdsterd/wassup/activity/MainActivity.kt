@@ -263,7 +263,8 @@ class MainActivity : AppCompatActivity() {
                             t.result?.documents?.get(i)?.getString("name")!!,
                             t.result?.documents?.get(i)?.getString("parentPhone")!!,
                             t.result?.documents?.get(i)?.getString("mac"),
-                            t.result?.documents?.get(i)?.getString("hash")!!
+                            t.result?.documents?.get(i)?.getString("hash")!!,
+                            t.result?.documents?.get(i)?.getString("type")!!
                         )
                     )
                 }

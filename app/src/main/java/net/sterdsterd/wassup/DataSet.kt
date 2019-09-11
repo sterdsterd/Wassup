@@ -10,9 +10,10 @@ import java.util.*
 data class MemberData(
     val id: String,
     var name: String,
-    val phone: String = "Null",
+    var phone: String = "Null",
     val mac: String?,
     var hash: String,
+    var type: String,
     var rssi: Int = 0,
     var vec: Pair<LatLng, Date> = Pair(LatLng(0.0, 0.0), Date()),
     var isDetected: Boolean = false,

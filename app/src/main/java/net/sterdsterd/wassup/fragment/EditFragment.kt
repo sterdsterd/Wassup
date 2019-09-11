@@ -47,7 +47,8 @@ class EditFragment : Fragment() {
             "name" to "",
             "studentPhone" to "",
             "parentPhone" to "",
-            "hash" to "1"
+            "hash" to "1",
+            "type" to "shuttle"
         )
         firestore.collection("class").document(classStr).collection("memberList").add(user).addOnCompleteListener { t ->
             if(t.isComplete) {

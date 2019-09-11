@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_edit.*
 import net.sterdsterd.wassup.R
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -60,6 +61,9 @@ class EditActivity : AppCompatActivity() {
                 etName.setText(t.result?.getString("name"))
                 etNumSt.setText(t.result?.getString("studentPhone"))
                 etNumPa.setText(t.result?.getString("parentPhone"))
+                if (t.result?.getString("type") == "indv")
+                    radioIndv.isChecked = true
+                else radioShuttle.isChecked = true
                 progress.dismiss()
             }
         }
@@ -73,11 +77,17 @@ class EditActivity : AppCompatActivity() {
             .apply(RequestOptions.circleCropTransform())
             .into(profile)
 
+        var type = "shuttle"
+        radioGroup.setOnCheckedChangeListener { _, i ->
+            type = if (i == R.id.radioShuttle) "shuttle" else "indv"
+        }
+
         save.setOnClickListener {
             val info = mapOf(
                 "name" to etName.text.toString(),
                 "studentPhone" to etNumSt.text.toString(),
-                "parentPhone" to etNumPa.text.toString()
+                "parentPhone" to etNumPa.text.toString(),
+                "type" to type
             )
             firestore.collection("class").document(classStr).collection("memberList").document(id).update(info)
             finish()
