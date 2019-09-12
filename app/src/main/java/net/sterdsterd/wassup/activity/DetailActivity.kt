@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -50,7 +51,7 @@ class DetailActivity : AppCompatActivity() {
 
         collapsingToolBar.title = taskName
         supportActionBar?.title = taskName
-        description.text = "현재 탑승 인원 ${SharedData.studentList.filter { it.isBus }.size}명"
+        description.text = "확인 된 인원 ${SharedData.studentList.filter { it.isBus }.size}명"
         val firestore = FirebaseFirestore.getInstance()
 
         val count = ((this.resources?.displayMetrics!!.widthPixels / this.resources?.displayMetrics!!.density) - 54) / 92 - 0.3
@@ -60,7 +61,10 @@ class DetailActivity : AppCompatActivity() {
 
         val cal = Calendar.getInstance()
         val nowDate = "${cal.get(Calendar.YEAR)}${cal.get(Calendar.MONTH) + 1}${cal.get(Calendar.DAY_OF_MONTH)}"
-        if (date != nowDate) fab.hide()
+        if (date != nowDate) {
+            fab.hide()
+            switchActivate.visibility = View.GONE
+        }
         fab.setOnClickListener {
             val intent = Intent(this, AddActivity::class.java)
             intent.putExtra("taskName", taskName)

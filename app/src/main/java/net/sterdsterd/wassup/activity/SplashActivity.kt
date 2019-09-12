@@ -22,6 +22,7 @@ import net.sterdsterd.wassup.R
 import net.sterdsterd.wassup.SharedData
 import com.naver.maps.map.style.sources.ImageSource
 import android.R.attr.bitmap
+import android.R.attr.start
 import android.graphics.Bitmap
 import android.os.Environment
 import android.util.Log
@@ -72,6 +73,8 @@ class SplashActivity : AppCompatActivity() {
                     finish()
                 }
                 else {
+                    val intent = Intent(this@SplashActivity, BeaconService::class.java)
+                    stopService(intent)
                     val firestore = FirebaseFirestore.getInstance()
                     val cal = Calendar.getInstance()
                     val classStr = pref.getString("class", "Null")
@@ -110,9 +113,6 @@ class SplashActivity : AppCompatActivity() {
                                         "dex",
                                         "${t.result?.documents?.get(i)?.getString("name")} LOADED"
                                     )
-
-                                    val intent = Intent(this@SplashActivity, BeaconService::class.java)
-                                    stopService(intent)
 
                                     if (File(this@SplashActivity.applicationContext?.externalCacheDir.toString()).listFiles().filter {
                                             it.name == "${t.result?.documents?.get(

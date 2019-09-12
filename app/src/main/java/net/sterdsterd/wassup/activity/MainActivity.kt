@@ -220,16 +220,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        startService(Intent(this, BeaconService::class.java))
+
+        val progress: DialogSheet = DialogSheet(this@MainActivity)
+            .setColoredNavigationBar(true)
+            .setCancelable(false)
+            .setRoundedCorners(true)
+            .setBackgroundColor(Color.parseColor("#323445"))
+            .setView(R.layout.bottom_sheet_progress)
+        progress.show()
 
         setSupportActionBar(toolBar)
+        btnShare.visibility = View.GONE
 
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
         classStr = pref.getString("class", "Null")
-
-        nav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        nav_view.selectedItemId = nav_view.selectedItemId
 
         var mar = (fab.layoutParams) as CoordinatorLayout.LayoutParams
         mar.bottomMargin = (this.resources.displayMetrics.density * 16).toInt() + toolBarHeight()
@@ -251,15 +258,22 @@ class MainActivity : AppCompatActivity() {
 
         val mainHandler = Handler(Looper.getMainLooper())
 
+        var isLoaded = true
+        var delay = 100L
         mainHandler.post(object : Runnable {
             override fun run() {
+                if (SharedData.studentList.isNotEmpty() && isLoaded) {
+                    nav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+                    nav_view.selectedItemId = nav_view.selectedItemId
+                    isLoaded = false
+                    delay = 1000L
+                    progress.dismiss()
+                }
                 if (nav_view.selectedItemId == R.id.nav_map)
                     (supportFragmentManager.findFragmentById(R.id.fragment) as MapFragment).update()
-                mainHandler.postDelayed(this, 1000)
+                mainHandler.postDelayed(this, delay)
             }
         })
-
-        startService(Intent(this, BeaconService::class.java))
 
     }
 
