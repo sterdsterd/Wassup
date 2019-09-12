@@ -35,6 +35,7 @@ import net.sterdsterd.wassup.fragment.MapFragment
 import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.R
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.marcoscg.dialogsheet.DialogSheet
 import com.minew.beacon.*
@@ -76,11 +77,29 @@ class MainActivity : AppCompatActivity() {
                             && Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == d) fab.show()
                         else fab.hide()
 
-                        val firestore = FirebaseFirestore.getInstance()
-                        firestore.collection("class").document(classStr).collection("$y${m + 1}$d").get().addOnCompleteListener {
+                        val firestore = FirebaseFirestore.getInstance().collection("class").document(classStr).collection("$y${m + 1}$d")
+                        firestore.get().addOnCompleteListener {
                             val taskList = mutableListOf<Triple<String, String, String>>()
                             it.result?.forEach { snap ->
                                 taskList.add(Triple(snap.id, snap.getString("id")!!, snap.getString("icon")!!))
+                            }
+                            if (!taskList.contains(Triple("00bus", "셔틀 버스", "bus"))) {
+                                firestore.document("00bus")
+                                    .set(mapOf("icon" to "bus", "id" to "셔틀 버스"))
+                                SharedData.studentList.filter { f -> f.type == "shuttle" }.forEach { q ->
+                                    firestore.document("00bus").collection("info").document("filter").set(
+                                        mapOf(q.id to true), SetOptions.merge())
+                                }
+                                taskList.add(Triple("00bus", "셔틀 버스", "bus"))
+                            }
+                            if (!taskList.contains(Triple("00class", "교실", "school"))) {
+                                firestore.document("00class")
+                                    .set(mapOf("icon" to "school", "id" to "교실"))
+                                SharedData.studentList.forEach { q ->
+                                    firestore.document("00class").collection("info").document("filter").set(
+                                        mapOf(q.id to true), SetOptions.merge())
+                                }
+                                taskList.add(Triple("00class", "교실", "school"))
                             }
                             SharedData.attendanceSet.add(Attendance("$y${m + 1}$d", taskList))
                             (supportFragmentManager.findFragmentById(R.id.fragment) as AttendanceFragment).setAdapter("$y${m + 1}$d", SharedData.attendanceSet.firstOrNull { it.date == "$y${m + 1}$d" }?.taskList)
