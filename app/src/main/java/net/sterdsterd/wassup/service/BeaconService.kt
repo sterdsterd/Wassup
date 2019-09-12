@@ -56,6 +56,7 @@ class BeaconService : Service() {
         var locationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         val student = mutableListOf<MemberData>()
+        val tracking = mutableListOf<LatLng>()
 
         val firestore = FirebaseFirestore.getInstance()
         val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
@@ -91,6 +92,7 @@ class BeaconService : Service() {
                             if (ContextCompat.checkSelfPermission( this@BeaconService, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
                                 locationProviderClient.lastLocation.addOnSuccessListener {
                                     student[i].vec = Pair(LatLng(it.latitude, it.longitude), Calendar.getInstance().time)
+                                    tracking.add(LatLng(it.latitude, it.longitude))
                                 }
                             }
 
@@ -104,6 +106,7 @@ class BeaconService : Service() {
                     }
                     Log.d("dext", "$student")
                     SharedData.studentList = student
+                    SharedData.tracking = tracking
                 }.start()
             }
 

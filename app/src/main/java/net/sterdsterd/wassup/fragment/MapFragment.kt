@@ -52,7 +52,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     val LOCATION_PERMISSION_REQUEST_CODE = 1000
     var locationSource: FusedLocationSource? = null
-    val track = mutableListOf<LatLng>()
 
     lateinit var mapFragment: com.naver.maps.map.MapFragment
 
@@ -111,16 +110,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
                 markerList.add(Pair(marker, circleOverlay))
 
-                if (ContextCompat.checkSelfPermission(activity!!.applicationContext, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
-                    LocationServices.getFusedLocationProviderClient(activity!!.applicationContext).lastLocation.addOnSuccessListener { it1 ->
-                        track.add(LatLng(it1.latitude, it1.longitude))
-                    }
-                }
             }
 
-            if (track.size >= 2) {
+            if (SharedData.tracking.size >= 2) {
                 val pathOverlay = PathOverlay().also {
-                    it.coords = track
+                    it.coords = SharedData.tracking
                     it.width = resources.getDimensionPixelSize(R.dimen.path_overlay_width)
                     it.outlineWidth = 0
                     it.color = ResourcesCompat.getColor(resources, R.color.colorPrimary, activity?.theme)

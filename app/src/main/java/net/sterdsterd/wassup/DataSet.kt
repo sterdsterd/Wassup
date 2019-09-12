@@ -36,5 +36,6 @@ class SharedData {
     companion object {
         var studentList = mutableListOf<MemberData>()
         val attendanceSet = mutableListOf<Attendance>()
+        var tracking = mutableListOf<LatLng>()
     }
 }
