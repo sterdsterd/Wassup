@@ -51,7 +51,7 @@ class DetailActivity : AppCompatActivity() {
 
         collapsingToolBar.title = taskName
         supportActionBar?.title = taskName
-        description.text = "확인 된 인원 ${SharedData.studentList.filter { it.isBus }.size}명"
+        description.text = "확인 된 인원 ${listcpy.filter { it.isBus }.size}명"
         val firestore = FirebaseFirestore.getInstance()
 
         val count = ((this.resources?.displayMetrics!!.widthPixels / this.resources?.displayMetrics!!.density) - 54) / 92 - 0.3
@@ -111,9 +111,10 @@ class DetailActivity : AppCompatActivity() {
                             Log.e("Beacon", info.toString())
                             firestore.collection("class").document(classStr).collection(date).document(id).set(info, SetOptions.merge())
                             SharedData.studentList.find { it0 -> it0.mac == mac }?.isBus = true
+                            listcpy.find { it0 -> it0.mac == mac }?.isBus = true
                         }
                     }
-                    description.text = "현재 탑승 인원 ${SharedData.studentList.filter { it.isBus }.size}명"
+                    description.text = "확인 된 인원 ${listcpy.filter { it.isBus }.size}명"
                 }
             }
 

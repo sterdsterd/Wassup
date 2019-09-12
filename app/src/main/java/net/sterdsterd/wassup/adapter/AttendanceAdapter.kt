@@ -5,6 +5,7 @@ import android.content.Intent
 import android.telephony.PhoneNumberUtils
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
@@ -56,6 +57,8 @@ class AttendanceAdapter(val activity: MainActivity, val date: String, val items 
             }
             Log.d("dext-chk", isCheckedList.toString())
             holder.badgeText.text = isCheckedList.size.toString()
+            holder.badgeBg.visibility = if (isCheckedList.size == 0) View.GONE
+                                        else View.VISIBLE
         }
         holder.taskName.text = items[position].second
         holder.card.setOnClickListener { v ->

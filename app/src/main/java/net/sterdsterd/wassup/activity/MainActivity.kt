@@ -109,24 +109,6 @@ class MainActivity : AppCompatActivity() {
                             it.result?.forEach { snap ->
                                 taskList.add(Triple(snap.id, snap.getString("id")!!, snap.getString("icon")!!))
                             }
-                            if (!taskList.contains(Triple("00bus", "셔틀 버스", "bus"))) {
-                                firestore.document("00bus")
-                                    .set(mapOf("icon" to "bus", "id" to "셔틀 버스"))
-                                SharedData.studentList.filter { f -> f.type == "shuttle" }.forEach { q ->
-                                    firestore.document("00bus").collection("info").document("filter").set(
-                                        mapOf(q.id to true), SetOptions.merge())
-                                }
-                                taskList.add(Triple("00bus", "셔틀 버스", "bus"))
-                            }
-                            if (!taskList.contains(Triple("00class", "교실", "school"))) {
-                                firestore.document("00class")
-                                    .set(mapOf("icon" to "school", "id" to "교실"))
-                                SharedData.studentList.forEach { q ->
-                                    firestore.document("00class").collection("info").document("filter").set(
-                                        mapOf(q.id to true), SetOptions.merge())
-                                }
-                                taskList.add(Triple("00class", "교실", "school"))
-                            }
                             SharedData.attendanceSet.add(Attendance("$y${m + 1}$d", taskList))
                             (supportFragmentManager.findFragmentById(R.id.fragment) as AttendanceFragment).setAdapter("$y${m + 1}$d", SharedData.attendanceSet.firstOrNull { it.date == "$y${m + 1}$d" }?.taskList)
                             progress.dismiss()
@@ -313,6 +295,15 @@ class MainActivity : AppCompatActivity() {
                             t.result?.documents?.get(i)?.getString("type")!!
                         )
                     )
+                }
+                val cal = Calendar.getInstance()
+                val nowDate = "${cal.get(Calendar.YEAR)}${cal.get(Calendar.MONTH) + 1}${cal.get(Calendar.DAY_OF_MONTH)}"
+                firestore.collection("class").document(classStr).collection(nowDate)
+                    .document("00bus").collection("info")
+                    .document("filter").delete()
+                SharedData.studentList.filter { f -> f.type == "shuttle" }.forEach { q ->
+                    firestore.collection("class").document(classStr).collection(nowDate).document("00bus").collection("info").document("filter").set(
+                        mapOf(q.id to true), SetOptions.merge())
                 }
                 progress.dismiss()
                 supportFragmentManager.beginTransaction().replace(R.id.fragment, EditFragment()).commit()
