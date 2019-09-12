@@ -32,6 +32,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.google.firebase.firestore.SetOptions
 import net.sterdsterd.wassup.Attendance
 import net.sterdsterd.wassup.service.BeaconService
 import java.io.ByteArrayOutputStream
@@ -73,15 +74,34 @@ class SplashActivity : AppCompatActivity() {
                 else {
                     val firestore = FirebaseFirestore.getInstance()
                     val cal = Calendar.getInstance()
+                    val classStr = pref.getString("class", "Null")
                     val nowDate = "${cal.get(Calendar.YEAR)}${cal.get(Calendar.MONTH) + 1}${cal.get(Calendar.DAY_OF_MONTH)}"
-                    firestore.collection("class").document(pref.getString("class", "Null")).collection(nowDate).get().addOnCompleteListener {
+                    firestore.collection("class").document(classStr).collection(nowDate).get().addOnCompleteListener {
                         val taskList = mutableListOf<Triple<String, String, String>>()
                         it.result?.forEach { snap ->
                             taskList.add(Triple(snap.id, snap.getString("id")!!, snap.getString("icon")!!))
                         }
+                        if (!taskList.contains(Triple("00bus", "셔틀 버스", "bus"))) {
+                            firestore.collection("class").document(classStr).collection(nowDate).document("00bus")
+                                .set(mapOf("icon" to "bus", "id" to "셔틀 버스"))
+                            SharedData.studentList.filter { f -> f.type == "shuttle" }.forEach { q ->
+                                firestore.collection("class").document(classStr).collection(nowDate).document("00bus").collection("info").document("filter").set(
+                                    mapOf(q.id to true), SetOptions.merge())
+                            }
+                            taskList.add(Triple("00bus", "셔틀 버스", "bus"))
+                        }
+                        if (!taskList.contains(Triple("00class", "교실", "school"))) {
+                            firestore.collection("class").document(classStr).collection(nowDate).document("00class")
+                                .set(mapOf("icon" to "school", "id" to "교실"))
+                            SharedData.studentList.forEach { q ->
+                                firestore.collection("class").document(classStr).collection(nowDate).document("00class").collection("info").document("filter").set(
+                                    mapOf(q.id to true), SetOptions.merge())
+                            }
+                            taskList.add(Triple("00class", "교실", "school"))
+                        }
                         SharedData.attendanceSet.add(Attendance(nowDate, taskList))
                         SharedData.studentList.clear()
-                        firestore.collection("class").document(pref.getString("class", "Null")).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
+                        firestore.collection("class").document(classStr).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
                             if (t.isComplete) {
                                 val v = t.result?.documents?.size as Int
                                 var cnt = 0
@@ -90,16 +110,6 @@ class SplashActivity : AppCompatActivity() {
                                         "dex",
                                         "${t.result?.documents?.get(i)?.getString("name")} LOADED"
                                     )
-                                    /*
-                                    SharedData.studentList.add(
-                                        MemberData(
-                                            t.result?.documents?.get(i)?.id!!,
-                                            t.result?.documents?.get(i)?.getString("name")!!,
-                                            t.result?.documents?.get(i)?.getString("parentPhone")!!,
-                                            t.result?.documents?.get(i)?.getString("mac"),
-                                            t.result?.documents?.get(i)?.getString("hash")!!
-                                        )
-                                    )*/
 
                                     val intent = Intent(this@SplashActivity, BeaconService::class.java)
                                     stopService(intent)

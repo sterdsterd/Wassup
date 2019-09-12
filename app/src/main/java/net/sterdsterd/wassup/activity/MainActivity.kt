@@ -61,9 +61,35 @@ class MainActivity : AppCompatActivity() {
                 description.text = SimpleDateFormat("yyyy년 M월 d일").format(Calendar.getInstance().time)
                 supportFragmentManager.beginTransaction().replace(R.id.fragment, AttendanceFragment()).commit()
                 btnToolbar.text = "날짜"
+                val cal = Calendar.getInstance(TimeZone.getDefault())
                 btnToolbar.setOnClickListener {
 
                     val listener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
+                        val warn: DialogSheet = DialogSheet(this@MainActivity)
+                            .setColoredNavigationBar(true)
+                            .setCancelable(false)
+                            .setRoundedCorners(true)
+                            .setBackgroundColor(Color.parseColor("#323445"))
+                            .setTitle("날짜가 유효하지 않아요")
+                            .setMessage("날짜를 다시 선택 해주세요")
+                            .setPositiveButton("다시 선택") {
+                                btnToolbar.performClick()
+                            }
+                        if (y > cal.get(Calendar.YEAR)) {
+                            Log.d("dextr", "Y : $y -> ${cal.get(Calendar.YEAR)}")
+                            warn.show()
+                            return@OnDateSetListener
+                        } else if (m > cal.get(Calendar.MONTH)) {
+                            Log.d("dextr", "M : ${m} -> ${cal.get(Calendar.MONTH)}")
+                            warn.show()
+                            return@OnDateSetListener
+                        } else if (d > cal.get(Calendar.DATE)) {
+                            Log.d("dextr", "M : ${m} -> ${cal.get(Calendar.MONTH)}")
+                            Log.d("dextr", "D : $d -> ${cal.get(Calendar.DATE)}")
+                            warn.show()
+                            return@OnDateSetListener
+                        }
+
                         val progress: DialogSheet = DialogSheet(this@MainActivity)
                             .setColoredNavigationBar(true)
                             .setCancelable(false)
@@ -110,7 +136,6 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     if (Build.VERSION.SDK_INT >= 24) {
-                        val cal = Calendar.getInstance(TimeZone.getDefault())
                         DatePickerDialog(this, R.style.DialogTheme, listener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
                     }
 
