@@ -140,6 +140,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_map -> {
+                startService(Intent(this, BeaconService::class.java))
                 appBarLayout.setExpanded(false)
                 collapsingToolBar.title = resources.getString(R.string.activity)
                 description.text = ""

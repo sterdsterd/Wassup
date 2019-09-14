@@ -48,6 +48,8 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val intent = Intent(this, BeaconService::class.java)
+        stopService(intent)
         val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
         val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         if (mBluetoothAdapter == null) {
@@ -73,7 +75,6 @@ class SplashActivity : AppCompatActivity() {
                     finish()
                 }
                 else {
-                    val intent = Intent(this@SplashActivity, BeaconService::class.java)
                     val firestore = FirebaseFirestore.getInstance()
                     val cal = Calendar.getInstance()
                     val classStr = pref.getString("class", "Null")
@@ -107,7 +108,6 @@ class SplashActivity : AppCompatActivity() {
                                     taskList.add(Triple("00class", "교실", "school"))
                                 }
                                 SharedData.attendanceSet.add(Attendance(nowDate, taskList))
-                                startService(intent)
                                 var cnt = 0
                                 for (i in 0 until v) {
                                     Log.d("dex", "${t.result?.documents?.get(i)?.getString("name")} LOADED")
@@ -125,6 +125,7 @@ class SplashActivity : AppCompatActivity() {
                                                         saveImg(resource, t.result?.documents?.get(i)?.id + t.result?.documents?.get(i)?.getString("hash"))
                                                         cnt++
                                                         if (cnt == v) {
+                                                            startService(intent)
                                                             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                                                             finish()
                                                         }
@@ -135,12 +136,8 @@ class SplashActivity : AppCompatActivity() {
                                         }.addOnFailureListener {
                                             cnt++
                                             if (cnt == v) {
-                                                startActivity(
-                                                    Intent(
-                                                        this@SplashActivity,
-                                                        MainActivity::class.java
-                                                    )
-                                                )
+                                                startService(intent)
+                                                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                                                 finish()
                                             }
                                         }
@@ -151,6 +148,7 @@ class SplashActivity : AppCompatActivity() {
                                         )
                                         cnt++
                                         if (cnt == v) {
+                                            startService(intent)
                                             startActivity(
                                                 Intent(
                                                     this@SplashActivity,
