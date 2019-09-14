@@ -37,5 +37,7 @@ class SharedData {
         var studentList = mutableListOf<MemberData>()
         val attendanceSet = mutableListOf<Attendance>()
         var tracking = mutableListOf<LatLng>()
+        var busList = mutableListOf<String>()
+        var classList = mutableListOf<String>()
     }
 }

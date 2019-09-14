@@ -41,6 +41,7 @@ import com.marcoscg.dialogsheet.DialogSheet
 import com.minew.beacon.*
 import com.naver.maps.geometry.LatLng
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_attendance.*
 import net.sterdsterd.wassup.Attendance
 import net.sterdsterd.wassup.SharedData
 import net.sterdsterd.wassup.fragment.InfoFragment
@@ -49,6 +50,7 @@ import net.sterdsterd.wassup.service.PushService
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
+import kotlin.math.abs
 
 
 class MainActivity : AppCompatActivity() {
@@ -241,6 +243,14 @@ class MainActivity : AppCompatActivity() {
 
         val mainHandler = Handler(Looper.getMainLooper())
 
+        var attend = mutableListOf<String>()
+        var bus = mutableListOf<String>()
+        var absent = mutableMapOf<String, String>()
+
+
+        val cal = Calendar.getInstance()
+        val nowDate = "${cal.get(Calendar.YEAR)}${cal.get(Calendar.MONTH) + 1}${cal.get(Calendar.DAY_OF_MONTH)}"
+
         var isLoaded = true
         var delay = 100L
         mainHandler.post(object : Runnable {
@@ -254,6 +264,32 @@ class MainActivity : AppCompatActivity() {
                 }
                 if (nav_view.selectedItemId == R.id.nav_map)
                     (supportFragmentManager.findFragmentById(R.id.fragment) as MapFragment).update()
+
+                FirebaseFirestore.getInstance().collection("class").document(classStr)
+                    .collection(nowDate).document("00class").get().addOnCompleteListener { ta ->
+                        attend.clear()
+                        ta?.result?.data?.filter { it.key != "icon" && it.key != "id" }?.forEach {
+                            attend.add(it.key)
+                        }
+                    }
+
+                Log.d("dextr-abs(Att)", attend.toString())
+                FirebaseFirestore.getInstance().collection("class").document(classStr)
+                    .collection(nowDate).document("00bus").get().addOnCompleteListener { ta ->
+                        ta?.result?.data?.filter { it.key != "icon" && it.key != "id" }?.forEach {
+                            bus.add(it.key)
+                        }
+                    }
+
+                absent.clear()
+                SharedData.studentList.filter { !attend.contains(it.id) }.map { it.id }.forEach {
+                    if (bus.contains(it))
+                        absent[it] = "WARNING"
+                    else absent[it] = "ABSENT"
+                }
+
+                Log.d("dextr-abs", absent.size.toString())
+
                 mainHandler.postDelayed(this, delay)
             }
         })
