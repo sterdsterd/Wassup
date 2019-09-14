@@ -78,6 +78,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private val markerList = mutableListOf<Pair<Marker, CircleOverlay>>()
 
     fun update() {
+        Log.d("dextr", SharedData.tracking.toString())
         //TODO : Change Redundant Code to function
         mapFragment.getMapAsync { p0 ->
             markerList.forEach {
