@@ -85,7 +85,7 @@ class DetailActivity : AppCompatActivity() {
         mMinewBeaconManager.setDeviceManagerDelegateListener(object : MinewBeaconManagerListener {
             override fun onRangeBeacons(minewBeacons: List<MinewBeacon>) {
                 runOnUiThread {
-                    Log.d("dext-listcpy", listcpy.toString())
+                    listcpy.filter { filteredArray.contains(it.id) }
                     for (i in 0 until listcpy.size) {
                         var rssiSeq = listOf<MinewBeacon>()
                         if(listcpy.isNotEmpty()) rssiSeq = minewBeacons.filter { it.getBeaconValue(
@@ -107,10 +107,10 @@ class DetailActivity : AppCompatActivity() {
                         minewBeacons.filter {
                             it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_Name).stringValue.startsWith("MiniBeacon")
                                     && it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue > -55
+                                    && listcpy.firstOrNull { it0 -> it0.mac == it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue} != null
                         }.forEach {
                             val mac = it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue
                             val info = mapOf(SharedData.studentList.first { tr -> tr.mac == mac }.id to Timestamp(System.currentTimeMillis()))
-                            Log.e("Beacon", info.toString())
                             firestore.collection("class").document(classStr).collection(date).document(id).set(info, SetOptions.merge())
                             SharedData.studentList.find { it0 -> it0.mac == mac }?.isBus = true
                             listcpy.find { it0 -> it0.mac == mac }?.isBus = true
