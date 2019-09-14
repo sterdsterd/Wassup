@@ -25,6 +25,7 @@ import kotlin.math.roundToInt
 
 class DetailActivity : AppCompatActivity() {
 
+    lateinit var mMinewBeaconManager: MinewBeaconManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
@@ -74,8 +75,7 @@ class DetailActivity : AppCompatActivity() {
         var isChecked = false
         switchActivate.setOnCheckedChangeListener { _, b -> isChecked = b }
 
-
-        val mMinewBeaconManager = MinewBeaconManager.getInstance(this)
+        mMinewBeaconManager = MinewBeaconManager.getInstance(this)
         try {
             mMinewBeaconManager.startScan()
         } catch (e: Exception) {
@@ -84,6 +84,7 @@ class DetailActivity : AppCompatActivity() {
         mMinewBeaconManager.setDeviceManagerDelegateListener(object : MinewBeaconManagerListener {
             override fun onRangeBeacons(minewBeacons: List<MinewBeacon>) {
                 runOnUiThread {
+                    Log.d("dext-listcpy", listcpy.toString())
                     for (i in 0 until listcpy.size) {
                         var rssiSeq = listOf<MinewBeacon>()
                         if(listcpy.isNotEmpty()) rssiSeq = minewBeacons.filter { it.getBeaconValue(

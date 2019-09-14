@@ -17,6 +17,7 @@ import net.sterdsterd.wassup.R
 import net.sterdsterd.wassup.SharedData
 import net.sterdsterd.wassup.activity.DetailActivity
 import net.sterdsterd.wassup.activity.MainActivity
+import net.sterdsterd.wassup.service.BeaconService
 import java.util.*
 
 
@@ -62,6 +63,7 @@ class AttendanceAdapter(val activity: MainActivity, val date: String, val items 
         }
         holder.taskName.text = items[position].second
         holder.card.setOnClickListener { v ->
+            //activity.stopService(Intent(activity, BeaconService::class.java))
             val intent = Intent(v.context, DetailActivity::class.java)
             intent.putExtra("taskName", items[position].second)
             intent.putExtra("id", items[position].first)

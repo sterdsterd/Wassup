@@ -269,6 +269,48 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refresh() {
+        var locationProviderClient = getFusedLocationProviderClient(this)
+        mMinewBeaconManager.setDeviceManagerDelegateListener(object : MinewBeaconManagerListener {
+            override fun onRangeBeacons(minewBeacons: List<MinewBeacon>) {
+                Thread {
+                    Log.d("dext-service", "ON RANGE")
+                    for (i in 0 until SharedData.studentList.size) {
+                        var rssiSeq = listOf<MinewBeacon>()
+                        if(SharedData.studentList.isNotEmpty()) rssiSeq = minewBeacons.filter { it.getBeaconValue(
+                            BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue == SharedData.studentList[i].mac }
+                        if(rssiSeq.isNotEmpty()) {
+                            SharedData.studentList[i].rssi = rssiSeq[0].getBeaconValue(
+                                BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue
+
+                            if (ContextCompat.checkSelfPermission( this@MainActivity, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
+                                locationProviderClient.lastLocation.addOnSuccessListener {
+                                    SharedData.studentList[i].vec = Pair(LatLng(it.latitude, it.longitude), Calendar.getInstance().time)
+                                }
+                            }
+
+                            SharedData.studentList[i].isDetected = true
+                            SharedData.studentList[i].undetected = 0
+                        } else {
+                            SharedData.studentList[i].undetected++
+                            if (SharedData.studentList[i].undetected > 5)
+                                SharedData.studentList[i].isDetected = false
+                        }
+                    }
+                    if (ContextCompat.checkSelfPermission( this@MainActivity, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
+                        locationProviderClient.lastLocation.addOnSuccessListener {
+                            SharedData.tracking.add(LatLng(it.latitude, it.longitude))
+                        }
+                    }
+                    Log.d("dext", SharedData.studentList.toString())
+                }.start()
+            }
+
+            override fun onAppearBeacons(minewBeacons: List<MinewBeacon>) { }
+
+            override fun onDisappearBeacons(minewBeacons: List<MinewBeacon>) { }
+
+            override fun onUpdateState(state: BluetoothState) { }
+        })
         (supportFragmentManager.findFragmentById(R.id.fragment) as AttendanceFragment).refresh()
     }
 

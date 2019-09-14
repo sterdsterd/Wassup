@@ -46,15 +46,11 @@ class BeaconService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        val mMinewBeaconManager = MinewBeaconManager.getInstance(this)
-        try {
-            mMinewBeaconManager.startScan()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        Log.d("dext-service", "CREATED")
 
         //TODO : NEED TO WORK WHEN WIFI IS DISABLED
         var locationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        val mMinewBeaconManager = MinewBeaconManager.getInstance(this)
 
         val student = mutableListOf<MemberData>()
         val tracking = mutableListOf<LatLng>()
@@ -76,12 +72,17 @@ class BeaconService : Service() {
                         )
                     )
                 }
+                try {
+                    mMinewBeaconManager.startScan()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
         mMinewBeaconManager.setDeviceManagerDelegateListener(object : MinewBeaconManagerListener {
             override fun onRangeBeacons(minewBeacons: List<MinewBeacon>) {
-
                 Thread {
+                    Log.d("dext-service", "ON RANGE")
                     for (i in 0 until student.size) {
                         var rssiSeq = listOf<MinewBeacon>()
                         if(student.isNotEmpty()) rssiSeq = minewBeacons.filter { it.getBeaconValue(
@@ -121,6 +122,11 @@ class BeaconService : Service() {
 
             override fun onUpdateState(state: BluetoothState) { }
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("dext-service", "DESTROYED")
     }
 
 
