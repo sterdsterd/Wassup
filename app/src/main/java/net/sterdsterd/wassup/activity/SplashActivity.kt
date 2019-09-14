@@ -74,79 +74,58 @@ class SplashActivity : AppCompatActivity() {
                 }
                 else {
                     val intent = Intent(this@SplashActivity, BeaconService::class.java)
-                    stopService(intent)
                     val firestore = FirebaseFirestore.getInstance()
                     val cal = Calendar.getInstance()
                     val classStr = pref.getString("class", "Null")
                     val nowDate = "${cal.get(Calendar.YEAR)}${cal.get(Calendar.MONTH) + 1}${cal.get(Calendar.DAY_OF_MONTH)}"
                     firestore.collection("class").document(classStr).collection(nowDate).get().addOnCompleteListener {
-                        val taskList = mutableListOf<Triple<String, String, String>>()
-                        it.result?.forEach { snap ->
-                            taskList.add(Triple(snap.id, snap.getString("id")!!, snap.getString("icon")!!))
-                        }
-                        if (!taskList.contains(Triple("00bus", "셔틀 버스", "bus"))) {
-                            firestore.collection("class").document(classStr).collection(nowDate).document("00bus")
-                                .set(mapOf("icon" to "bus", "id" to "셔틀 버스"))
-                            SharedData.studentList.filter { f -> f.type == "shuttle" }.forEach { q ->
-                                firestore.collection("class").document(classStr).collection(nowDate).document("00bus").collection("info").document("filter").set(
-                                    mapOf(q.id to true), SetOptions.merge())
-                            }
-                            taskList.add(Triple("00bus", "셔틀 버스", "bus"))
-                        }
-                        if (!taskList.contains(Triple("00class", "교실", "school"))) {
-                            firestore.collection("class").document(classStr).collection(nowDate).document("00class")
-                                .set(mapOf("icon" to "school", "id" to "교실"))
-                            SharedData.studentList.forEach { q ->
-                                firestore.collection("class").document(classStr).collection(nowDate).document("00class").collection("info").document("filter").set(
-                                    mapOf(q.id to true), SetOptions.merge())
-                            }
-                            taskList.add(Triple("00class", "교실", "school"))
-                        }
-                        SharedData.attendanceSet.add(Attendance(nowDate, taskList))
-                        SharedData.studentList.clear()
                         firestore.collection("class").document(classStr).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
                             if (t.isComplete) {
                                 val v = t.result?.documents?.size as Int
+                                val taskList = mutableListOf<Triple<String, String, String>>()
+                                it.result?.forEach { snap ->
+                                    taskList.add(Triple(snap.id, snap.getString("id")!!, snap.getString("icon")!!))
+                                }
+                                if (!taskList.contains(Triple("00bus", "셔틀 버스", "bus"))) {
+                                    firestore.collection("class").document(classStr).collection(nowDate).document("00bus")
+                                        .set(mapOf("icon" to "bus", "id" to "셔틀 버스"))
+                                    for (i in 0 until v) {
+                                        Log.d("dextest", "${t.result?.documents?.get(i)?.id} -> ${t.result?.documents?.get(i)?.getString("type")}")
+                                        if (t.result?.documents?.get(i)?.getString("type") == "shuttle")
+                                            firestore.collection("class").document(classStr).collection(nowDate).document("00bus").collection("info").document("filter").set(
+                                                mapOf(t.result?.documents?.get(i)?.id to true), SetOptions.merge())
+                                    }
+                                    taskList.add(Triple("00bus", "셔틀 버스", "bus"))
+                                }
+                                if (!taskList.contains(Triple("00class", "교실", "school"))) {
+                                    firestore.collection("class").document(classStr).collection(nowDate).document("00class")
+                                        .set(mapOf("icon" to "school", "id" to "교실"))
+                                    for (i in 0 until v) {
+                                            firestore.collection("class").document(classStr).collection(nowDate).document("00class").collection("info").document("filter").set(
+                                                mapOf(t.result?.documents?.get(i)?.id to true), SetOptions.merge())
+                                    }
+                                    taskList.add(Triple("00class", "교실", "school"))
+                                }
+                                SharedData.attendanceSet.add(Attendance(nowDate, taskList))
+                                startService(intent)
                                 var cnt = 0
                                 for (i in 0 until v) {
-                                    Log.d(
-                                        "dex",
-                                        "${t.result?.documents?.get(i)?.getString("name")} LOADED"
-                                    )
+                                    Log.d("dex", "${t.result?.documents?.get(i)?.getString("name")} LOADED")
 
                                     if (File(this@SplashActivity.applicationContext?.externalCacheDir.toString()).listFiles().filter {
-                                            it.name == "${t.result?.documents?.get(
-                                                i
-                                            )?.id}${t.result?.documents?.get(i)?.getString("hash")}.jpg"
+                                            it.name == "${t.result?.documents?.get(i)?.id}${t.result?.documents?.get(i)?.getString("hash")}.jpg"
                                         }.isEmpty()) {
                                         val storage = FirebaseStorage.getInstance().reference
                                         storage.child("profile/${t.result?.documents?.get(i)?.id}.jpeg")
-                                            .downloadUrl.addOnSuccessListener {
-                                            Log.d(
-                                                "dex",
-                                                "${t.result?.documents?.get(i)?.getString("name")} DOWNLOADED"
-                                            )
+                                            .downloadUrl.addOnSuccessListener { Log.d("dex", "${t.result?.documents?.get(i)?.getString("name")} DOWNLOADED")
                                             Glide.with(this@SplashActivity.applicationContext)
                                                 .asBitmap().load(it)
                                                 .into(object : CustomTarget<Bitmap>() {
-                                                    override fun onResourceReady(
-                                                        resource: Bitmap,
-                                                        transition: Transition<in Bitmap>?
-                                                    ) {
-                                                        saveImg(
-                                                            resource,
-                                                            t.result?.documents?.get(i)?.id + t.result?.documents?.get(
-                                                                i
-                                                            )?.getString("hash")
-                                                        )
+                                                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                                                        saveImg(resource, t.result?.documents?.get(i)?.id + t.result?.documents?.get(i)?.getString("hash"))
                                                         cnt++
                                                         if (cnt == v) {
-                                                            startActivity(
-                                                                Intent(
-                                                                    this@SplashActivity,
-                                                                    MainActivity::class.java
-                                                                )
-                                                            )
+                                                            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                                                             finish()
                                                         }
                                                     }

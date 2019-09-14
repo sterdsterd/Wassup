@@ -111,6 +111,7 @@ class BeaconService : Service() {
                     }
                     SharedData.studentList = student
                     SharedData.tracking = tracking
+                    Log.d("dext", SharedData.studentList.toString())
                 }.start()
             }
 
