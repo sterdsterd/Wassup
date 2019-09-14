@@ -47,6 +47,11 @@ class AddActivity : AppCompatActivity() {
             }
             etName.setText(taskName)
             add.text = "수정"
+            val checked = intent.getStringArrayExtra("checked").toList()
+            Log.d("dextr-chk", checked.toString())
+            Log.d("dextr-bef", SharedData.studentList.toString())
+            SharedData.studentList.filter { !checked.contains(it.id) }.map { it.isChecked = false }
+            Log.d("dextr-atf", SharedData.studentList.toString())
         }
 
         add.setOnClickListener {

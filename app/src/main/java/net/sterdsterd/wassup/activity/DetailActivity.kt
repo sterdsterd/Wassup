@@ -69,6 +69,7 @@ class DetailActivity : AppCompatActivity() {
         fab.setOnClickListener {
             val intent = Intent(this, AddActivity::class.java)
             intent.putExtra("taskName", taskName)
+            intent.putExtra("checked", filteredArray.toTypedArray())
             intent.putExtra("id", id)
             startActivity(intent)
         }
