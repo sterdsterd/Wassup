@@ -24,9 +24,13 @@
             android:theme="@style/AppTheme"
             tools:replace="android:label, android:theme">
         <activity
+                android:name=".activity.AbsentActivity"
+                android:label="@string/title_activity_absent"
+                android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
                 android:name=".activity.MyInfoActivity"
                 android:label="@string/title_activity_my_info"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
 
         <service
                 android:name=".service.BeaconService"

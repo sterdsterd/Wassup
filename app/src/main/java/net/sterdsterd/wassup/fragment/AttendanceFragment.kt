@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_attendance.*
 import net.sterdsterd.wassup.R
 import net.sterdsterd.wassup.SharedData
+import net.sterdsterd.wassup.activity.AbsentActivity
 import net.sterdsterd.wassup.activity.DetailActivity
 import net.sterdsterd.wassup.activity.MainActivity
 import net.sterdsterd.wassup.adapter.AttendanceAdapter
@@ -36,10 +37,14 @@ class AttendanceFragment : Fragment() {
         attendanceList.layoutManager = LinearLayoutManager(view.context)
         val nowDate = SimpleDateFormat("yyyyMd").format(Calendar.getInstance().time)
         setAdapter(nowDate, SharedData.attendanceSet.firstOrNull { it.date == nowDate }?.taskList)
-    }//no chi won babu
+
+        cardAbs.setOnClickListener {
+            context?.startActivity(Intent(context, AbsentActivity::class.java))
+        }
+    }
 
     fun setAdapter(date: String, list: MutableList<Triple<String, String, String>>?) {
-        if (list?.size == 2) {
+        if (list?.size == 2 || list?.size == 0) {
             tvEmpty.visibility = View.VISIBLE
             tvEmpty.text = if(date == SimpleDateFormat("yyyyMd").format(Calendar.getInstance().time)) "아래의 '+' 버튼을 눌러 작업을 추가해보세요"
             else "추가된 작업이 없어요"

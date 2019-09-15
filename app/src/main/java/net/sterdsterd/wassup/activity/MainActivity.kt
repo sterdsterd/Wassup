@@ -245,7 +245,6 @@ class MainActivity : AppCompatActivity() {
 
         var attend = mutableListOf<String>()
         var bus = mutableListOf<String>()
-        var absent = mutableMapOf<String, String>()
 
 
         val cal = Calendar.getInstance()
@@ -281,14 +280,15 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
-                absent.clear()
+                SharedData.absentList.clear()
                 SharedData.studentList.filter { !attend.contains(it.id) }.map { it.id }.forEach {
                     if (bus.contains(it))
-                        absent[it] = "WARNING"
-                    else absent[it] = "ABSENT"
+                        SharedData.absentList[it] = "WARNING"
+                    else SharedData.absentList[it] = "ABSENT"
                 }
 
-                Log.d("dextr-abs", absent.size.toString())
+                badgeText?.text = SharedData.absentList.size.toString()
+                Log.d("dextr-abs", SharedData.absentList.toList().toString())
 
                 mainHandler.postDelayed(this, delay)
             }

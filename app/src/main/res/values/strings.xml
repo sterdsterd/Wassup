@@ -71,4 +71,6 @@
     <string name="shuttle">셔틀 버스</string>
     <string name="indv">개인</string>
     <string name="absent">결석</string>
+    <string name="title_activity_absent">AbsentActivity</string>
+    <string name="desc_abs">아직 차에 있는 아이가 %1$d명, 결석한 아이가 %2$d명이에요</string>
 </resources>
