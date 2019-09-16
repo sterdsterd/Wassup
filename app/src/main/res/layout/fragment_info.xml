@@ -16,12 +16,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="27dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/cardBg"
+                app:cardElevation="@dimen/cardElevation">
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dark_mode"
+                        android:textColor="@color/colorText"
+                        android:textStyle="bold"/>
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+                <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/darkMode"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="27dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="27dp"
                 android:id="@+id/selectImg"
                 app:cardCornerRadius="12dp"
                 app:cardBackgroundColor="@color/cardBg"
-                app:cardElevation="10dp">
+                app:cardElevation="@dimen/cardElevation">
 
             <LinearLayout
                     android:layout_width="match_parent"

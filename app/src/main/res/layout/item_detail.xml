@@ -8,7 +8,7 @@
         app:cardCornerRadius="12dp"
         app:cardBackgroundColor="@color/cardBg"
         android:id="@+id/card"
-        app:cardElevation="10dp" xmlns:android="http://schemas.android.com/apk/res/android"
+        app:cardElevation="@dimen/cardElevation" xmlns:android="http://schemas.android.com/apk/res/android"
         android:focusable="true"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackgroundBorderless">

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@drawable/gradient_contents"/>
-    <item android:drawable="@drawable/ic_launcher_foreground"
-          android:height="192dp"
-          android:width="192dp"
-          android:gravity="center"/>
-</layer-list>

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +40,15 @@ class InfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val pref = this.activity?.getSharedPreferences("User", Context.MODE_PRIVATE)
+        val dark = pref!!.getBoolean("dark", true)
+
+        darkMode.isChecked = dark
+
+        darkMode.setOnCheckedChangeListener { _, b ->
+            pref.edit().putBoolean("dark", b).commit()
+            (activity as MainActivity).delegate.localNightMode = if (b) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        }
+
         classStr = pref!!.getString("class", "Null")
         tvId.text = pref!!.getString("id", "Null")
         tvName.text = pref!!.getString("name", "Null")

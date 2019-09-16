@@ -206,10 +206,13 @@ class MainActivity : AppCompatActivity() {
     lateinit var classStr: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val dark = pref!!.getBoolean("dark", true)
+        delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+
         setContentView(R.layout.activity_main)
         startService(Intent(this, BeaconService::class.java))
-
+        fab.hide()
         val progress: DialogSheet = DialogSheet(this@MainActivity)
             .setColoredNavigationBar(true)
             .setCancelable(false)
@@ -223,7 +226,6 @@ class MainActivity : AppCompatActivity() {
 
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
-        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
         classStr = pref.getString("class", "Null")
 
         var mar = (fab.layoutParams) as CoordinatorLayout.LayoutParams

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
@@ -28,13 +29,15 @@ class DetailActivity : AppCompatActivity() {
     lateinit var mMinewBeaconManager: MinewBeaconManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val dark = pref!!.getBoolean("dark", true)
+        delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         setContentView(R.layout.activity_detail)
 
         setSupportActionBar(toolBar)
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 
-        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
         val classStr = pref.getString("class", "Null")
 
         val taskName = intent.getStringExtra("taskName")

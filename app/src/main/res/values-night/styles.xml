@@ -16,10 +16,11 @@
     <!--style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/-->
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="DialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
+    <style name="DialogTheme" parent="Theme.MaterialComponents.Dialog">
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimary">@color/colorAccent</item>
-        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="android:background">@color/cardBg</item>
+        <item name="android:backgroundTint">@color/cardBg</item>
+        <item name="colorButtonNormal">@android:color/transparent</item>
 
     </style>
 

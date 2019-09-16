@@ -19,7 +19,7 @@
                 android:layout_marginTop="16dp"
                 app:cardCornerRadius="12dp"
                 app:cardBackgroundColor="@color/cardBg"
-                app:cardElevation="10dp"
+                app:cardElevation="@dimen/cardElevation"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
@@ -92,7 +92,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/attendanceList"
-                android:paddingBottom="16dp">
+                android:paddingBottom="16dp"
+                android:paddingTop="8dp"
+                android:clipToPadding="false">
         </androidx.recyclerview.widget.RecyclerView>
 
         <TextView

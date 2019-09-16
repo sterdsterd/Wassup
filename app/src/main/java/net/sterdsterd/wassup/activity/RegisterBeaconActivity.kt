@@ -1,5 +1,6 @@
 package net.sterdsterd.wassup.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -18,6 +19,8 @@ class RegisterBeaconActivity : AppCompatActivity() {
     lateinit var filtered: List<MinewBeacon>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val dark = pref!!.getBoolean("dark", true)
         setContentView(R.layout.activity_register_beacon)
 
         ripple.startRippleAnimation()

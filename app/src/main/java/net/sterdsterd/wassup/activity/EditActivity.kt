@@ -21,6 +21,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.marcoscg.dialogsheet.DialogSheet
@@ -35,6 +36,9 @@ class EditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val dark = pref!!.getBoolean("dark", true)
+        delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         setContentView(R.layout.activity_edit)
 
         setSupportActionBar(toolBar)
@@ -54,7 +58,6 @@ class EditActivity : AppCompatActivity() {
         val firestore = FirebaseFirestore.getInstance()
         val storage = FirebaseStorage.getInstance().reference
 
-        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
         val classStr = pref.getString("class", "Null")
         firestore.collection("class").document(classStr).collection("memberList").document(id!!).get().addOnCompleteListener { t ->
             if(t.isComplete) {

@@ -13,6 +13,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -27,6 +28,9 @@ class InfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
+        val dark = pref!!.getBoolean("dark", true)
+        delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         setContentView(R.layout.activity_info)
 
         val progress: DialogSheet = DialogSheet(this)
@@ -53,7 +57,6 @@ class InfoActivity : AppCompatActivity() {
 
         val firestore = FirebaseFirestore.getInstance()
 
-        val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
         val classStr = pref.getString("class", "Null")
         firestore.collection("class").document(classStr).collection("memberList").document(id).get().addOnCompleteListener { t ->
             if(t.isComplete) {

@@ -47,7 +47,7 @@
             android:layout_marginEnd="27dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="27dp"
-            app:cardElevation="10dp">
+            app:cardElevation="@dimen/cardElevation">
             <com.skyfishjy.library.RippleBackground
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

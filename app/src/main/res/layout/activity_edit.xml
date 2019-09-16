@@ -89,7 +89,7 @@
                     android:foreground="?attr/selectableItemBackground"
                     app:cardCornerRadius="12dp"
                     app:cardBackgroundColor="@color/cardBg"
-                    app:cardElevation="10dp">
+                    app:cardElevation="@dimen/cardElevation">
 
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                     <ImageView
@@ -126,7 +126,7 @@
                     android:layout_marginStart="27dp"
                     app:cardCornerRadius="12dp"
                     app:cardBackgroundColor="@color/cardBg"
-                    app:cardElevation="10dp">
+                    app:cardElevation="@dimen/cardElevation">
 
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
                     <com.google.android.material.textfield.TextInputLayout
@@ -228,7 +228,7 @@
                     app:cardCornerRadius="12dp"
                     app:cardBackgroundColor="@color/cardBg"
                     android:id="@+id/registerBeacon"
-                    app:cardElevation="10dp">
+                    app:cardElevation="@dimen/cardElevation">
 
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
 
