@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import net.sterdsterd.wassup.R
 import android.text.Editable
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.marcoscg.dialogsheet.DialogSheet
 
 
@@ -35,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
                 .setColoredNavigationBar(true)
                 .setCancelable(false)
                 .setRoundedCorners(true)
-                .setBackgroundColor(Color.parseColor("#323445"))
+                .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
                 .setView(R.layout.bottom_sheet_progress)
             progress.show()
             firestore.collection("member").document(etId.text.toString()).get().addOnCompleteListener {
@@ -67,9 +68,9 @@ class LoginActivity : AppCompatActivity() {
                     signin.isEnabled = false
                     signin.isClickable = false
                     signin.isFocusable = false
-                    signin.setCardBackgroundColor(Color.parseColor("#11ffffff"))
+                    signin.setCardBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorText11, null))
                     signin.cardElevation = 0f
-                    textLogin.setTextColor(Color.parseColor("#55ffffff"))
+                    textLogin.setTextColor(ResourcesCompat.getColor(resources, R.color.colorText55, null))
                 }
                 else {
                     signin.isEnabled = true
@@ -77,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
                     signin.isFocusable = true
                     signin.setCardBackgroundColor(ContextCompat.getColor(this@LoginActivity, R.color.colorAccent))
                     signin.cardElevation = 12f
-                    textLogin.setTextColor(Color.parseColor("#ffffff"))
+                    textLogin.setTextColor(ResourcesCompat.getColor(resources, R.color.colorText, null))
                 }
             }
 

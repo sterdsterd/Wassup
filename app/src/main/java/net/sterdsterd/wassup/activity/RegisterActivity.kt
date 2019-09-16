@@ -65,7 +65,7 @@ class RegisterActivity : AppCompatActivity() {
             PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+82" + etNum.text, 60, TimeUnit.SECONDS, TaskExecutors.MAIN_THREAD, mCallbacks
             )
-            textAuth.setTextColor(Color.parseColor("#ffffff"))
+            textAuth.setTextColor(ResourcesCompat.getColor(resources, R.color.colorText, null))
             check.isClickable = true
             check.isFocusable = true
             check.setCardBackgroundColor(ContextCompat.getColor(this@RegisterActivity, R.color.colorAccent))
@@ -129,18 +129,18 @@ class RegisterActivity : AppCompatActivity() {
     fun check() {
         if((etId.text.isEmpty() || etPwd.text.isEmpty() || etName.text.isEmpty() || isNotValidated || role.isEmpty()) || (role == "class" && etClass.text.isEmpty())) {
             signup.cardElevation = 0f
-            signup.setCardBackgroundColor(Color.parseColor("#11ffffff"))
+            signup.setCardBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorText11, null))
             signup.isClickable = false
             signup.isFocusable = false
             signup.isEnabled = false
-            textSignUp.setTextColor(Color.parseColor("#55ffffff"))
+            textSignUp.setTextColor(ResourcesCompat.getColor(resources, R.color.colorText55, null))
         } else {
             signup.cardElevation = 12f
             signup.setCardBackgroundColor(ContextCompat.getColor(this@RegisterActivity, R.color.colorAccent))
             signup.isClickable = true
             signup.isFocusable = true
             signup.isEnabled = true
-            textSignUp.setTextColor(Color.parseColor("#ffffff"))
+            textSignUp.setTextColor(ResourcesCompat.getColor(resources, R.color.colorText, null))
         }
     }
 

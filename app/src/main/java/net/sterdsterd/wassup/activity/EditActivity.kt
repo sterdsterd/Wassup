@@ -45,7 +45,7 @@ class EditActivity : AppCompatActivity() {
             .setColoredNavigationBar(true)
             .setCancelable(false)
             .setRoundedCorners(true)
-            .setBackgroundColor(Color.parseColor("#323445"))
+            .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
             .setView(R.layout.bottom_sheet_progress)
         progress.show()
 
@@ -112,7 +112,7 @@ class EditActivity : AppCompatActivity() {
                     .setColoredNavigationBar(true)
                     .setCancelable(false)
                     .setRoundedCorners(true)
-                    .setBackgroundColor(Color.parseColor("#323445"))
+                    .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
                     .setView(R.layout.bottom_sheet_progress)
                 progress.show()
 

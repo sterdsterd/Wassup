@@ -17,7 +17,7 @@
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="22dp"
                 android:textSize="32sp"
-                android:textColor="#fff"/>
+                android:textColor="@color/colorText"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -25,8 +25,13 @@
                 android:text="새 Beacon을 다시 등록할 수 있어요"
                 android:layout_marginStart="27dp"
                 android:textSize="14sp"
-                android:textColor="#fff"/>
+                android:textColor="@color/colorText"/>
     </LinearLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorDivDay"/>
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             app:cardCornerRadius="12dp"
-            app:cardBackgroundColor="#323445"
+            app:cardBackgroundColor="@color/cardBg"
             android:layout_marginEnd="27dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="27dp"
@@ -73,7 +78,7 @@
                             android:layout_height="wrap_content"
                             android:text="Beacon을 아이콘 위로 올려주세요"
                             android:layout_margin="16dp"
-                            android:textColor="#fff"
+                            android:textColor="@color/colorText"
                             android:layout_centerHorizontal="true"
                             android:layout_below="@+id/btIcon"/>
                 </RelativeLayout>
@@ -97,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/register"
-                    android:textColor="#fff"
+                    android:textColor="@color/colorText"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_margin="16dp"
@@ -112,7 +117,7 @@
                 android:layout_marginTop="16dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="#11ffffff"
+                app:cardBackgroundColor="@color/colorText11"
                 android:id="@+id/registerDisabled">
             <TextView
                     android:layout_width="wrap_content"
@@ -120,7 +125,7 @@
                     android:text="@string/register"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="#55ffffff"
+                    android:textColor="@color/colorText55"
                     android:layout_margin="16dp"
                     android:layout_gravity="center"/>
         </androidx.cardview.widget.CardView>

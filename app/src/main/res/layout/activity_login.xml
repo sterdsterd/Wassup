@@ -17,16 +17,21 @@
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="22dp"
                 android:textSize="32sp"
-                android:textColor="#fff"/>
+                android:textColor="@color/colorText"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/info"
+                android:text="@string/desc_login"
                 android:layout_marginStart="27dp"
                 android:textSize="14sp"
-                android:textColor="#fff"/>
+                android:textColor="@color/colorText"/>
     </LinearLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorDivDay"/>
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -41,7 +46,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="27dp"
                 app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#323445"
+                app:cardBackgroundColor="@color/cardBg"
                 app:cardElevation="10dp">
 
             <LinearLayout
@@ -90,7 +95,7 @@
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="16dp"
                 app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#11ffffff"
+                app:cardBackgroundColor="@color/colorText11"
                 app:cardElevation="0dp"
                 android:clickable="true"
                 android:focusable="true"
@@ -101,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/signin"
                     android:id="@+id/textLogin"
-                    android:textColor="#55ffffff"
+                    android:textColor="@color/colorText55"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_margin="16dp"

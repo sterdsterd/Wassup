@@ -33,7 +33,7 @@ class InfoActivity : AppCompatActivity() {
             .setColoredNavigationBar(true)
             .setCancelable(false)
             .setRoundedCorners(true)
-            .setBackgroundColor(Color.parseColor("#323445"))
+            .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
             .setView(R.layout.bottom_sheet_progress)
         progress.show()
 
@@ -70,7 +70,7 @@ class InfoActivity : AppCompatActivity() {
             }
         }
 
-        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, mutableListOf("출석", "결석", "탑승"))
+        //spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, mutableListOf("출석", "결석", "탑승"))
 
         btnToolbar.setOnClickListener {
             super.finish()

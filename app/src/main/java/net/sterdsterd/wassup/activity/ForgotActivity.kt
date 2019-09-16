@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.google.android.gms.tasks.TaskExecutors
 import com.google.firebase.FirebaseException
@@ -67,7 +68,7 @@ class ForgotActivity : AppCompatActivity() {
             check.isClickable = true
             check.isFocusable = true
             check.cardElevation = 12f
-            tvVerify.setTextColor(Color.parseColor("#ffffff"))
+            tvVerify.setTextColor(ResourcesCompat.getColor(resources, R.color.colorText, null))
 
         }
         check.isEnabled = false
@@ -85,14 +86,14 @@ class ForgotActivity : AppCompatActivity() {
                     change.isFocusable = true
                     change.isClickable = true
                     change.isEnabled = true
-                    tvChange.setTextColor(Color.parseColor("#ffffff"))
+                    tvChange.setTextColor(ResourcesCompat.getColor(resources, R.color.colorText, null))
                 } else {
-                    change.setCardBackgroundColor(Color.parseColor("#11ffffff"))
+                    change.setCardBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorText11, null))
                     change.cardElevation = 0f
                     change.isFocusable = false
                     change.isClickable = false
                     change.isEnabled = false
-                    tvChange.setTextColor(Color.parseColor("#55ffffff"))
+                    tvChange.setTextColor(ResourcesCompat.getColor(resources, R.color.colorText55, null))
                 }
             }
 

@@ -56,7 +56,7 @@ class MyInfoActivity : AppCompatActivity() {
                 .setRoundedCorners(true)
                 .setTitle("암호를 변경하려면 확인이 필요해요")
                 .setMessage("기존에 쓰던 비밀번호를 입력해주세요")
-                .setBackgroundColor(Color.parseColor("#323445"))
+                .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
                 .setView(R.layout.bottom_sheet_confirm)
 
             val etPwd = confirmation.inflatedView.findViewById<EditText>(R.id.etPwd)
@@ -65,7 +65,7 @@ class MyInfoActivity : AppCompatActivity() {
                 .setColoredNavigationBar(true)
                 .setCancelable(true)
                 .setRoundedCorners(true)
-                .setBackgroundColor(Color.parseColor("#323445"))
+                .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
                 .setView(R.layout.bottom_sheet_progress)
 
             confirmation.setPositiveButton("확인") {
@@ -94,7 +94,7 @@ class MyInfoActivity : AppCompatActivity() {
                                     .setPositiveButton("닫기") {
                                         finish()
                                     }
-                                    .setBackgroundColor(Color.parseColor("#323445"))
+                                    .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
                                 correct.show()
                             }
                         } else {
@@ -108,7 +108,7 @@ class MyInfoActivity : AppCompatActivity() {
                                     save.performClick()
                                 }
                                 .setNegativeButton("취소") { }
-                                .setBackgroundColor(Color.parseColor("#323445"))
+                                .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
                             wrong.show()
                         }
                         progress.dismiss()

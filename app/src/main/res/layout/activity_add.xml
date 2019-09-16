@@ -33,7 +33,7 @@
                     android:layout_marginStart="27dp"
                     android:text="새로운 이벤트를 추가할 수 있어요"
                     android:textSize="14sp"
-                    android:textColor="#fff"/>
+                    android:textColor="@color/colorText"/>
 
             <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
@@ -60,6 +60,11 @@
                     android:layout_gravity="end"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDivDay"/>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -83,7 +88,7 @@
                     android:id="@+id/selectIcon"
                     android:foreground="?attr/selectableItemBackground"
                     app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#323445"
+                    app:cardBackgroundColor="@color/cardBg"
                     app:cardElevation="10dp">
 
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
@@ -109,7 +114,7 @@
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:layout_gravity="center_vertical"
-                            android:textColor="#fff"/>
+                            android:textColor="@color/colorText"/>
                     <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
                     <ImageView
                             android:layout_width="wrap_content"
@@ -127,7 +132,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="27dp"
                     app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#323445"
+                    app:cardBackgroundColor="@color/cardBg"
                     app:cardElevation="10dp">
 
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
@@ -135,9 +140,7 @@
                             android:id="@+id/text_input_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="18dp"
-                            android:layout_marginEnd="18dp"
-                            android:layout_marginTop="18dp">
+                            android:layout_margin="18dp">
 
                         <EditText
                                 android:id="@+id/etName"
@@ -157,13 +160,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="27dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="27dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:id="@+id/filter"
                     android:foreground="?attr/selectableItemBackground"
                     app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#323445"
+                    app:cardBackgroundColor="@color/cardBg"
                     app:cardElevation="10dp">
 
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
@@ -188,7 +192,7 @@
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:layout_gravity="center_vertical"
-                            android:textColor="#fff"/>
+                            android:textColor="@color/colorText"/>
                     <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
                     <ImageView
                             android:layout_width="wrap_content"

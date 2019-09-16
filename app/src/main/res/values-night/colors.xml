@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#4FAFFF</color>
-    <color name="colorPrimaryDark">#F3F2F9</color>
+    <color name="colorPrimaryDark">#181B1F</color>
     <color name="colorAccent">#4FAFFF</color>
     <color name="colorAccentTransparent">#7F4FAFFF</color>
-    <color name="cardBg">#fff</color>
-    <color name="colorText">#000</color>
-    <color name="colorText11">#11000000</color>
-    <color name="colorText55">#55000000</color>
-    <color name="colorText7F">#7F000000</color>
-    <color name="colorDiv">#33000000</color>
-    <color name="colorDivDay">#22000000</color>
-    <color name="colorComponent">#c6c6c8</color>
-    <color name="colorNav">#fff</color>
+    <color name="cardBg">#323445</color>
+    <color name="colorText">#fff</color>
+    <color name="colorText11">#11ffffff</color>
+    <color name="colorText55">#55ffffff</color>
+    <color name="colorText7F">#7Fffffff</color>
+    <color name="colorDiv">#33ffffff</color>
+    <color name="colorDivDay">#00000000</color>
+    <color name="colorComponent">#fff</color>
+    <color name="colorNav">#22232C</color>
 
     <color name="colorBlue">#0a84ff</color>
     <color name="colorGrey">#98989d</color>

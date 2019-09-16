@@ -17,7 +17,7 @@
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="22dp"
                 android:textSize="32sp"
-                android:textColor="#fff"/>
+                android:textColor="@color/colorText"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -25,8 +25,13 @@
                 android:text="@string/descriptionFind"
                 android:layout_marginStart="27dp"
                 android:textSize="14sp"
-                android:textColor="#fff"/>
+                android:textColor="@color/colorText"/>
     </LinearLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorDivDay"/>
 
     <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
                                            android:layout_height="match_parent"
@@ -43,7 +48,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="27dp"
                     app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#323445"
+                    app:cardBackgroundColor="@color/cardBg"
                     app:cardElevation="10dp">
 
                 <LinearLayout
@@ -98,7 +103,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="전송"
-                                    android:textColor="#fff"
+                                    android:textColor="@color/colorText"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:layout_margin="16dp"
@@ -111,7 +116,7 @@
                                 android:layout_weight="1"
                                 android:layout_marginTop="16dp"
                                 app:cardCornerRadius="12dp"
-                                app:cardBackgroundColor="#11ffffff"
+                                app:cardBackgroundColor="@color/colorText11"
                                 app:cardElevation="0dp"
                                 android:foreground="?attr/selectableItemBackground"
                                 android:id="@+id/check"
@@ -121,7 +126,7 @@
                                     android:layout_height="wrap_content"
                                     android:id="@+id/tvVerify"
                                     android:text="인증"
-                                    android:textColor="#55ffffff"
+                                    android:textColor="@color/colorText55"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:layout_margin="16dp"
@@ -140,7 +145,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="27dp"
                     app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#323445"
+                    app:cardBackgroundColor="@color/cardBg"
                     app:cardElevation="10dp"
                     android:id="@+id/cardPwd"
                     android:visibility="gone">
@@ -174,7 +179,7 @@
                     android:layout_marginStart="27dp"
                     android:layout_marginBottom="27dp"
                     app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#11ffffff"
+                    app:cardBackgroundColor="@color/colorText11"
                     app:cardElevation="0dp"
                     android:foreground="?attr/selectableItemBackground"
                     android:id="@+id/change">
@@ -183,7 +188,7 @@
                         android:layout_height="wrap_content"
                         android:text="변경"
                         android:id="@+id/tvChange"
-                        android:textColor="#55ffffff"
+                        android:textColor="@color/colorText55"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_margin="16dp"

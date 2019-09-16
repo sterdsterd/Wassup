@@ -33,7 +33,7 @@
                     android:layout_marginStart="27dp"
                     android:text="@string/desc_select_icon"
                     android:textSize="14sp"
-                    android:textColor="#fff"/>
+                    android:textColor="@color/colorText"/>
 
             <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
@@ -46,12 +46,18 @@
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDivDay"/>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/rview"
+            android:paddingTop="16dp"
             android:paddingStart="27dp"
             android:paddingEnd="27dp"
             android:background="@drawable/gradient_contents"

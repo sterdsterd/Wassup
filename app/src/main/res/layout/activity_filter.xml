@@ -33,7 +33,7 @@
                     android:layout_marginStart="27dp"
                     android:text="이벤트를 적용할 아이들을 선택할 수 있어요"
                     android:textSize="14sp"
-                    android:textColor="#fff"/>
+                    android:textColor="@color/colorText"/>
 
             <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
@@ -59,6 +59,11 @@
                     android:text="@string/select"
                     android:layout_gravity="end"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDivDay"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

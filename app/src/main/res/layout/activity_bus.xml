@@ -22,7 +22,7 @@
                     android:layout_marginStart="27dp"
                     android:layout_marginTop="22dp"
                     android:textSize="32sp"
-                    android:textColor="#fff"/>
+                    android:textColor="@color/colorText"/>
 
             <TextView
                     android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
                     android:text="아이들의 탑승을 확인할 수 있어요"
                     android:layout_marginStart="27dp"
                     android:textSize="14sp"
-                    android:textColor="#fff"/>
+                    android:textColor="@color/colorText"/>
         </LinearLayout>
 
         <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>

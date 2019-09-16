@@ -20,7 +20,7 @@
                 android:layout_marginStart="27dp"
                 android:id="@+id/selectImg"
                 app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#323445"
+                app:cardBackgroundColor="@color/cardBg"
                 app:cardElevation="10dp">
 
             <LinearLayout
@@ -34,7 +34,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="니 아이디"
-                        android:textColor="#7FFFFFFF"
+                        android:textColor="@color/colorText7F"
                         android:textSize="12sp"
                         android:layout_marginBottom="4dp"/>
 
@@ -43,7 +43,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:textColor="#fff"
+                        android:textColor="@color/colorText"
                         android:id="@+id/tvId"
                         android:textStyle="bold"/>
 
@@ -59,7 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="니 이름"
-                        android:textColor="#7FFFFFFF"
+                        android:textColor="@color/colorText7F"
                         android:textSize="12sp"
                         android:layout_marginBottom="4dp"/>
 
@@ -68,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:textColor="#fff"
+                        android:textColor="@color/colorText"
                         android:id="@+id/tvName"
                         android:textStyle="bold"/>
 
@@ -84,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="니 반"
-                        android:textColor="#7FFFFFFF"
+                        android:textColor="@color/colorText7F"
                         android:textSize="12sp"
                         android:layout_marginBottom="4dp"/>
 
@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:textColor="#fff"
+                        android:textColor="@color/colorText"
                         android:id="@+id/tvClass"
                         android:textStyle="bold"/>
 
@@ -109,7 +109,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="니 폰 번호"
-                        android:textColor="#7FFFFFFF"
+                        android:textColor="@color/colorText7F"
                         android:textSize="12sp"
                         android:layout_marginBottom="4dp"/>
 
@@ -118,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:textColor="#fff"
+                        android:textColor="@color/colorText"
                         android:id="@+id/tvMobile"
                         android:textStyle="bold"/>
 
@@ -134,7 +134,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="니 신분"
-                        android:textColor="#7FFFFFFF"
+                        android:textColor="@color/colorText7F"
                         android:textSize="12sp"
                         android:layout_marginBottom="4dp"/>
 
@@ -143,7 +143,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:textColor="#fff"
+                        android:textColor="@color/colorText"
                         android:id="@+id/tvRole"
                         android:textStyle="bold"/>
             </LinearLayout>

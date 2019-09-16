@@ -4,15 +4,22 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:clickable="true"
-              android:focusable="true"
-              android:id="@+id/list_item"
-              android:background="?attr/selectableItemBackgroundBorderless">
+              android:focusable="true">
 
-        <ImageView
+        <FrameLayout
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:id="@+id/imgIcon"
-                android:layout_margin="8dp"
-                android:tint="#fff"/>
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/shape_circle"
+                android:id="@+id/list_item"
+                android:foreground="?attr/selectableItemBackground">
+                <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imgIcon"
+                        android:layout_margin="8dp"
+                        android:tint="#fff"/>
+        </FrameLayout>
 
 </LinearLayout>

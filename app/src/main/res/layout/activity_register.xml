@@ -44,7 +44,7 @@
                         android:id="@+id/description"
                         android:textSize="14sp"
                         android:text="회원가입을 할 수 있어요"
-                        android:textColor="#fff"/>
+                        android:textColor="@color/colorText"/>
             </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar
@@ -56,14 +56,18 @@
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDivDay"/>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:clipToPadding="false"
-            android:paddingBottom="?actionBarSize">
+            android:clipToPadding="false">
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -77,7 +81,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="27dp"
                     app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#323445"
+                    app:cardBackgroundColor="@color/cardBg"
                     app:cardElevation="10dp">
 
                 <LinearLayout
@@ -183,7 +187,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="27dp"
                     app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#323445"
+                    app:cardBackgroundColor="@color/cardBg"
                     app:cardElevation="10dp">
 
                 <LinearLayout
@@ -238,7 +242,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="전송"
-                                    android:textColor="#fff"
+                                    android:textColor="@color/colorText"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:layout_margin="16dp"
@@ -252,7 +256,7 @@
                                 android:layout_marginTop="16dp"
                                 app:cardCornerRadius="12dp"
                                 app:cardElevation="0dp"
-                                app:cardBackgroundColor="#11ffffff"
+                                app:cardBackgroundColor="@color/colorText11"
                                 android:foreground="?attr/selectableItemBackground"
                                 android:id="@+id/check"
                                 android:layout_marginStart="8dp">
@@ -261,7 +265,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="인증"
                                     android:id="@+id/textAuth"
-                                    android:textColor="#55ffffff"
+                                    android:textColor="@color/colorText55"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:layout_margin="16dp"
@@ -282,7 +286,7 @@
                     android:clickable="false"
                     android:focusable="false"
                     app:cardCornerRadius="12dp"
-                    app:cardBackgroundColor="#11ffffff"
+                    app:cardBackgroundColor="@color/colorText11"
                     app:cardElevation="0dp"
                     android:foreground="?attr/selectableItemBackground"
                     android:id="@+id/signup">
@@ -291,7 +295,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/signup"
                         android:id="@+id/textSignUp"
-                        android:textColor="#55ffffff"
+                        android:textColor="@color/colorText55"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_margin="16dp"

@@ -173,7 +173,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             .setColoredNavigationBar(true)
             .setCancelable(false)
             .setRoundedCorners(true)
-            .setBackgroundColor(Color.parseColor("#323445"))
+            .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, null))
             .setView(R.layout.bottom_sheet_progress)
         progress.show()
         progress.inflatedView.findViewById<TextView>(R.id.title).text = "지도 사진을 저장하고 있어요"

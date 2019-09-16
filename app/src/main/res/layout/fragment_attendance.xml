@@ -16,8 +16,9 @@
                 android:layout_height="76dp"
                 android:layout_marginEnd="27dp"
                 android:layout_marginStart="27dp"
+                android:layout_marginTop="16dp"
                 app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#323445"
+                app:cardBackgroundColor="@color/cardBg"
                 app:cardElevation="10dp"
                 android:clickable="true"
                 android:focusable="true"
@@ -47,7 +48,7 @@
                         android:textSize="16sp"
                         android:text="@string/absent"
                         android:layout_gravity="center_vertical"
-                        android:textColor="#fff"/>
+                        android:textColor="@color/colorText"/>
 
                 <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
 
@@ -82,7 +83,7 @@
         <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="#33ffffff"
+                android:background="@color/colorDiv"
                 android:layout_marginStart="27dp"
                 android:layout_marginEnd="27dp"
                 android:layout_marginTop="16dp"/>
@@ -90,7 +91,8 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/attendanceList">
+                android:id="@+id/attendanceList"
+                android:paddingBottom="16dp">
         </androidx.recyclerview.widget.RecyclerView>
 
         <TextView
@@ -98,10 +100,9 @@
                 android:layout_height="wrap_content"
                 android:text="아래의 '+' 버튼을 눌러 작업을 추가해보세요"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
                 android:id="@+id/tvEmpty"
                 android:visibility="gone"
-                android:textColor="#fff"
+                android:textColor="@color/colorText"
                 android:textStyle="bold"/>
 
     </LinearLayout>

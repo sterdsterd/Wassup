@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
@@ -61,7 +62,7 @@ class InfoFragment : Fragment() {
 
                 }
                 .setRoundedCorners(true)
-                .setBackgroundColor(Color.parseColor("#323445"))
+                .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, null))
             dialogSheet.show()
         }
     }

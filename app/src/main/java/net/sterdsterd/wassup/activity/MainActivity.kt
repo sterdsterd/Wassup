@@ -1,5 +1,6 @@
 package net.sterdsterd.wassup.activity
 
+import akndmr.github.io.colorprefutil.ColorPrefUtil
 import android.annotation.TargetApi
 import android.app.DatePickerDialog
 import android.content.Context
@@ -16,6 +17,7 @@ import android.view.View
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -61,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 appBarLayout.setExpanded(true)
                 collapsingToolBar.title = "$classStr ${resources.getString(R.string.attendance)}"
                 description.text = SimpleDateFormat("yyyy년 M월 d일").format(Calendar.getInstance().time)
-                supportFragmentManager.beginTransaction().replace(R.id.fragment, AttendanceFragment()).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.fragment, AttendanceFragment()).commitAllowingStateLoss()
                 btnToolbar.text = "날짜"
                 val cal = Calendar.getInstance(TimeZone.getDefault())
                 btnToolbar.setOnClickListener {
@@ -71,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                             .setColoredNavigationBar(true)
                             .setCancelable(false)
                             .setRoundedCorners(true)
-                            .setBackgroundColor(Color.parseColor("#323445"))
+                            .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
                             .setTitle("날짜가 유효하지 않아요")
                             .setMessage("날짜를 다시 선택 해주세요")
                             .setPositiveButton("다시 선택") {
@@ -96,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                             .setColoredNavigationBar(true)
                             .setCancelable(false)
                             .setRoundedCorners(true)
-                            .setBackgroundColor(Color.parseColor("#323445"))
+                            .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
                             .setView(R.layout.bottom_sheet_progress)
                         progress.show()
                         description.text = SimpleDateFormat("${y}년 ${m + 1}월 ${d}일").format(Calendar.getInstance().time)
@@ -204,6 +206,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var classStr: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
         setContentView(R.layout.activity_main)
         startService(Intent(this, BeaconService::class.java))
 
@@ -211,9 +214,9 @@ class MainActivity : AppCompatActivity() {
             .setColoredNavigationBar(true)
             .setCancelable(false)
             .setRoundedCorners(true)
-            .setBackgroundColor(Color.parseColor("#323445"))
+            .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
             .setView(R.layout.bottom_sheet_progress)
-        progress.show()
+        //progress.show()
 
         setSupportActionBar(toolBar)
         btnShare.visibility = View.GONE
@@ -247,19 +250,19 @@ class MainActivity : AppCompatActivity() {
         var bus = mutableListOf<String>()
 
 
+        nav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
         val cal = Calendar.getInstance()
         val nowDate = "${cal.get(Calendar.YEAR)}${cal.get(Calendar.MONTH) + 1}${cal.get(Calendar.DAY_OF_MONTH)}"
 
         var isLoaded = true
-        var delay = 100L
+        var delay = 333L
         mainHandler.post(object : Runnable {
             override fun run() {
                 if (SharedData.studentList.isNotEmpty() && isLoaded) {
-                    nav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
                     nav_view.selectedItemId = nav_view.selectedItemId
                     isLoaded = false
                     delay = 1000L
-                    progress.dismiss()
                 }
                 if (nav_view.selectedItemId == R.id.nav_map)
                     (supportFragmentManager.findFragmentById(R.id.fragment) as MapFragment).update()
@@ -357,7 +360,7 @@ class MainActivity : AppCompatActivity() {
             .setColoredNavigationBar(true)
             .setCancelable(true)
             .setRoundedCorners(true)
-            .setBackgroundColor(Color.parseColor("#323445"))
+            .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
             .setView(R.layout.bottom_sheet_progress)
         progress.show()
         firestore.collection("class").document(classStr).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
