@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_detail.findList
 import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.SharedData
 import net.sterdsterd.wassup.adapter.DetailAdapter
+import net.sterdsterd.wassup.fragment.InfoFragment
 import java.sql.Timestamp
 import java.util.*
 import kotlin.math.roundToInt
@@ -75,6 +77,7 @@ class DetailActivity : AppCompatActivity() {
             intent.putExtra("checked", filteredArray.toTypedArray())
             intent.putExtra("id", id)
             startActivity(intent)
+            finish()
         }
         var isChecked = false
         switchActivate.setOnCheckedChangeListener { _, b -> isChecked = b }
