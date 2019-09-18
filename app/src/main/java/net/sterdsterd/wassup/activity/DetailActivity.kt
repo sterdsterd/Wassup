@@ -48,21 +48,21 @@ class DetailActivity : AppCompatActivity() {
         val filteredArray = intent.getStringArrayExtra("filtered").toList()
         val checked = intent.getStringArrayExtra("checked").toList()
 
-        val listcpy = mutableListOf<MemberData>()
+        SharedData.tmpList = mutableListOf()
 
         SharedData.studentList.forEach {
             val tmp = if (checked.contains(it.id)) it.copy(isBus = true) else it.copy(isBus = false)
-            if (filteredArray.contains(it.id)) listcpy.add(tmp)
+            if (filteredArray.contains(it.id)) SharedData.tmpList.add(tmp)
         }
 
         collapsingToolBar.title = taskName
         supportActionBar?.title = taskName
-        description.text = "확인 된 인원 ${listcpy.filter { it.isBus }.size}명"
+        description.text = "확인 된 인원 ${SharedData.tmpList.filter { it.isBus }.size}명"
         val firestore = FirebaseFirestore.getInstance()
 
         val count = ((this.resources?.displayMetrics!!.widthPixels / this.resources?.displayMetrics!!.density) - 54) / 92 - 0.3
         findList?.layoutManager = GridLayoutManager(this, count.roundToInt())
-        findList?.adapter = DetailAdapter(this, listcpy)
+        findList?.adapter = DetailAdapter(this, SharedData.tmpList, id)
         findList?.adapter?.notifyDataSetChanged()
 
         val cal = Calendar.getInstance()
@@ -91,20 +91,20 @@ class DetailActivity : AppCompatActivity() {
         mMinewBeaconManager.setDeviceManagerDelegateListener(object : MinewBeaconManagerListener {
             override fun onRangeBeacons(minewBeacons: List<MinewBeacon>) {
                 runOnUiThread {
-                    listcpy.filter { filteredArray.contains(it.id) }
-                    for (i in 0 until listcpy.size) {
+                    SharedData.tmpList.filter { filteredArray.contains(it.id) }
+                    for (i in 0 until SharedData.tmpList.size) {
                         var rssiSeq = listOf<MinewBeacon>()
-                        if(listcpy.isNotEmpty()) rssiSeq = minewBeacons.filter { it.getBeaconValue(
-                            BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue == listcpy[i].mac }
+                        if(SharedData.tmpList.isNotEmpty()) rssiSeq = minewBeacons.filter { it.getBeaconValue(
+                            BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue == SharedData.tmpList[i].mac }
                         if(rssiSeq.isNotEmpty()){
-                            listcpy[i].rssi = rssiSeq[0].getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue
-                            listcpy[i].isDetected = true
-                            listcpy[i].undetected = 0
+                            SharedData.tmpList[i].rssi = rssiSeq[0].getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue
+                            SharedData.tmpList[i].isDetected = true
+                            SharedData.tmpList[i].undetected = 0
                         }
                         else {
-                            listcpy[i].undetected++
-                            if (listcpy[i].undetected > 5)
-                                listcpy[i].isDetected = false
+                            SharedData.tmpList[i].undetected++
+                            if (SharedData.tmpList[i].undetected > 5)
+                                SharedData.tmpList[i].isDetected = false
                         }
                     }
                     findList?.adapter?.notifyDataSetChanged()
@@ -113,16 +113,16 @@ class DetailActivity : AppCompatActivity() {
                         minewBeacons.filter {
                             it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_Name).stringValue.startsWith("MiniBeacon")
                                     && it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_RSSI).intValue > -55
-                                    && listcpy.firstOrNull { it0 -> it0.mac == it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue} != null
+                                    && SharedData.tmpList.firstOrNull { it0 -> it0.mac == it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue} != null
                         }.forEach {
                             val mac = it.getBeaconValue(BeaconValueIndex.MinewBeaconValueIndex_MAC).stringValue
                             val info = mapOf(SharedData.studentList.first { tr -> tr.mac == mac }.id to Timestamp(System.currentTimeMillis()))
                             firestore.collection("class").document(classStr).collection(date).document(id).set(info, SetOptions.merge())
                             SharedData.studentList.find { it0 -> it0.mac == mac }?.isBus = true
-                            listcpy.find { it0 -> it0.mac == mac }?.isBus = true
+                            SharedData.tmpList.find { it0 -> it0.mac == mac }?.isBus = true
                         }
                     }
-                    description.text = "확인 된 인원 ${listcpy.filter { it.isBus }.size}명"
+                    description.text = "확인 된 인원 ${SharedData.tmpList.filter { it.isBus }.size}명"
                 }
             }
 

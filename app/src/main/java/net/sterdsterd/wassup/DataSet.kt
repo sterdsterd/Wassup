@@ -38,5 +38,6 @@ class SharedData {
         val attendanceSet = mutableListOf<Attendance>()
         var tracking = mutableListOf<LatLng>()
         var absentList = mutableMapOf<String, String>()
+        var tmpList = mutableListOf<MemberData>()
     }
 }

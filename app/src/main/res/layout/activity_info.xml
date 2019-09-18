@@ -193,6 +193,35 @@
                             android:layout_marginEnd="4dp"/>
                 </LinearLayout>
 
+                <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="@color/colorDiv" android:layout_gravity="bottom"
+                        android:layout_marginStart="12dp" android:layout_marginEnd="12dp"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:id="@+id/confirm">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorText"
+                            android:text="확인됨"
+                            android:layout_gravity="center_vertical"/>
+
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <Switch
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/switchChk"
+                            android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

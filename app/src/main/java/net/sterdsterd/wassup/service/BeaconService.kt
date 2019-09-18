@@ -93,7 +93,8 @@ class BeaconService : Service() {
 
                             if (ContextCompat.checkSelfPermission( this@BeaconService, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
                                 locationProviderClient.lastLocation.addOnSuccessListener {
-                                    student[i].vec = Pair(LatLng(it.latitude, it.longitude), Calendar.getInstance().time)
+                                    if (it != null)
+                                        student[i].vec = Pair(LatLng(it.latitude, it.longitude), Calendar.getInstance().time)
                                 }
                             }
 
@@ -107,7 +108,8 @@ class BeaconService : Service() {
                     }
                     if (ContextCompat.checkSelfPermission( this@BeaconService, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
                         locationProviderClient.lastLocation.addOnSuccessListener {
-                            tracking.add(LatLng(it.latitude, it.longitude))
+                            if(it != null)
+                                tracking.add(LatLng(it.latitude, it.longitude))
                         }
                     }
                     SharedData.studentList = student

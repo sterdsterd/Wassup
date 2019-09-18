@@ -26,7 +26,7 @@ import net.sterdsterd.wassup.activity.DetailActivity
 import java.io.File
 
 
-class DetailAdapter(val activity: DetailActivity, val items : MutableList<MemberData>) : RecyclerView.Adapter<DetailAdapter.MainViewHolder>() {
+class DetailAdapter(val activity: DetailActivity, val items : MutableList<MemberData>, val taskName: String) : RecyclerView.Adapter<DetailAdapter.MainViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int) = MainViewHolder(parent)
 
@@ -43,6 +43,7 @@ class DetailAdapter(val activity: DetailActivity, val items : MutableList<Member
         holder.card.setOnClickListener {
             val intent = Intent(it.context, InfoActivity::class.java)
             intent.putExtra("id", items[position].id)
+            intent.putExtra("taskName", taskName)
             activity.startActivityForResult(intent, 2)
 
         }
