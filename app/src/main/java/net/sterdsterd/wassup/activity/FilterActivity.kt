@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import kotlinx.android.synthetic.main.activity_filter.*
 import kotlinx.android.synthetic.main.activity_filter.collapsingToolBar
-import kotlinx.android.synthetic.main.activity_icon.*
 import net.sterdsterd.wassup.*
 import net.sterdsterd.wassup.adapter.FilterAdapter
 
@@ -22,6 +21,7 @@ class FilterActivity : AppCompatActivity() {
         val dark = pref!!.getBoolean("dark", true)
         delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         setContentView(R.layout.activity_filter)
+        if (!dark) appBarLayout.outlineProvider = null
 
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))

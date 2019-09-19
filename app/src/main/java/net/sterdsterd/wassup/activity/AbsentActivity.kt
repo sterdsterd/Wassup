@@ -11,8 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import net.sterdsterd.wassup.R
 
 import kotlinx.android.synthetic.main.activity_absent.*
+import kotlinx.android.synthetic.main.activity_absent.appBarLayout
 import kotlinx.android.synthetic.main.activity_absent.collapsingToolBar
+import kotlinx.android.synthetic.main.activity_absent.description
 import kotlinx.android.synthetic.main.activity_absent.toolBar
+import kotlinx.android.synthetic.main.activity_main.*
 import net.sterdsterd.wassup.SharedData
 import net.sterdsterd.wassup.adapter.AbsentAdapter
 
@@ -26,6 +29,7 @@ class AbsentActivity : AppCompatActivity() {
         val dark = pref!!.getBoolean("dark", true)
         delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         setContentView(R.layout.activity_absent)
+        if (!dark) appBarLayout.outlineProvider = null
         setSupportActionBar(toolBar)
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))

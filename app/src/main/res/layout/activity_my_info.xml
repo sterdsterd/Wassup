@@ -120,7 +120,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:passwordToggleEnabled="true"
-                            app:hintEnabled="false">
+                            android:hint="암호">
                         <EditText
                                 android:id="@+id/etPwd"
                                 android:layout_width="match_parent"

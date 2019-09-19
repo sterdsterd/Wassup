@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.firebase.firestore.FirebaseFirestore
 import com.minew.beacon.*
 import net.sterdsterd.wassup.R
@@ -21,6 +22,8 @@ class RegisterBeaconActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
         val dark = pref!!.getBoolean("dark", true)
+        delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+
         setContentView(R.layout.activity_register_beacon)
 
         ripple.startRippleAnimation()

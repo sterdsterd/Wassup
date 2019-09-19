@@ -26,6 +26,7 @@ import android.R.attr.start
 import android.graphics.Bitmap
 import android.os.Environment
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.load.DataSource
@@ -50,6 +51,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
         val dark = pref!!.getBoolean("dark", true)
+        delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         val intent = Intent(this, BeaconService::class.java)
         stopService(intent)
         val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()

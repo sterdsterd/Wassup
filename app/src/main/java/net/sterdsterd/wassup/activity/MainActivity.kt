@@ -209,8 +209,8 @@ class MainActivity : AppCompatActivity() {
         val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
         val dark = pref!!.getBoolean("dark", true)
         delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-
         setContentView(R.layout.activity_main)
+        if (!dark) appBarLayout.outlineProvider = null
         startService(Intent(this, BeaconService::class.java))
         fab.hide()
         val progress: DialogSheet = DialogSheet(this@MainActivity)

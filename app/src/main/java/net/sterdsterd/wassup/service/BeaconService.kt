@@ -72,6 +72,7 @@ class BeaconService : Service() {
                         )
                     )
                 }
+                SharedData.studentList = student
                 try {
                     mMinewBeaconManager.startScan()
                 } catch (e: Exception) {
@@ -114,7 +115,7 @@ class BeaconService : Service() {
                     }
                     SharedData.studentList = student
                     SharedData.tracking = tracking
-                    Log.d("dext", SharedData.studentList.toString())
+                    Log.d("dext-service", SharedData.studentList.toString())
                 }.start()
             }
 

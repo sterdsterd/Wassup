@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.activity_my_info.etName
 import kotlinx.android.synthetic.main.activity_my_info.etNum
 import kotlinx.android.synthetic.main.activity_my_info.etPwd
 import kotlinx.android.synthetic.main.activity_my_info.radioHr
-import kotlinx.android.synthetic.main.activity_register.*
 
 class MyInfoActivity : AppCompatActivity() {
 
@@ -36,6 +35,7 @@ class MyInfoActivity : AppCompatActivity() {
         val dark = pref!!.getBoolean("dark", true)
         delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         setContentView(R.layout.activity_my_info)
+        if (!dark) appBarLayout.outlineProvider = null
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
 

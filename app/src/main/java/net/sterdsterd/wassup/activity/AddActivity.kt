@@ -14,7 +14,10 @@ import com.google.firebase.firestore.SetOptions
 import net.sterdsterd.wassup.R
 
 import kotlinx.android.synthetic.main.activity_add.*
+import kotlinx.android.synthetic.main.activity_add.appBarLayout
 import kotlinx.android.synthetic.main.activity_add.collapsingToolBar
+import kotlinx.android.synthetic.main.activity_add.toolBar
+import kotlinx.android.synthetic.main.activity_main.*
 import net.sterdsterd.wassup.Attendance
 import net.sterdsterd.wassup.SharedData
 import java.util.*
@@ -29,6 +32,7 @@ class AddActivity : AppCompatActivity() {
         val dark = pref!!.getBoolean("dark", true)
         delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         setContentView(R.layout.activity_add)
+        if (!dark) appBarLayout.outlineProvider = null
 
         val classStr = pref.getString("class", "Null")
 

@@ -36,6 +36,7 @@ class InfoActivity : AppCompatActivity() {
         val dark = pref!!.getBoolean("dark", true)
         delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         setContentView(R.layout.activity_info)
+        if (!dark) appBarLayout.outlineProvider = null
 
         val progress: DialogSheet = DialogSheet(this)
             .setColoredNavigationBar(true)

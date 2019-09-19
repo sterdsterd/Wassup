@@ -16,8 +16,13 @@ import com.minew.beacon.*
 import net.sterdsterd.wassup.R
 
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.activity_detail.appBarLayout
 import kotlinx.android.synthetic.main.activity_detail.collapsingToolBar
+import kotlinx.android.synthetic.main.activity_detail.description
+import kotlinx.android.synthetic.main.activity_detail.fab
 import kotlinx.android.synthetic.main.activity_detail.findList
+import kotlinx.android.synthetic.main.activity_detail.toolBar
+import kotlinx.android.synthetic.main.activity_main.*
 import net.sterdsterd.wassup.MemberData
 import net.sterdsterd.wassup.SharedData
 import net.sterdsterd.wassup.adapter.DetailAdapter
@@ -35,10 +40,13 @@ class DetailActivity : AppCompatActivity() {
         val dark = pref!!.getBoolean("dark", true)
         delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         setContentView(R.layout.activity_detail)
+        if (!dark) appBarLayout.outlineProvider = null
 
         setSupportActionBar(toolBar)
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
         collapsingToolBar.setExpandedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
+
+        appBarLayout.setExpanded(true)
 
         val classStr = pref.getString("class", "Null")
 

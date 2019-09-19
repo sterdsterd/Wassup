@@ -25,6 +25,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.marcoscg.dialogsheet.DialogSheet
+import kotlinx.android.synthetic.main.activity_edit.appBarLayout
+import kotlinx.android.synthetic.main.activity_edit.collapsingToolBar
+import kotlinx.android.synthetic.main.activity_edit.toolBar
+import kotlinx.android.synthetic.main.activity_main.*
 import net.sterdsterd.wassup.SharedData
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -40,6 +44,7 @@ class EditActivity : AppCompatActivity() {
         val dark = pref!!.getBoolean("dark", true)
         delegate.localNightMode = if (dark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
         setContentView(R.layout.activity_edit)
+        if (!dark) appBarLayout.outlineProvider = null
 
         setSupportActionBar(toolBar)
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
