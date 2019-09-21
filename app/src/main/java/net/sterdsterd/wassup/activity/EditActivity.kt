@@ -56,7 +56,7 @@ class EditActivity : AppCompatActivity() {
             .setRoundedCorners(true)
             .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
             .setView(R.layout.bottom_sheet_progress)
-        progress.show()
+        //progress.show()
 
         val id = intent?.extras?.getString("id")
 
@@ -72,7 +72,7 @@ class EditActivity : AppCompatActivity() {
                 if (t.result?.getString("type") == "indv")
                     radioIndv.isChecked = true
                 else radioShuttle.isChecked = true
-                progress.dismiss()
+                //progress.dismiss()
             }
         }
 
