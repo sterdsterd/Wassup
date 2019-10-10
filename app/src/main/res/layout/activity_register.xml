@@ -132,34 +132,6 @@
                                 android:singleLine="true"
                                 android:hint="@string/name"/>
                     </com.google.android.material.textfield.TextInputLayout>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="회원 유형"
-                            android:textSize="12sp"
-                            android:textColor="#9C9CA7"
-                            android:textStyle="bold"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="8dp"/>
-                    <RadioGroup
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:id="@+id/radioGroup">
-                        <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/lead_teacher"
-                                android:id="@+id/radioLead"
-                                android:layout_weight="1.2"/>
-                        <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/class_teacher"
-                                android:id="@+id/radioHr"
-                                android:layout_weight="0.8"/>
-                    </RadioGroup>
                     <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -281,7 +253,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="27dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="27dp"
+                    android:layout_marginBottom="96dp"
                     android:layout_marginStart="27dp"
                     android:clickable="false"
                     android:focusable="false"

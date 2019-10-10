@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import at.favre.lib.crypto.bcrypt.BCrypt
@@ -29,6 +30,7 @@ class ForgotActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
         setContentView(R.layout.activity_forgot)
 
         val firestore = FirebaseFirestore.getInstance()
@@ -49,10 +51,11 @@ class ForgotActivity : AppCompatActivity() {
                 Toast.makeText(this@ForgotActivity, e.message, Toast.LENGTH_LONG).show()
             }
 
-            override fun onCodeSent(s: String?, forceResendingToken: PhoneAuthProvider.ForceResendingToken?) {
-                super.onCodeSent(s, forceResendingToken)
-                mVerificationId = s!!
+            override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
+                super.onCodeSent(p0, p1)
+                mVerificationId = p0
             }
+
         }
         send.setOnClickListener {
             firestore.collection("member").document(etId.text.toString()).get().addOnCompleteListener {

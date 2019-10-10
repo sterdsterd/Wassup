@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import at.favre.lib.crypto.bcrypt.BCrypt
@@ -29,9 +30,10 @@ class RegisterActivity : AppCompatActivity() {
     lateinit var mVerificationId: String
     lateinit var auth: FirebaseAuth
     var isNotValidated = true
-    var role = ""
+    var role = "class"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
         setContentView(R.layout.activity_register)
         collapsingToolBar.title = resources.getString(R.string.signup)
         collapsingToolBar.setCollapsedTitleTypeface(ResourcesCompat.getFont(this, R.font.spoqa_bold))
@@ -55,10 +57,11 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this@RegisterActivity, e.message, Toast.LENGTH_LONG).show()
             }
 
-            override fun onCodeSent(s: String?, forceResendingToken: PhoneAuthProvider.ForceResendingToken?) {
-                super.onCodeSent(s, forceResendingToken)
-                mVerificationId = s!!
+            override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
+                super.onCodeSent(p0, p1)
+                mVerificationId = p0
             }
+
         }
 
         send.setOnClickListener {
@@ -87,7 +90,7 @@ class RegisterActivity : AppCompatActivity() {
                             "id" to etId.text.toString(),
                             "pwd" to BCrypt.withDefaults().hashToString(12, etPwd.text.toString().toCharArray()),
                             "mobile" to Regex("[^0-9]").replace(etNum.text.toString(), ""),
-                            "role" to role
+                            "role" to "class"
                         )
                         if (role == "class") user.put("class", etClass.text.toString())
                         firestore.collection("member").document(etId.text.toString()).set(user)
@@ -99,12 +102,6 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         etNum.addTextChangedListener(PhoneNumberFormattingTextWatcher())
-
-        radioGroup.setOnCheckedChangeListener { _, i ->
-            role = if (i == R.id.radioLead) "lead" else "class"
-            textInputClass.visibility = if (role == "class") View.VISIBLE else View.GONE
-            check()
-        }
 
         val tw = object : TextWatcher {
             override fun afterTextChanged(s: Editable) {

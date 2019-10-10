@@ -53,7 +53,6 @@ class InfoFragment : Fragment() {
         tvId.text = pref!!.getString("id", "Null")
         tvName.text = pref!!.getString("name", "Null")
         tvMobile.text = pref!!.getString("mobile", "Null")
-        tvRole.text = if (pref!!.getString("role", "Null") == "class") "담임 교사" else "지도 교사"
         tvClass.text = classStr
 
         logout.setOnClickListener {
@@ -83,7 +82,6 @@ class InfoFragment : Fragment() {
         tvId.text = pref!!.getString("id", "Null")
         tvName.text = pref!!.getString("name", "Null")
         tvMobile.text = pref!!.getString("mobile", "Null")
-        tvRole.text = if (pref!!.getString("role", "Null") == "class") "담임 교사" else "지도 교사"
         tvClass.text = classStr
     }
 

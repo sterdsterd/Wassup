@@ -140,7 +140,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         p0.isIndoorEnabled = true
         if (ContextCompat.checkSelfPermission(activity!!.applicationContext, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
             LocationServices.getFusedLocationProviderClient(activity!!.applicationContext).lastLocation.addOnSuccessListener {
-                p0.cameraPosition = CameraPosition(LatLng(it.latitude, it.longitude), 18.0)
+                if (it != null)
+                    p0.cameraPosition = CameraPosition(LatLng(it.latitude, it.longitude), 18.0)
             }
         }
 

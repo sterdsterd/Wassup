@@ -19,12 +19,9 @@ import net.sterdsterd.wassup.activity.MainActivity
 class PushService : FirebaseMessagingService() {
     private val TAG = "FirebaseService"
 
-    /**
-     * FirebaseInstanceIdService is deprecated.
-     * this is new on firebase-messaging:17.1.0
-     */
-    override fun onNewToken(token: String?) {
-        Log.d(TAG, "new Token: $token")
+    override fun onNewToken(p0: String) {
+        super.onNewToken(p0)
+        Log.d(TAG, "new Token: $p0")
     }
 
     /**

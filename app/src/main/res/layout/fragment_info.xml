@@ -63,7 +63,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="니 아이디"
+                        android:text="아이디"
                         android:textColor="@color/colorText7F"
                         android:textSize="12sp"
                         android:layout_marginBottom="4dp"/>
@@ -88,7 +88,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="니 이름"
+                        android:text="이름"
                         android:textColor="@color/colorText7F"
                         android:textSize="12sp"
                         android:layout_marginBottom="4dp"/>
@@ -113,7 +113,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="니 반"
+                        android:text="담당 반"
                         android:textColor="@color/colorText7F"
                         android:textSize="12sp"
                         android:layout_marginBottom="4dp"/>
@@ -138,7 +138,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="니 폰 번호"
+                        android:text="휴대전화 번호"
                         android:textColor="@color/colorText7F"
                         android:textSize="12sp"
                         android:layout_marginBottom="4dp"/>
@@ -152,30 +152,14 @@
                         android:id="@+id/tvMobile"
                         android:textStyle="bold"/>
 
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="#777"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"/>
-
-                <TextView
-                        android:layout_marginStart="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="니 신분"
-                        android:textColor="@color/colorText7F"
-                        android:textSize="12sp"
-                        android:layout_marginBottom="4dp"/>
-
-                <TextView
+                <!--TextView
                         android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:textColor="@color/colorText"
                         android:id="@+id/tvRole"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"/-->
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

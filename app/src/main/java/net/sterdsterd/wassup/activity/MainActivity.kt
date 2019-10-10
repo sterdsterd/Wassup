@@ -339,7 +339,8 @@ class MainActivity : AppCompatActivity() {
                     }
                     if (ContextCompat.checkSelfPermission( this@MainActivity, android.Manifest.permission.ACCESS_COARSE_LOCATION ) == PackageManager.PERMISSION_GRANTED ) {
                         locationProviderClient.lastLocation.addOnSuccessListener {
-                            SharedData.tracking.add(LatLng(it.latitude, it.longitude))
+                            if (it != null)
+                                SharedData.tracking.add(LatLng(it.latitude, it.longitude))
                         }
                     }
                     Log.d("dext", SharedData.studentList.toString())

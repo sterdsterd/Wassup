@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 import net.sterdsterd.wassup.R
 import android.text.Editable
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.marcoscg.dialogsheet.DialogSheet
@@ -21,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
         setContentView(R.layout.activity_login)
 
         val pref = getSharedPreferences("User", Context.MODE_PRIVATE)
