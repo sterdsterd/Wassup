@@ -1,5 +1,9 @@
 package net.sterdsterd.wassup.fragment
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
@@ -21,17 +25,22 @@ import com.google.common.io.Flushables.flush
 import android.graphics.Bitmap
 import android.os.Environment.getExternalStorageDirectory
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import android.widget.TextView
+import androidx.core.app.NotificationCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.FragmentActivity
 import com.marcoscg.dialogsheet.DialogSheet
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.PathOverlay
 import net.sterdsterd.wassup.activity.InfoActivity
+import net.sterdsterd.wassup.activity.MainActivity
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.Exception
@@ -102,7 +111,51 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     marker.map = p0
                     circleOverlay.map = p0
                     circleOverlay.color = ContextCompat.getColor(activity!!.applicationContext, R.color.colorAccentTransparent)
+                    if (!it.isNotified) {
+                        it.isNotified = true
+                        val intent = Intent(activity, MainActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            putExtra("Notification", "${it.name}이 벗어났습니다")
+                        }
+
+                        val CHANNEL_ID = "childNotification"
+                        val CHANNEL_NAME = "아이 정보"
+                        val description = "아이의 정보를 알려드립니다."
+                        val importance = NotificationManager.IMPORTANCE_HIGH
+
+                        var notificationManager: NotificationManager =
+                            context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance)
+                            channel.description = description
+                            channel.enableLights(true)
+                            channel.lightColor = Color.CYAN
+                            channel.enableVibration(true)
+                            channel.setShowBadge(true)
+                            notificationManager.createNotificationChannel(channel)
+                        }
+
+                        var pendingIntent =
+                            PendingIntent.getActivity(activity, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+                        val notificationSound =
+                            RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+
+                        var notificationBuilder = NotificationCompat.Builder(context!!, CHANNEL_ID)
+                            .setLargeIcon(
+                                BitmapFactory.decodeResource(context!!.resources, R.mipmap.ic_launcher)
+                            )
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentTitle("Wassup")
+                            .setContentText("${it.name}이 벗어났습니다")
+                            .setAutoCancel(true)
+                            .setSound(notificationSound)
+                            .setContentIntent(pendingIntent)
+
+                        notificationManager.notify(0, notificationBuilder.build())
+                    }
                 } else {
+                    it.isNotified = false
                     marker.map = null
                     circleOverlay.map = null
                     circleOverlay.color = Color.parseColor("#00000000")

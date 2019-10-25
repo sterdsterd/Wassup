@@ -19,7 +19,8 @@ data class MemberData(
     var isDetected: Boolean = false,
     var undetected: Int = 0,
     var isBus: Boolean = false,
-    var isChecked: Boolean = true
+    var isChecked: Boolean = true,
+    var isNotified: Boolean = false
 )
 
 data class Attendance(
