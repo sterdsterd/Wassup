@@ -90,6 +90,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/cardBgText"
                             app:hintTextAppearance="@style/TextInputLayoutHintText"
                             android:layout_marginBottom="12dp"
                             android:id="@+id/textInputId">
@@ -105,6 +106,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/cardBgText"
                             app:hintTextAppearance="@style/TextInputLayoutHintText"
                             android:layout_marginBottom="12dp"
                             app:passwordToggleEnabled="true">
@@ -121,6 +123,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/cardBgText"
                             app:hintTextAppearance="@style/TextInputLayoutHintText"
                             android:layout_marginBottom="12dp">
                         <EditText
@@ -136,6 +139,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
+                            app:boxBackgroundColor="@color/cardBgText"
                             android:visibility="gone"
                             android:id="@+id/textInputClass"
                             app:hintTextAppearance="@style/TextInputLayoutHintText">
@@ -167,6 +171,7 @@
                         android:layout_margin="18dp" android:orientation="vertical">
                     <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
+                            app:boxBackgroundColor="@color/cardBgText"
                             android:layout_height="wrap_content"
                             app:hintTextAppearance="@style/TextInputLayoutHintText">
                         <EditText
@@ -183,6 +188,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/cardBgText"
                             app:hintTextAppearance="@style/TextInputLayoutHintText"
                             android:id="@+id/textInputCode"
                             android:layout_marginTop="12dp">

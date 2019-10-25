@@ -51,7 +51,7 @@ class DetailAdapter(val activity: DetailActivity, val items : MutableList<Member
         holder.iconBus.visibility = if (items[position].isBus) View.VISIBLE else View.INVISIBLE
         if (items[position].isDetected) holder.cardTint.background = ContextCompat.getDrawable(activity, R.drawable.gradient_card)
         else {
-            holder.cardTint.background = ContextCompat.getDrawable(activity, R.drawable.gradient_card_warning)
+            //holder.cardTint.background = ContextCompat.getDrawable(activity, R.drawable.gradient_card_warning)
 
             val intent = Intent(activity, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

@@ -58,6 +58,7 @@ class DetailActivity : AppCompatActivity() {
 
         SharedData.tmpList = mutableListOf()
 
+        Log.d("dexter-kk", filteredArray.toString())
         SharedData.studentList.forEach {
             val tmp = if (checked.contains(it.id)) it.copy(isBus = true) else it.copy(isBus = false)
             if (filteredArray.contains(it.id)) SharedData.tmpList.add(tmp)

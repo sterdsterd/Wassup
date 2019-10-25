@@ -13,6 +13,7 @@
     <color name="colorDivDay">#00000000</color>
     <color name="colorComponent">#fff</color>
     <color name="colorNav">#22232C</color>
+    <color name="cardBgText">#323445</color>
 
     <color name="colorBlue">#0a84ff</color>
     <color name="colorGrey">#98989d</color>

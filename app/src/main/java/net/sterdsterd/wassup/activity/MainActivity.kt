@@ -3,11 +3,16 @@ package net.sterdsterd.wassup.activity
 import akndmr.github.io.colorprefutil.ColorPrefUtil
 import android.annotation.TargetApi
 import android.app.DatePickerDialog
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.nfc.NfcAdapter
+import android.nfc.Tag
+import android.nfc.tech.Ndef
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -199,6 +204,96 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+        val mNfcAdapter = NfcAdapter.getDefaultAdapter(this@MainActivity)
+        val tagDetected = IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED)
+        val ndefDetected = IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED)
+        val techDetected = IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED)
+
+        val nfcIntentFilter = arrayOf(techDetected, tagDetected, ndefDetected)
+
+        val pendingIntent = PendingIntent.getActivity(this@MainActivity, 0, Intent(this@MainActivity, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0)
+
+        if (mNfcAdapter != null)
+            mNfcAdapter.enableForegroundDispatch(this@MainActivity, pendingIntent, nfcIntentFilter, null)
+
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        val tag: Tag? = intent?.getParcelableExtra(NfcAdapter.EXTRA_TAG)
+
+        if(tag != null) {
+            Toast.makeText(this, "DEECTED", Toast.LENGTH_SHORT).show()
+            val ndef = Ndef.get(tag)
+            onNfcDetected(ndef)
+        }
+    }
+
+    fun onNfcDetected(ndef: Ndef) {
+        readFromNFC(ndef)
+    }
+
+    var attend = mutableListOf<String>()
+    var bus = mutableListOf<String>()
+
+    private fun readFromNFC(ndef: Ndef) {
+        try {
+            ndef.connect()
+            val ndefMessage = ndef.ndefMessage
+            val msg = String(ndefMessage.records[0].payload)
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+
+            val cal = Calendar.getInstance()
+
+            val nowDate = "${cal.get(Calendar.YEAR)}${cal.get(Calendar.MONTH) + 1}${cal.get(Calendar.DAY_OF_MONTH)}"
+
+            Log.d("dexter", attend.toString())
+            Log.d("dexter", bus.toString())
+
+            val target = if (msg.substring(3) == "class") SharedData.attendanceSet.firstOrNull { it.date == nowDate }?.taskList?.get(1)
+            else SharedData.attendanceSet.firstOrNull { it.date == nowDate }?.taskList?.get(0)
+
+            val filteredList = mutableListOf<String>()
+            val isCheckedList = mutableListOf<String>()
+            val firestore = FirebaseFirestore.getInstance()
+
+            firestore.collection("class").document(classStr).collection(nowDate).document(target!!.first)
+                .collection("info").document("filter").get().addOnCompleteListener { ta ->
+                    SharedData.studentList.forEach { md ->
+                        if (ta.result?.get(md.id).toString().toBoolean())
+                            filteredList.add(md.id)
+                    }
+                    Log.d("dexter-ii", filteredList.toString())
+
+
+                    val intent = Intent(this@MainActivity, DetailActivity::class.java)
+
+
+                    Log.d("dexter-yy", filteredList.toString())
+                    intent.putExtra("filtered", filteredList.toTypedArray())
+                    intent.putExtra("checked", isCheckedList.toTypedArray())
+                    intent.putExtra("taskName", target?.second)
+                    intent.putExtra("id", target?.first)
+                    intent.putExtra("icon", target?.third)
+                    intent.putExtra("date", nowDate)
+                    startActivity(intent)
+                    ndef.close()
+                }
+            firestore.collection("class").document(classStr).collection(nowDate).document(target!!.first).get().addOnCompleteListener { ta ->
+                SharedData.studentList.forEach { md ->
+                    if (ta.result?.get(md.id).toString() != "null") {
+                        isCheckedList.add(md.id)
+                        Log.d("dext-chk", "${md.id} -> ${ta.result?.get(md.id)}")
+                    }
+                }
+                Log.d("dext-chk", isCheckedList.toString())
+            }
+
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
     }
 
     lateinit var mMinewBeaconManager: MinewBeaconManager
@@ -247,9 +342,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         val mainHandler = Handler(Looper.getMainLooper())
-
-        var attend = mutableListOf<String>()
-        var bus = mutableListOf<String>()
 
 
         nav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
@@ -365,7 +457,7 @@ class MainActivity : AppCompatActivity() {
             .setRoundedCorners(true)
             .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.cardBg, theme))
             .setView(R.layout.bottom_sheet_progress)
-        progress.show()
+        //progress.show()
         firestore.collection("class").document(classStr).collection("memberList").orderBy("name", Query.Direction.ASCENDING).get().addOnCompleteListener { t ->
             if(t.isComplete) {
                 val v = t.result?.documents?.size as Int

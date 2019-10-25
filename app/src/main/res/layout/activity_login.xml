@@ -13,7 +13,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/signin"
-                android:fontFamily="@font/spoqa_bold"
                 android:textStyle="bold"
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="22dp"
@@ -57,6 +56,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hintTextAppearance="@style/TextInputLayoutHintText"
+                        app:boxBackgroundColor="@color/cardBgText"
                         android:layout_marginBottom="12dp"
                         android:id="@+id/textInputId">
                     <EditText
@@ -73,6 +73,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hintTextAppearance="@style/TextInputLayoutHintText"
+                        app:boxBackgroundColor="@color/cardBgText"
                         android:id="@+id/textInputPwd"
                         app:passwordToggleEnabled="true">
                     <EditText

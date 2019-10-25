@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="63dp"
                     android:layout_marginStart="27dp"
-                    android:text="새로운 이벤트를 추가할 수 있어요"
+                    android:text="새로운 활동을 추가할 수 있어요"
                     android:textSize="14sp"
                     android:textColor="@color/colorText"/>
 
@@ -138,6 +138,7 @@
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
                     <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/text_input_layout"
+                            app:boxBackgroundColor="@color/cardBgText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="18dp">
